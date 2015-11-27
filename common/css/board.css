@@ -1,0 +1,58 @@
+body{
+	background-image: url('/Project/image/back_ground.jpg');
+	font-family: Brown, Verdana, sans-serif;
+    margin: 0;
+}
+
+header{
+    background-image: url('/Project/image/2.jpg');
+    height: 70px;
+}
+
+#login_logo{
+	background-image: url('/Project/image/1.png');
+	width: 370px;
+	height: 80px;
+	margin-left: 512px;
+	margin-right: 512px;
+	text-align: center;
+	margin-top: -22px;
+}
+
+.navbar-default{
+	padding-left: 300px;
+	padding-right: 300px;	
+}
+
+#middle_bar{
+	margin-top: 10px;
+	background-color: #f8f8f8;
+    height: 50px;
+    width: 1050px;
+    margin-left: 200px;
+    margin-right: 200px;
+    color: #777;
+}
+
+
+#test{
+	margin-top: 20px;
+	margin-left: 200px;
+	margin-right: 200px;
+	width: 1050px;
+	height: 1024px;
+	border: 1px solid #989898;
+	background-color: #f8f8f8;
+
+}
+
+
+
+footer{
+	margin-top: 2000px;
+    background-image: url('/Project/image/2.jpg');
+    height: 70px;
+}
+
+
+

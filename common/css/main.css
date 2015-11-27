@@ -1,0 +1,47 @@
+body{
+	background-image: url('/resource/image/back_ground.jpg');
+	font-family: Brown, Verdana, sans-serif;
+    margin: 0;
+}
+
+header{
+    background-image: url('/resource/image/2.jpg');
+    height: 70px;
+}
+
+#login_logo{
+	background-image: url('/resource/image/1.png');
+	width: 370px;
+	height: 80px;
+	margin-left: 512px;
+	margin-right: 512px;
+	text-align: center;
+	margin-top: -22px;
+}
+
+.navbar-default{
+	padding-left: 300px;
+	padding-right: 300px;	
+}
+
+
+#test{
+	margin-top: 20px;
+	margin-left: 200px;
+	margin-right: 200px;
+	width: 1050px;
+	height: 1024px;
+	border: 1px solid #989898;
+	background-color: white;
+}
+
+
+
+footer{
+	margin-top: 2000px;
+    background-image: url('/resource/image/2.jpg');
+    height: 70px;
+}
+
+
+
