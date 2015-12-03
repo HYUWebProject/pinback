@@ -13,7 +13,7 @@ drop table if exists subject;
 create table user (
 	id	int(10)	primary key,
 	name	varchar(10) not null,
-	password	varchar(50) not null,
+	password	varchar(60) not null,
 	level	int(1) not null,
 	point	int(5) not null
 	);
