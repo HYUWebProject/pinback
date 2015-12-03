@@ -1,5 +1,5 @@
 <?php
-	class Board
+	class Feedback
 	{
 		function getSubjectCode($subject) // 과목 이름을 받아서 과목 코드를 리턴
 		{
@@ -35,7 +35,12 @@
 		function readContents($no)
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->preapare("SELECT contents, ")
+			$stmt = $pdo->preapare("SELECT contents FROM feedback WHERE no = :no");
+			$stmt->execute(array(
+				':no'=>$no));
+			$temp = $stmt->fetchAll();
+
+			return $temp['no'];
 		}
 	}
 ?>
