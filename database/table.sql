@@ -40,6 +40,7 @@ create table subject_prof (
 create table lecture (
 	subjectcode	int(4) not null,
 	lecturecode	int(4)	primary key auto_increment,
+	lecturedate datetime not null default curdate(),
 	foreign key (subjectcode) references subject(subjectcode)
 	);
 
