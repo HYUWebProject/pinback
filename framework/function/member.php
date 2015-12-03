@@ -8,7 +8,7 @@
 				':id'=>$id));
 			$member = $stmt->fetch();
 			$savedPassword = $member['password'];
-			if (password_hash($pwd) === $savedPassword)
+			if (sha1($pwd) === $savedPassword)
 				return true;
 			else
 				return false;
@@ -18,7 +18,7 @@
 		{
 			$pdo = Database::getInstance();
 
-			$hashedPassword = password_hash($password);
+			$hashedPassword = sha1($password);
 			$stmt = $pdo->prepare("INSERT INTO user VALUES(:id, :name, :password, 0)");
 			$stmt->execute(array(
 				':id'=>$id,
@@ -35,7 +35,7 @@
     		for ($i = 0; $i < $length; $i++) {
         		$randomString .= $characters[rand(0, $charactersLength - 1)];
     		}
-    		$randomPassword = password_hash($randomString);
+    		$randomPassword = sha1($randomString);
     		$stmt = $pdo->prepare("UPDATE user SET password = :randomPassword WHERE id = :id");
     		$stmt->execute(array(
     			':randomPassword'=>$randomPassword,

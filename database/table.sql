@@ -63,7 +63,9 @@ create table question (
 	writerid	int(10)	not null,
 	positionX	int(4)	not null,
 	positionY	int(4)	not null,
-	foreign key (writerid) references user(id)
+	lecturecode int(4)	not null,
+	foreign key (writerid) references user(id),
+	foreign key (lecturecode) references lecturenote(lecturecode)
 	);
 
 create table answer (

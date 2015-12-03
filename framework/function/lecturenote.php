@@ -1,8 +1,6 @@
 <?php
-	class Feedback
+	class LectureNote
 	{
-		/* 임시로 받는값은 과목이름 / 강의날짜만 받는걸로 해뒀음
-		 * 나중에 수정할땐 이 값들만 수정하면 됩니다 */
 		function getSubjectCode($subject) // 과목 이름을 받아서 과목 코드를 리턴
 		{
 			$pdo = Database::getInstance();
@@ -23,26 +21,28 @@
 
 			return $temp['lecturecode'];
 		}
-		function getContentNo($subjCode, $lecCode)
+		function getQuestionNo($subjCode, $lecCode)
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->preapare("SELECT no FROM feedback WHERE subjectcode = :subjCode AND lecturecode = :lecCode");
+			$stmt = $pdo->preapare("SELECT no FROM question WHERE lecturecode = :lecCode");
 			$stmt->execute(array(
-				':subjCode'=>$subjCode,
 				':lecCode'=>$lecCode));
 			$temp = $stmt->fetchAll();
 
 			return $temp['no'];
 		}
-		function readContents($no)
+		function getContent($no, $lecCode)
+		{
+
+		}
+		function getCoordinate($no)
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->preapare("SELECT contents FROM feedback WHERE no = :no");
+			$stmt = $pdo->prepare("SELECT positionX, positionY FROM question WHERE no = :no");
 			$stmt->execute(array(
 				':no'=>$no));
 			$temp = $stmt->fetchAll();
 
-			return $temp['no'];
+			return $temp;
 		}
 	}
-?>
