@@ -13,7 +13,7 @@ drop table if exists subject;
 create table user (
 	id	int(10)	primary key,
 	name	varchar(10) not null,
-	password	varchar(50) not null,
+	password	varchar(60) not null,
 	level	int(1) not null,
 	point	int(5) not null
 	);
@@ -40,6 +40,7 @@ create table subject_prof (
 create table lecture (
 	subjectcode	int(4) not null,
 	lecturecode	int(4)	primary key auto_increment,
+	lecturedate datetime not null default curdate(),
 	foreign key (subjectcode) references subject(subjectcode)
 	);
 
@@ -62,7 +63,9 @@ create table question (
 	writerid	int(10)	not null,
 	positionX	int(4)	not null,
 	positionY	int(4)	not null,
-	foreign key (writerid) references user(id)
+	lecturecode int(4)	not null,
+	foreign key (writerid) references user(id),
+	foreign key (lecturecode) references lecturenote(lecturecode)
 	);
 
 create table answer (
