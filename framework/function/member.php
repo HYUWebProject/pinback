@@ -4,26 +4,36 @@
 		{
 			$pdo = Database::getInstance();
 			$stmt = $pdo->prepare("SELECT password FROM user WHERE id = :id");
-			$stmt->execute(array(
-				':id'=>$id));
-			$member = $stmt->fetch();
+			$stmt->execute(array(':id'=>$id));
+			$member = $stmt->fetch(PDO::FETCH_ASSOC);
+			if($member == null) return false;
 			$savedPassword = $member['password'];
-			if (password_hash($pwd) === $savedPassword)
+			if (password_verify($pwd, $savedPassword))
 				return true;
 			else
 				return false;
 		}
 
-		function register($id, $name, $password)
+		function register($id, $name, $password, $vocation)
 		{
+			if($vocation == "professor") $level = 1;
+			else $level = 0;
+
 			$pdo = Database::getInstance();
 
-			$hashedPassword = password_hash($password);
-			$stmt = $pdo->prepare("INSERT INTO user VALUES(:id, :name, :password, 0)");
-			$stmt->execute(array(
-				':id'=>$id,
-				':name'=>$name,
-				':password'=>$hashedPassword));
+			$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+			$stmt = $pdo->prepare("INSERT INTO user VALUES(:id, :name, :password, :level, :pt)");
+			try {
+				$stmt->execute(array(
+					':id'=>$id,
+					':name'=>$name,
+					':password'=>$hashedPassword,
+					':level'=>$level,
+					':pt'=>0));
+				return true;
+			} catch(Exception $e) {
+				return false;
+			}
 		}
 
 		function resetPassword($id)
