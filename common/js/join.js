@@ -1,10 +1,16 @@
 document.observe("dom:loaded", function(){
 	$("submit").observe("click", function(){
-		alert("click");
-		new Ajax.Request("/framwork/function/join.php", {
+		//alert("click");
+		try {
+			var vocation = Form.getInputs('joinform','radio','vocation').find(function(radio) { return radio.checked; }).value;	
+		} catch(err) {
+			alert("신분을 입력하세요.");
+			return;
+		}
+		new Ajax.Request("/framework/function/join.php", {
 			method: "post",
 			parameters: {id: $F("id"), name: $F("name"),
-					pw: $F("pw"), vocation: $F("joinform")["vocation"]},
+					pass: $F("pass"), vocation: vocation},
 			onSuccess: submit,
 			onFailure: onFailed,
 			onException: onFailed
@@ -14,8 +20,15 @@ document.observe("dom:loaded", function(){
 });
 
 function submit(ajax) {
-	alert(ajax.responseText);
-	//alert("회원가입이 정상적으로 완료되었습니다.");
+	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
+	if(result == "success") {
+		alert("회원가입이 정상적으로 완료되었습니다.");
+		window.close();
+	} else if(result == "fail") {
+		alert("모든 정보를 입력하여 주시기 바랍니다.");
+	} else if(result == "SQLException") {
+		alert("정보를 정확하게 입력해주시기 바랍니다.\nID:10자리수\nName:10byte내");
+	}
 }
 
 function cancel() {
