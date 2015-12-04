@@ -22,11 +22,17 @@
 			$pdo = Database::getInstance();
 			$hashedPassword = sha1($password);
 			$stmt = $pdo->prepare("INSERT INTO user VALUES(:id, :name, :password, :level, 0)");
-			$stmt->execute(array(
-				':id'=>$id,
-				':name'=>$name,
-				':password'=>$hashedPassword,
-				':level'=>$level));
+			try {
+				$stmt->execute(array(
+					':id'=>$id,
+					':name'=>$name,
+					':password'=>$hashedPassword,
+					':level'=>$level));
+				return true;
+			} catch (Exception $e) {
+				return false;
+			}
+
 		}
 
 		function resetPassword($id)

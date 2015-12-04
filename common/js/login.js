@@ -30,7 +30,6 @@ function findPW() {
 }
 
 function join() {
-	//alert("join is clicked");
 	window.open("signup.php");
 }
 
@@ -38,7 +37,7 @@ function login(ajax) {
 	var text = ajax.responseText;
 	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
 	if(result == "success")
-		window.location.assign("main.php");
+		window.location.href = "main.php";
 	else if(result == "selectionFailed")
 		alert("잘못된 정보를 입력하셨습니다.");
 	else if(result == "inputValidInformation")
