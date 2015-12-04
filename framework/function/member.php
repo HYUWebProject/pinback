@@ -8,11 +8,7 @@
 			$member = $stmt->fetch(PDO::FETCH_ASSOC);
 			if($member == null) return false;
 			$savedPassword = $member['password'];
-<<<<<<< HEAD
-			if (password_verify($pwd, $savedPassword))
-=======
 			if (sha1($pwd) === $savedPassword)
->>>>>>> 7d35ca30b6d9f6e20d0725588a6fbab063443c29
 				return true;
 			else
 				return false;
@@ -24,29 +20,13 @@
 			else $level = 0;
 
 			$pdo = Database::getInstance();
-
-<<<<<<< HEAD
-			$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-			$stmt = $pdo->prepare("INSERT INTO user VALUES(:id, :name, :password, :level, :pt)");
-			try {
-				$stmt->execute(array(
-					':id'=>$id,
-					':name'=>$name,
-					':password'=>$hashedPassword,
-					':level'=>$level,
-					':pt'=>0));
-				return true;
-			} catch(Exception $e) {
-				return false;
-			}
-=======
 			$hashedPassword = sha1($password);
-			$stmt = $pdo->prepare("INSERT INTO user VALUES(:id, :name, :password, 0)");
+			$stmt = $pdo->prepare("INSERT INTO user VALUES(:id, :name, :password, :level, 0)");
 			$stmt->execute(array(
 				':id'=>$id,
 				':name'=>$name,
-				':password'=>$hashedPassword));
->>>>>>> 7d35ca30b6d9f6e20d0725588a6fbab063443c29
+				':password'=>$hashedPassword,
+				':level'=>$level));
 		}
 
 		function resetPassword($id)

@@ -35,13 +35,13 @@ function join() {
 }
 
 function login(ajax) {
-	alert(ajax.responseText);
-	var result = ajax.responseXML.getElementsByTagName("result");
+	var text = ajax.responseText;
+	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
 	if(result == "success")
 		window.location.assign("main.php");
 	else if(result == "selectionFailed")
 		alert("잘못된 정보를 입력하셨습니다.");
-	else (result == "inputValidInformation")
+	else if(result == "inputValidInformation")
 		alert("ID와 PW를 모두 입력해 주시기 바랍니다.");
 }
 

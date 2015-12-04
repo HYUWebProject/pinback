@@ -1,7 +1,7 @@
 <?php
 
-include "/framework/function/member.php";
-include "/framework/core/database.php";
+include "member.php";
+include "../core/database.php";
 
 if (!isset($_SERVER["REQUEST_METHOD"]) || $_SERVER["REQUEST_METHOD"] != "POST") {
 	header("HTTP/1.1 400 Invalid Request");
@@ -10,29 +10,20 @@ if (!isset($_SERVER["REQUEST_METHOD"]) || $_SERVER["REQUEST_METHOD"] != "POST") 
 
 header("Content-type: application/xml");
 print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+print "<resultset>\n";
 
 $db = new Member();
-if(isset($_REQUEST["id"]) && isset($_REQUEST["name"]) && isset($_REQUEST["pw"])
-	&& isset($_REQUEST["vocation"]) && $_REQUEST["id"]!=null && $_REQUEST["pw"]!=null
+
+if(isset($_REQUEST["id"]) && isset($_REQUEST["name"]) && isset($_REQUEST["pass"])
+	&& isset($_REQUEST["vocation"]) && $_REQUEST["id"]!=null && $_REQUEST["pass"]!=null
 	&& $_REQUEST["name"]!=null && $_REQUEST["vocation"]!=null) {
-	$db.register($_REQUEST["id"],
-				$_REQUEST["name"],
-				$_REQUEST["pw"],
-				$_REQUEST["vocation"]);
-	print "<id>";
-	print $_REQUEST["id"];
-	print "</id>";
-	print "<name>";
-	print $_REQUEST["name"];
-	print "</name>";
-	print "<pw>";
-	print $_REQUEST["pw"];
-	print "</pw>";
-	print "<vocation>";
-	print $_REQUEST["vocation"];
-	print "</vocation>";
+	if($db->register($_REQUEST["id"], $_REQUEST["name"], $_REQUEST["pass"], $_REQUEST["vocation"]))
+		print "<result>success</result>";
+	else 
+		print "<result>SQLException</result>";
 } else {
 	print "<result>fail</result>";
 }
+print "</resultset>\n";
 
 ?>
