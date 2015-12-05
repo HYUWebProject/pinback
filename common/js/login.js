@@ -1,5 +1,15 @@
 document.observe("dom:loaded", function() {
-	//$("findPW").observe("click", findPW);
+	$("findPW").observe("click", function(){
+		var stdid = prompt("학번을 입력해주세요.", "");
+		var x=1;
+		new Ajax.Request("/framework/function/resetpassword.php", {
+			method: "post",
+			parameters: {id: stdid},
+			onSuccess: findPW,
+			onFailure: onFailed,
+			onException: onFailed
+		});
+	});
 	$("join").observe("click", join);
 	$("login").observe("click", function(){
 		new Ajax.Request("/framework/function/login.php", {
@@ -12,20 +22,21 @@ document.observe("dom:loaded", function() {
 	});
 });
 
-function findPW() {
-	//how to:
-	//popup을 통해서 학번을 입력받는다.
-	//임의의 비밀번호를 제공한다.
-	var stdid = prompt("학번을 입력해주세요.", "");
-	if(true/* stdid를 db에서 select해본다. */) {
-		//찾았다면 해당 계정의 비밀번호를 임의의 6자리의 알파벳대문자와 숫자로 지정한뒤
-		var temppw = randomStr();
-		//해당번호를 hashing한 값으로 회원테이블의 PW attribute를 update한다.
-		//update(~~~~~);
-		//임의생성된 비밀번호를 alert를 통해서 알려준다.
+function findPW(ajax) {
+	var text = ajax.responseText;
+	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
+	if(result == "success") {
+		var temppw = ajax.responseXML.getElementsByTagName("password")[0].firstChild.nodeValue;
 		alert("임의생성된 비밀번호는 \'"+temppw+"\' 입니다.");
-	} else {
-		alert("입력하신 학번은 존재하지 않는 회원입니다.");
+	} else if (result == "SQLException"){
+		var exception = ajax.responseXML.getElementsByTagName("exception")[0].firstChild.nodeValue;
+		var string = "<ERROR: SQLException>\n\n"+exception;
+		alert(string);
+		//alert("입력하신 학번은 존재하지 않는 회원입니다.");
+	} else if (result == "inputValidID") {
+		alert("학번을 올바르게 입력해주세요. (10자리의 0부터9까지의 숫자조합)");
+	} else if (result == "NotExistingID") {
+		alert("가입되지 않은 학번입니다. 다시한번 확인해주시기 바랍니다.");
 	}
 }
 
@@ -42,14 +53,6 @@ function login(ajax) {
 		alert("잘못된 정보를 입력하셨습니다.");
 	else if(result == "inputValidInformation")
 		alert("ID와 PW를 모두 입력해 주시기 바랍니다.");
-}
-
-function randomStr() {
-	var str = "";
-	var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	for (var i=0; i<8; i++)
-        str += charset.charAt(Math.floor(Math.random() * charset.length));
-    return str;
 }
 
 function onFailed(ajax, exception) {

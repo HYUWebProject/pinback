@@ -37,18 +37,30 @@
 
 		function resetPassword($id)
 		{
-			$pdo = Database::getInstance();
+			$pdo1 = Database::getInstance();
+			$stmt1 = $pdo1->prepare("SELECT * FROM user WHERE id = :id");
+			$stmt1->execute(array(':id'=>$id));
+			$exist = $stmt1->fetch(PDO::FETCH_ASSOC);
+			if($exist == null) return false;
+
+			$pdo2 = Database::getInstance();
 		    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     		$charactersLength = strlen($characters);
+    		$length = 8;
     		$randomString = '';
     		for ($i = 0; $i < $length; $i++) {
         		$randomString .= $characters[rand(0, $charactersLength - 1)];
     		}
     		$randomPassword = sha1($randomString);
-    		$stmt = $pdo->prepare("UPDATE user SET password = :randomPassword WHERE id = :id");
-    		$stmt->execute(array(
-    			':randomPassword'=>$randomPassword,
-    			':id'=>$id));
+    		$stmt2 = $pdo2->prepare("UPDATE user SET password = :randomPassword WHERE id = :id");
+    		try {
+    			$stmt2->execute(array(
+    				':randomPassword'=>$randomPassword,
+    				':id'=>$id));
+    			return $randomString;
+    		} catch (Exception $e) {
+    			return $e;
+    		}
 		}
 	}
 ?>
