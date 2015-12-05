@@ -3,7 +3,7 @@
     <head>
         <title>메인 페이지</title>
         <meta charset="utf-8" >
-        <link rel="stylesheet" href ="/common/css/main.css"/>
+        <link rel="stylesheet" href ="./common/css/main.css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
@@ -14,7 +14,7 @@
     <body>f
 		<header>
 			<div id="login_logo">
-			<img src ="/resource/image/loginlogo.png" alt = "loginlogo" width="320px" height="80px" /> 
+			<img src ="./resource/image/loginlogo.png" alt = "loginlogo" width="320px" height="80px" /> 
 		</div>
         </header>
 

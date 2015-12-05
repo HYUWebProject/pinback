@@ -3,16 +3,16 @@
     <head>
         <title>회원가입 페이지</title>
         <meta charset="utf-8" >
-        <link rel="stylesheet" href ="/common/css/register.css"/>
+        <link rel="stylesheet" href ="./common/css/register.css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   		<script src="http://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js" type="text/javascript"></script>
-    	<script src="/common/js/join.js" type="text/javascript"></script>
+    	<script src="./common/js/join.js" type="text/javascript"></script>
     </head>
     <body>
 		<header>
-			<img src="/resource/image/loginlogo.png" alt="logo" width="100px" height="60px" />
+			<img src="./resource/image/loginlogo.png" alt="logo" width="100px" height="60px" />
         </header>
     	<div id="join_logo">
     		<p>회 원 가 입</P>
