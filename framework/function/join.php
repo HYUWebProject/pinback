@@ -21,7 +21,7 @@ if(isset($_REQUEST["id"]) && isset($_REQUEST["name"]) && isset($_REQUEST["pass"]
 	$result = $db->register($_REQUEST["id"], $_REQUEST["name"], $_REQUEST["pass"], $_REQUEST["vocation"]);
 	if($result === true)
 		print "<result>success</result>";
-	else if($result instanceOf Exception) {
+	만lse if($result instanceOf Exception) {
 		print "<result>SQLException</result>";
 		$msg = $result->getMessage();
 		print "<exception>$msg</exception>";
