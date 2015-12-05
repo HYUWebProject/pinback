@@ -20,14 +20,17 @@ document.observe("dom:loaded", function(){
 });
 
 function submit(ajax) {
+	var text = ajax.responseText;
 	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
 	if(result == "success") {
 		alert("회원가입이 정상적으로 완료되었습니다.");
 		window.close();
 	} else if(result == "fail") {
-		alert("모든 정보를 입력하여 주시기 바랍니다.");
+		alert("정보를 정확하게 입력해주시기 바랍니다.\nID:10자리수\nName:10byte내 공백없이 알파벳대소문자만");
 	} else if(result == "SQLException") {
-		alert("정보를 정확하게 입력해주시기 바랍니다.\nID:10자리수\nName:10byte내");
+		var exception = ajax.responseXML.getElementsByTagName("exception")[0].firstChild.nodeValue;
+		var string = "<ERROR: SQLException>\n\n"+exception;
+		alert(string);
 	}
 }
 
