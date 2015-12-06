@@ -1,46 +1,82 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css); 
+
 body{
-	background-image: url('../../resource/image/back_ground.jpg');
+    background-color: yellow;
 	font-family: Brown, Verdana, sans-serif;
-    margin: 0;
+	text-align: center;
+	position : relative ;
+	margin: 0;
+
 }
 
 header{
-    background-image: url('../../resource/image/2.jpg');
-    height: 70px;
+    height: 100px;
+    position: relative;
+    text-align: center;
 }
 
 #login_logo{
-	background-image: url('../../resource/image/1.png');
-	width: 370px;
-	height: 80px;
-	margin-left: 512px;
-	margin-right: 512px;
+
+	height: 100px;
+	margin-right: auto;
+	margin-left: auto;
 	text-align: center;
-	margin-top: -22px;
+	margin-top: 20px;
+	position: relative;
 }
 
 .navbar-default{
-	padding-left: 300px;
-	padding-right: 300px;	
-}
+	width : 1200px;
+	margin-left: auto;
+	margin-right: auto;	
+	text-align: center;
+	position: relative;
 
+}
 
 #test{
-	margin-top: 20px;
-	margin-left: 200px;
-	margin-right: 200px;
-	width: 1050px;
-	height: 1024px;
-	border: 1px solid #989898;
-	background-color: white;
+
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1200px;
+	height: 1100px;
+	border: 13px solid #DCAC85;
+	padding-top: 30px;
+	background-image : url('../../resource/image/back_ground.jpg');
+	text-align: center;
+
 }
 
+#notice{
+	background-color: yellow;
+	width : 640px;
+	height : 400px;
+	text-align: center;
+	padding-top : 150px;
+	padding-bottom: 150px;
+	font-size: 20px;
+	margin: auto;
+	font-family: 'Nanum Pen Script';
+}
 
+#post_note{
+	background-color: red;
+	width:400px;
+	height: 500px;
+	float: left;
+}
+
+#post_feedback{
+	width:400px;
+	height: 500px;
+	background-color: blue;
+	float: right;
+}
 
 footer{
-	margin-top: 2000px;
-    background-image: url('../../resource/image/2.jpg');
-    height: 70px;
+    height: 100px;
 }
 
 

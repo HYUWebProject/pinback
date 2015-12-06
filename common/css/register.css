@@ -1,24 +1,26 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css); 
 
+
 body{
 	background-image: url('../../resource/image/back_ground.jpg');
 	font-family: Brown, Verdana, sans-serif;
     margin: 0;
     text-align: center;
+    position : relative;
 }
 
 header{
-    background-color: white;
-    height: 70px;
+
+    height: 50px;
     text-align: left;
     padding-left : 20px;
     padding-top: 10px;
+    position : relative;
 }
 
 
 
 #join_logo{
-	background-color : white;
 	width: 370px;
 	height: 100px;
 	margin : auto;
@@ -27,26 +29,26 @@ header{
 	text-align: center;
 	font-size: 95px;
 	font-family: 'Nanum Pen Script';
+	color : black;
+	
 }
 
 #join_window{
-	width: 750px;
-	height: 400px;
-	margin-top: 80px;
+	width: 700px;
+	height :360px;
 	margin : auto;
-	margin-bottom: 100px;
-	text-align : center;
-	background-color : rgba(217, 237, 247, 0.19);
-	border : #43B5D8 dashed 3px;
-	padding-top: 80px;
+	padding-top : 80px;
+	border: 4px dashed black;
+	position: relative;
+	
 }
 
-.btn{
-	margin: 10px;
-	width: 80px;
-	height:40px;
-	margin-top: 20px;
+#joinform{
+text-align: center;
+font-family: 'Nanum Pen Script' ;
+position: relative;
 }
+
 
 .option{
 	font-size: 25px;
@@ -58,9 +60,30 @@ header{
 .id_pw_input{
 	color: black;
 	font-size: 20px;
+	font-family: 'Nanum Pen Script' ;
+
 }
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 5px;
+    margin-bottom: 0;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+}
+
 footer{
-    background-image: url('../../resource/image/2.jpg');
-    height: 70px;
+    
+    height: 30px;
 }
 

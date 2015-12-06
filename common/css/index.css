@@ -2,44 +2,45 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald);
 @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css); 
 
+
 body{
 	background-image: url('../../resource/image/back_ground.jpg');
+	background-attachment: fixed;
 	font-family: Brown, Verdana, sans-serif;
-    margin: 0;
-    text-align: center;
+   	text-align : center;
    
-}
+   	position : relative;
+   	margin:0;
+ }
 
 header{
-    background-image: url('../../resource/image/2.jpg');
-    height: 70px;
-    text-align: center;
-
+    
+    height: 100px;
+    position : relative;
+	border-top: 4px dashed black;
 }
 
+
+
 #login_logo{
-	
-	width: 450px;
-	height: 200px;
+
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 20px; 
+	margin-top: auto; 
 	text-align: center;
+	vertical-align: center;
+	
+	position: relative;
+		
 }
 
 #login_window{
 	
 	text-align: center;
-	width: 400px;
-	height: 300px;
-	margin-top: 10px;
-	margin-right: auto;
-	margin-left: auto;
-	padding: 30px;
-	background-color : white;
+	vertical-align: center;
+	margin: auto;
+	padding: auto;
 	font-family:'Indie Flower','Jeju Gothic';
-
-
 }
 
 .id_pw{
@@ -55,7 +56,9 @@ header{
 
 
 footer{
-    background-image: url('../../resource/image/2.jpg');
-    height: 70px;
+ 	position : relative;
+    height: 100px;
+    margin-top: 30px;
+    border-bottom: 4px dashed black;
 }
 
