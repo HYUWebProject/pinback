@@ -76,7 +76,7 @@
 
 		
 
-		<div id="test">
+		<div id="firstpage">
 			<a> </a>
 			<div id ="notice">
 				<p>
