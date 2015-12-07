@@ -66,8 +66,8 @@
 		        <button type="submit" class="btn btn-default">Submit</button>
 		      </form>
 		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="#">공지사항</a></li>
-		        <li><a href="#">계정관리</a></li>
+		        <li><a id="announce" href="#">공지사항</a></li>
+		        <li><a id="manage" href="#">계정관리</a></li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->

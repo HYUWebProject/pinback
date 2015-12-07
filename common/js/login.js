@@ -1,7 +1,6 @@
 document.observe("dom:loaded", function() {
 	$("findPW").observe("click", function(){
 		var stdid = prompt("학번을 입력해주세요.", "");
-		var x=1;
 		new Ajax.Request("/framework/function/resetpassword.php", {
 			method: "post",
 			parameters: {id: stdid},

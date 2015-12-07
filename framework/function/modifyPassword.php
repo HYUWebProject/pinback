@@ -13,26 +13,25 @@ header("Content-type: application/xml");
 print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 print "<resultset>\n";
 
-if(isset($_REQUEST["id"]) && $_REQUEST["id"]!=NULL &&
-	preg_match("/[0-9]{10,10}/", $_REQUEST["id"])) {
-
+if(isset($_REQUEST["id"]) && isset($_REQUEST["pw"])
+	&& $_REQUEST["id"]!=NULL && $_REQUEST["pw"]!=NULL) {
+	
 	$id = $_REQUEST["id"];
+	$pw = $_REQUEST["pw"];
+
 	print "<id>$id</id>\n";
+	print "<pw>$pw</pw>\n";
 
 	//db를 통해 입력된 ID와 PW를 비교한다.
 	$db = new Member();
-	$result = $db->resetPassword($id);
-	if ($result instanceOf Exception) {
-		print "<result>SQLException</result>";
-		$msg = $result->getMessage();
-		print "<exception>$msg</exception>";
-	} else if($result) {
+	if($db->modifyPassword($id, $pw)) {
 		print "<result>success</result>";
 	} else {
-		print "<result>NotExistingID</result>";
+		print "<result>selectionFailed</result>";
 	}
 } else {
-	print "<result>inputValidID</result>";
+	//show some error detection page or popup
+	print "<result>inputValidInformation</result>";
 }
 print "</resultset>\n";
 
