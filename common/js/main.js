@@ -1,9 +1,9 @@
 document.observe("dom:loaded", function() {
-	$("post_note").setStyle({
-		visibility: "hidden"
+	$("notepage").setStyle({
+		display: "none"
 	});
-	$("post_feedback").setStyle({
-		visibility: "hidden"
+	$("feedbackpage").setStyle({
+		display: "none"
 	});
 	$("manage").observe("click", function() {
 		var id = prompt("학번을 입력해주세요.", "");
@@ -18,6 +18,22 @@ document.observe("dom:loaded", function() {
 	$$(".navbar-brand")[0].observe("click", function(){
 		window.location.reload();
 	})
+	var qnaArray = $$("#qna>li");
+	for(var i=0; i<qnaArray.length; i++) {
+		qnaArray[i].observe("click", function(){
+			$("firstpage").setStyle({display: "none"});
+			$("notepage").setStyle({display: "block"});
+			$("feedbackpage").setStyle({display: "none"});
+		})
+	}
+	var feedbackArray = $$("#feedback>li");
+	for(var i=0; i<feedbackArray.length; i++) {
+		feedbackArray[i].observe("click", function(){
+			$("firstpage").setStyle({display: "none"});
+			$("notepage").setStyle({display: "none"});
+			$("feedbackpage").setStyle({display: "block"});
+		})
+	}
 });
 
 function successfind(ajax) {

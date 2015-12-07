@@ -76,7 +76,7 @@
 
 		
 
-		<div id="firstpage">
+		<div id="firstpage" class="mainpage">
 			<a> </a>
 			<div id ="notice">
 				<p>
@@ -84,11 +84,15 @@
 					<br/>오픈 O&A 및 피드백서비스를 제공해주는 사이트 입니다.
 				</p>
 			</div>
+		</div>
+		<div id="notepage" class="mainpage">
 			<div id="post_note">
 				<p>
 					첫째, 강의노트
 				</p>
 			</div>
+		</div>
+		<div id="feedbackpage" class="mainpage">
 			<div id="post_feedback">
 				<p>
 					둘째, 강의평가

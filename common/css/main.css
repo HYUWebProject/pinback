@@ -35,7 +35,7 @@ header{
 
 }
 
-#firstpage{
+.mainpage{
 
 	margin-top: 50px;
 	margin-left: auto;
@@ -47,6 +47,18 @@ header{
 	background-image : url('../../resource/image/back_ground.jpg');
 	text-align: center;
 
+}
+
+#firstpage{
+	z-index: 2;
+}
+
+#notepage{
+	z-index: 1;
+}
+
+#feedbackpage{
+	z-index: 0;
 }
 
 #notice{
