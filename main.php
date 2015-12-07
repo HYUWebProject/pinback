@@ -42,7 +42,7 @@
 		        <li><a href="#">Link</a></li> -->
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> 학년별 Q & A <span class="caret"></span></a>
-		          <ul class="dropdown-menu" role="menu">
+		          <ul id="qna" class="dropdown-menu" role="menu">
 		            <li><a href="#">4학년</a></li>
 		            <li><a href="#">3학년</a></li>
 		            <li><a href="#">2학년</a></li>
@@ -51,7 +51,7 @@
 		        </li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">학년별 Feedback <span class="caret"></span></a>
-		          <ul class="dropdown-menu" role="menu">
+		          <ul id="feedback" class="dropdown-menu" role="menu">
 		            <li><a href="#">4학년</a></li>
 		            <li><a href="#">3학년</a></li>
 		            <li><a href="#">2학년</a></li>

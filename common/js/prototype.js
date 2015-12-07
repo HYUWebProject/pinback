@@ -2152,7 +2152,8 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
 
   function hide(element) {
     element = $(element);
-    element.style.display = 'none';
+    if(!(element.hasClassName("dropdown")))
+      element.style.display = 'none';
     return element;
   }
 
