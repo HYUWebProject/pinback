@@ -79,14 +79,20 @@
 		<div id="test">
 			<a> </a>
 			<div id ="notice">
-			<p>PINBACK 은 학생들의 학업능력 향상을 위한
-			<br/>오픈 O&A 및 피드백서비스를 제공해주는 사이트 입니다.</p>
+				<p>
+					PINBACK 은 학생들의 학업능력 향상을 위한
+					<br/>오픈 O&A 및 피드백서비스를 제공해주는 사이트 입니다.
+				</p>
 			</div>
 			<div id="post_note">
-				<p> 첫째, 강의노트 </p>
+				<p>
+					첫째, 강의노트
+				</p>
 			</div>
 			<div id="post_feedback">
-				<p> 둘째, 강의평가 </P>
+				<p>
+					둘째, 강의평가
+				</P>
 			</div>
 		</div>
 	    <footer>
