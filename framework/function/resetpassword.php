@@ -28,6 +28,7 @@ if(isset($_REQUEST["id"]) && $_REQUEST["id"]!=NULL &&
 		print "<exception>$msg</exception>";
 	} else if($result) {
 		print "<result>success</result>";
+		print "<password>$result</password>";
 	} else {
 		print "<result>NotExistingID</result>";
 	}

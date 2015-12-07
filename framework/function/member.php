@@ -32,12 +32,20 @@
 			} catch (Exception $e) {
 				return $e;
 			}
+		}
 
+		function findID($id) {
+			$pdo = Database::getInstance();
+			$stmt = $pdo->prepare("SELECT * FROM user WHERE id = :id");
+			$stmt->execute(array(':id'=>$id));
+			$exist = $stmt->fetch(PDO::FETCH_ASSOC);
+			if($exist == null) return false;
+			else return true;
 		}
 
 		function resetPassword($id)
 		{
-			if(findID($id) == false) return false;
+			if($this->findID($id) == false) return false;
 
 			$pdo = Database::getInstance();
 		    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -57,15 +65,6 @@
     		} catch (Exception $e) {
     			return $e;
     		}
-		}
-
-		function findID($id) {
-			$pdo = Database::getInstance();
-			$stmt = $pdo->prepare("SELECT * FROM user WHERE id = :id");
-			$stmt->execute(array(':id'=>$id));
-			$exist = $stmt->fetch(PDO::FETCH_ASSOC);
-			if($exist == null) return false;
-			else return true;
 		}
 
 		function modifyPassword($id, $pw) {
