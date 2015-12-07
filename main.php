@@ -75,7 +75,7 @@
 
 
 		
-
+		<!-- 맨 처음 pinback소개화면 -->
 		<div id="firstpage" class="mainpage">
 			<div id="notice">
 				<p>
@@ -84,6 +84,7 @@
 				</p>
 			</div>
 		</div>
+		<!-- 강의노트 질의응답페이 -->
 		<div id="notepage" class="mainpage">
 			<div id="post_note">
 				<p>
@@ -91,6 +92,7 @@
 				</p>
 			</div>
 		</div>
+		<!-- 피드백화면 -->
 		<div id="feedbackpage" class="mainpage">
 			<div id="post_feedback">
 				<p>
@@ -98,6 +100,7 @@
 				</P>
 			</div>
 		</div>
+		<!-- 계정관리 페이지 -->
 		<div id="managepage" class="mainpage">
 			<div id="management">
 				<p>
@@ -106,6 +109,7 @@
 				</p>
 			</div>
 		</div>
+		<!-- 공지사항 -->
 		<div id="announcementpage" class="mainpage">
 			<div id="announcement">
 				<p>
