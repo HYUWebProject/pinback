@@ -15,6 +15,9 @@ document.observe("dom:loaded", function() {
 			onException: onFailed
 		});
 	});
+	$$(".navbar-brand")[0].observe("click", function(){
+		window.location.reload();
+	})
 });
 
 function successfind(ajax) {
