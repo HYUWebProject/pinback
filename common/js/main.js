@@ -1,11 +1,9 @@
 document.observe("dom:loaded", function() {
-	$("notepage").setStyle({
-		display: "none"
-	});
-	$("feedbackpage").setStyle({
-		display: "none"
-	});
-	$("manage").observe("click", function() {
+	var pageArray = $$(".mainpage:not(#firstpage)");
+	for(var i=0; i<pageArray.length; i++)
+		pageArray[i].setStyle({display: "none"});
+
+	$("changepw").observe("click", function() {
 		var id = prompt("학번을 입력해주세요.", "");
 		new Ajax.Request("../../framework/function/findID.php", {
 			method: "post",
@@ -21,19 +19,33 @@ document.observe("dom:loaded", function() {
 	var qnaArray = $$("#qna>li");
 	for(var i=0; i<qnaArray.length; i++) {
 		qnaArray[i].observe("click", function(){
-			$("firstpage").setStyle({display: "none"});
 			$("notepage").setStyle({display: "block"});
-			$("feedbackpage").setStyle({display: "none"});
-		})
+			var temparray = $$(".mainpage:not(#notepage)");
+			for(var j=0; j<temparray.length; j++)
+				temparray[j].setStyle({display: "none"});
+		});
 	}
 	var feedbackArray = $$("#feedback>li");
 	for(var i=0; i<feedbackArray.length; i++) {
 		feedbackArray[i].observe("click", function(){
-			$("firstpage").setStyle({display: "none"});
-			$("notepage").setStyle({display: "none"});
 			$("feedbackpage").setStyle({display: "block"});
-		})
+			var temparray = $$(".mainpage:not(#feedbackpage)");
+			for(var j=0; j<temparray.length; j++)
+				temparray[j].setStyle({display: "none"});
+		});
 	}
+	$("manage").observe("click", function(){
+		$("managepage").setStyle({display: "block"});
+		var temparray = $$(".mainpage:not(#managepage)");
+		for(var j=0; j<temparray.length; j++)
+			temparray[j].setStyle({display: "none"});
+	});
+	$("announce").observe("click", function(){
+		$("announcementpage").setStyle({display: "block"});
+		var temparray = $$(".mainpage:not(#announcementpage)");
+		for(var j=0; j<temparray.length; j++)
+			temparray[j].setStyle({display: "none"});
+	});
 });
 
 function successfind(ajax) {

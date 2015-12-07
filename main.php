@@ -77,8 +77,7 @@
 		
 
 		<div id="firstpage" class="mainpage">
-			<a> </a>
-			<div id ="notice">
+			<div id="notice">
 				<p>
 					PINBACK 은 학생들의 학업능력 향상을 위한
 					<br/>오픈 O&A 및 피드백서비스를 제공해주는 사이트 입니다.
@@ -98,6 +97,21 @@
 					둘째, 강의평가
 				</P>
 			</div>
+		</div>
+		<div id="managepage" class="mainpage">
+			<div id="management">
+				<p>
+					계정설정 화면.
+					<button id="changepw">비밀번호 변경</button>
+				</p>
+			</div>
+		</div>
+		<div id="announcementpage" class="mainpage">
+			<div id="announcement">
+				<p>
+					공지사항 페이지.
+				</p>
+			</div>	
 		</div>
 	    <footer>
         </footer>

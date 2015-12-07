@@ -61,6 +61,14 @@ header{
 	z-index: 0;
 }
 
+#managepage{
+	z-index: 3;
+}
+
+#announcementpage{
+	z-index: 4;
+}
+/*
 #notice{
 	background-color: yellow;
 	width : 640px;
@@ -85,6 +93,18 @@ header{
 	height: 500px;
 	background-color: blue;
 	float: right;
+}
+*/
+.mainpage > div{
+	background-color: yellow;
+	width : 640px;
+	height : 400px;
+	text-align: center;
+	padding-top : 150px;
+	padding-bottom: 150px;
+	font-size: 20px;
+	margin: auto;
+	font-family: 'Nanum Pen Script';
 }
 
 footer{
