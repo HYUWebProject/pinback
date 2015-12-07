@@ -1,4 +1,5 @@
 document.observe("dom:loaded", function() {
+	//initializing
 	var pageArray = $$(".mainpage:not(#firstpage)");
 	for(var i=0; i<pageArray.length; i++)
 		pageArray[i].setStyle({display: "none"});
@@ -13,9 +14,7 @@ document.observe("dom:loaded", function() {
 			onException: onFailed
 		});
 	});
-	$$(".navbar-brand")[0].observe("click", function(){
-		window.location.reload();
-	})
+	$$(".navbar-brand")[0].observe("click", function(){window.location.reload();});
 	var qnaArray = $$("#qna>li");
 	for(var i=0; i<qnaArray.length; i++) {
 		qnaArray[i].observe("click", function(){
