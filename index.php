@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="./common/css/font-awesome.min.css">
         <link rel="stylesheet" href="./common/css/bootstrap.min.css">
   		<link rel="stylesheet" href="./common/css/bootstrap-theme.min.css">
-        <script src="http://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js" type="text/javascript"></script>
+        <script src="./common/js/prototype.js" type="text/javascript"></script>
         <script src="./common/js/login.js" type="text/javascript"></script>
     </head>
     <body>
