@@ -8,8 +8,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 		<!-- Latest compiled and minified JavaScript -->
-		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script src="./common/js/jquery-1.11.3.min.js"></script>
+		<script src="./common/js/bootstrap.min.js"></script>
+		<script src="./common/js/prototype.js"></script>
+		<script src="./common/js/scriptaculous.js"></script>
+		<script src="./common/js/main.js"></script>
     </head>
     <body>
 		<header>
