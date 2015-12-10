@@ -1,11 +1,11 @@
 delete from course;
 delete from lecture;
 
-insert into course values("3026", "WebApplicationDev");
-insert into course values("1016", "MicroProcessorInterface");
-insert into course values("4007", "ArtificialIntelligence");
-insert into course values("4009", "SystemProgramming");
-insert into course values("3027", "ComputerNetwork");
+insert into course values("3026", "Web Application Dev");
+insert into course values("1016", "Micro Processor Interface");
+insert into course values("4007", "Artificial Intelligence");
+insert into course values("4009", "System Programming");
+insert into course values("3027", "Computer Network");
 insert into course values("3029", "Cryptography");
 
 insert into lecture (course_id, lecture_id) values ("3026", 1);

@@ -3,24 +3,34 @@
 	{
 		/* 임시로 받는값은 과목이름 / 강의날짜만 받는걸로 해뒀음
 		 * 나중에 수정할땐 이 값들만 수정하면 됩니다 */
-		function getAllSubjectName() {
+		function getAllCourseName() {
 			$pdo = Database::getInstance();
-			$stmt = $pdo->prepare("SELECT subject FROM subject");
+			$stmt = $pdo->prepare("SELECT title FROM course");
 			$stmt->execute();
 			
 			return $stmt->fetchAll();
 		}
 
-		function getSubjectCode($subject) // 과목 이름을 받아서 과목 코드를 리턴
+		function getCourseId($title) // 과목 이름을 받아서 과목 코드를 리턴
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->prepare("SELECT subjectcode FROM subject WHERE subject = :subject");
-			$stmt->execute(array(':board'=>$subject));
+			$stmt = $pdo->prepare("SELECT course_id FROM course WHERE title = :title");
+			$stmt->execute(array(':title'=>$title));
 			$temp = $stmt->fetch();
 			
-			return $temp['subjectcode'];
+			return $temp['course_id'];
 		}
-		function getLectureCode($subjCode, $lecDate) // 과목코드와 해당 날짜를 입력받아서 과목코드 리턴
+
+		function getLectureList($course_id) {
+			$pdo = Database::getInstance();
+			$stmt = $pdo->prepare("SELECT lecture_id FROM lecture WHERE course_id = :course_id");
+			$stmt->execute(array(':course_id'=>$course_id));
+			
+			return $stmt->fetchAll();
+		}
+
+		//현재 렉처에 데이터가 없는 상황이므로 이 function은 잠시 수면
+		function getLectureCode($course_id, $lecDate) // 과목코드와 해당 날짜를 입력받아서 과목코드 리턴
 		{
 			$pdo = Database::getInstance();
 			$stmt = $pdo->prepare("SELECT lecturecode FROM lecture WHERE subjectcode = :subjCode AND lecturedate = :lecDate");
@@ -31,6 +41,7 @@
 
 			return $temp['lecturecode'];
 		}
+
 		function getContentNo($subjCode, $lecCode) // 과목코드와 렉쳐번호를 받아서 글 번호를 리턴
 		{
 			$pdo = Database::getInstance();

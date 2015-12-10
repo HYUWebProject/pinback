@@ -1,23 +1,23 @@
 document.observe("dom:loaded", function() {
 	//initializing
 	//초기에는 소개페이지 이외의 다른것들은 display:none으로 설정되어 보이지 않게 한다.
-	new Ajax.Request("loadMainPage.php", {
+	new Ajax.Request("framework/function/loadMainPage.php", {
 		method: "post",
-		paremeters: {type: "subject"},
+		parameters: {type: "course"},
 		onSuccess: loadSubjectList,
 		onFailure: onFailed,
 		onException: onFailed
 	});
 
 	$("course").observe("change", function() {
-		new Ajax.Request("loadMainPage.php", {
+		new Ajax.Request("framework/function/loadMainPage.php", {
 			method: "post",
-			parameters: {subject: $F("course")},
+			parameters: {course: $F("course")},
 			onSuccess: loadLectureList,
 			onFailure: onFailed,
-			onException; onFailed
+			onException: onFailed
 		});
-	})
+	});
 
 	var pageArray = $$(".mainpage:not(#firstpage)");
 	for(var i=0; i<pageArray.length; i++)
@@ -102,11 +102,26 @@ function successfind(ajax) {
 }
 
 function loadSubjectList(ajax) {
+	var courses = JSON.parse(ajax.responseText);
 
+	for(var i=0; i<courses.length; i++) {
+		var option = document.createElement("option");
+		option.innerHTML = courses[i];
+		$("course").appendChild(option);
+	}
 }
 
 function loadLectureList(ajax) {
+	while($("lecture").firstChild!=null)
+		$("lecture").removeChild($("lecture").firstChild);
 
+	var lecture_list = JSON.parse(ajax.responseText);
+
+	for(var i=0; i<lecture_list.length; i++) {
+		var option = document.createElement("option");
+		option.innerHTML = lecture_list[i];
+		$("lecture").appendChild(option);
+	}
 }
 
 function modifyPassword(ajax) {
