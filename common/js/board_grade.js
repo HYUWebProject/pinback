@@ -1,13 +1,36 @@
 "use strict";
-/*
+
 function MemoSelect(drag, drop, event) {
-	if(drop.id == "test"){
-		alert(drag);
-		$("test").removeChild(drag);
-		$("test").appendChild(drag);
+	var textarea = drag.firstChild;
+	var text = drag.firstChild.value;
+	var feedback_no = parseInt(text.substring(4, text.indexOf("\n")));
+	while(drag.firstChild!=null) {
+		drop.appendChild(drag.firstChild);
 	}
+
+	var drag_div = drag.id.substring(4);
+	div_array[drag_div] = false;
+	var drop_div = drop.id.substring(4);
+	div_array[drop_div] = true;
+	drop.select(".fix_memo")[0].stopObserving();
+	drop.select(".fix_memo")[0].observe("click", function(){fix_btn_clicked(textarea);});
+	drop.select(".cancel_memo")[0].stopObserving();
+	drop.select(".cancel_memo")[0].observe("click", function(){del_btn_clicked(textarea, drop_div);});
+	drag.removeClassName("image_post");
+	drop.addClassName("image_post");
+
+	var div_no = parseInt(drop.id.substring(4));
+	new Ajax.Request("../../framework/function/updateFeedback.php", {
+		method: "post",
+		parameters: {feedback_no: feedback_no, div_no: div_no},
+		onSuccess: blank,
+		onFailure: onFailed,
+		onException: onFailed
+	});
+	new Draggable(drop, {revert: true});
 }
-*/
+function blank(ajax){}
+
 function New_Memo(){
 	/*
 	<div class = "image_post">
@@ -33,9 +56,8 @@ function New_Memo(){
 		alert("더이상 Feedback memo를 붙일 수 없습니다.");
 		return;
 	} else {
-		var div = $$("#feedbackpage > div:not(#feedback_nav)")[div_no];
+		var div = $("div_"+div_no);
 		div.addClassName("image_post");
-		div.writeAttribute("div_no", div_no);
 	}
 
 
@@ -54,17 +76,7 @@ function New_Memo(){
 	btn1.innerHTML = "삭제";
 	div.appendChild(btn1);
 
-	btn1.observe("click", function() {
-		var content = textarea.value;
-		var div_no = div.getAttribute("div_no");
-		new Ajax.Request("../../framework/function/deleteFeedback.php", {
-			method: "post",
-			parameters: {course: $F("course"), lecture: $F("lecture"), content: content, div_no: div_no},
-			onSuccess: writeFeedback,
-			onFailure: onFailed,
-			onException: onFailed
-		});
-	});
+	btn1.observe("click", function(){del_btn_clicked(textarea, div_no);});
 
 	var btn2 = document.createElement("button");
 	btn2.writeAttribute("type", "submit");
@@ -74,17 +86,7 @@ function New_Memo(){
 	btn2.innerHTML = "제출";
 	div.appendChild(btn2);
 
-	btn2.observe("click", function() {
-		var content = textarea.value;
-		var div_no = div.getAttribute("div_no");
-		new Ajax.Request("../../framework/function/writeFeedback.php", {
-			method: "post",
-			parameters: {course: $F("course"), lecture: $F("lecture"), content: content, div_no: div_no},
-			onSuccess: writeFeedback,
-			onFailure: onFailed,
-			onException: onFailed
-		});
-	});
+	btn2.observe("click", function(){fix_btn_clicked(textarea);});
 
 	var btn3 = document.createElement("button");
 	btn3.writeAttribute("type", "submit");
@@ -95,7 +97,36 @@ function New_Memo(){
 	div.appendChild(btn3);
 
 	new Draggable(div,{revert: true});
-	//Droppables.add("test", {onDrop: MemoSelect});
+}
+
+function fix_btn_clicked(textarea) {
+	var content = textarea.value;
+	new Ajax.Request("../../framework/function/writeFeedback.php", {
+		method: "post",
+		parameters: {course: $F("course"), lecture: $F("lecture"), content: content, div_no: div_no},
+		onSuccess: writeFeedback,
+		onFailure: onFailed,
+		onException: onFailed
+	});
+}
+
+function del_btn_clicked(textarea, div_no) {
+	if($("div_"+div_no).select(".fix_memo")[0]==null) {
+		var text = textarea.value;
+		var feedback_no = parseInt(text.substring(4, text.indexOf("\n")));
+		new Ajax.Request("../../framework/function/deleteFeedback.php", {
+			method: "post",
+			parameters: {feedback_no: feedback_no, div_no: div_no},
+			onSuccess: removeFeedback,
+			onFailure: onFailed,
+			onException: onFailed
+		});		
+	} else {
+		while($("div_"+div_no).firstChild!=null)
+			$("div_"+div_no).removeChild($("div_"+div_no).firstChild);
+		$("div_"+div_no).removeClassName("image_post");
+	}
+
 }
 
 function writeFeedback(ajax) {
@@ -103,13 +134,22 @@ function writeFeedback(ajax) {
 	var text = ajax.responseText;
 
 	var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
-	($$(".memo_input")[div]).readOnly = true;
+	$("div_"+div).firstChild.readOnly = true;
 
-	var btn_fix = $$(".fix_memo")[div];
+	var btn_fix = $$("#div_"+parseInt(div)+">.fix_memo")[0];
 	btn_fix.stopObserving();
 	btn_fix.removeClassName("fix_memo");
 	btn_fix.addClassName("fixed_memo");
 }
+
+function removeFeedback(ajax) {
+	var div_no = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
+	var div = $("div_"+div_no);
+	while(div.firstChild != null)
+		div.removeChild(div.firstChild);
+	div.removeClassName("image_post");
+}
+
 
 function Cancel_Memo(){
 	$("test").removeChild(document.getElementById("new_image_post"));

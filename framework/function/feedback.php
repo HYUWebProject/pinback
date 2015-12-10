@@ -95,9 +95,32 @@
 			else
 			{
 				return false;
-			}
-			
+			}	
 		}
+
+		function deleteFeedback($feedback_no) {
+			try {
+				$pdo = Database::getInstance();
+				$stmt = $pdo->prepare("DELETE FROM feedback WHERE feedback_no = :feedback_no");
+				$stmt->execute(array(':feedback_no'=>$feedback_no));
+				return true;
+			} catch (Exception $e) {
+				return $e;
+			}
+		}
+
+		function updateFeedback($feedback_no, $div_no) {
+			try {
+				$pdo = Database::getInstance();
+				$stmt = $pdo->prepare("UPDATE feedback SET div_no = :div_no WHERE feedback_no = :feedback_no");
+				$stmt->execute(array(':div_no'=>$div_no,':feedback_no'=>$feedback_no));
+				return true;
+			} catch (Exception $e) {
+				return $e;
+			}
+		}
+
+
 		function getPoint($id)
 		{
 			$pdo= Database::getInstance();

@@ -123,7 +123,7 @@ $pin_point = $_SESSION["point"];
 			<?php
 			for($i =0; $i<25; $i++) {
 			?>
-			<div></div>
+			<div id="div_<?=$i?>"class="feedback_div"></div>
 			<?php
 			}
 			?>

@@ -100,7 +100,11 @@ document.observe("dom:loaded", function() {
 	}
 */
 	$("new_memo").observe("click", New_Memo);
-	//Droppables.add("test", {onDrop: MemoSelect});
+
+	var droparray = $$("#feedbackpage > .feedback_div");
+	for(var i=0; i<droparray.length; i++) {
+		Droppables.add(droparray[i], {onDrop: MemoSelect});
+	}
 });
 
 function successfind(ajax) {
@@ -143,7 +147,6 @@ function loadLectureList(ajax) {
 		while(memo_array[i].firstChild!=null)
 			memo_array[i].removeChild(memo_array[i].firstChild);
 		memo_array[i].removeClassName("image_post");
-		memo_array[i].removeAttribute("div_no");
 	}
 
 	while($("lecture").firstChild!=null)
@@ -170,7 +173,6 @@ function loadFeedbackMemo(ajax) {
 		while(memo_array[i].firstChild!=null)
 			memo_array[i].removeChild(memo_array[i].firstChild);
 		memo_array[i].removeClassName("image_post");
-		memo_array[i].removeAttribute("div_no");
 	}
 
 	div_array = [false, false, false, false, false,
@@ -188,9 +190,8 @@ function loadFeedbackMemo(ajax) {
 
 function generateFeedbackMemo(memo) {
 	var div_no = parseInt(memo["div_no"]);
-	var div = $$("#feedbackpage > div:not(#feedback_nav)")[div_no];
+	var div = $("div_"+div_no);
 	div.addClassName("image_post");
-	div.writeAttribute("div_no", div_no);
 
 	var textarea = document.createElement("textarea");
 	textarea.addClassName("memo_input");
@@ -209,6 +210,8 @@ function generateFeedbackMemo(memo) {
 	btn1.innerHTML = "삭제";
 	div.appendChild(btn1);
 
+	btn1.observe("click", function(){del_btn_clicked(textarea, div_no);});
+
 	var btn2 = document.createElement("button");
 	btn2.writeAttribute("type", "submit");
 	btn2.addClassName("fixed_memo");
@@ -226,7 +229,6 @@ function generateFeedbackMemo(memo) {
 	div.appendChild(btn3);
 
 	new Draggable(div,{revert: true});
-	//Droppables.add("test", {onDrop: MemoSelect});
 }
 
 function modifyPassword(ajax) {
