@@ -1,12 +1,15 @@
+<?php
+require_once("framework/framework.php");
+?>
 <!DOCTYPE html>
 <?php
-#if(!isset($_SESSION['pin_id']) || !isset($_SESSION['pin_name'])) {
-#	echo "<meta http-equiv='refresh' content='0;url=/index.php'>";
-#	echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
-#	exit;
-#}
-#$pin_id = $_SESSION['pin_id'];
-#$pin_name = $_SESSION['pin_name'];
+if(!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
+	echo "<meta http-equiv='refresh' content='0;url=/index.php'>";
+	echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
+	exit;
+}
+$pin_id = $_SESSION['id'];
+$pin_name = $_SESSION['name'];
 ?>
 <html>
     <head>
@@ -76,6 +79,7 @@
 		        <button type="submit" class="btn btn-default">Submit</button>
 		      </form>
 		      <ul class="nav navbar-nav navbar-right">
+		      	<li><a id="user_name"><?=$_SESSION['name']?>님,</a></li>
 		        <li><a id="announce" href="#">공지사항</a></li>
 		        <li><a id="manage" href="#">계정관리</a></li>
 		      </ul>

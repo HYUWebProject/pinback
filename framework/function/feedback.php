@@ -42,10 +42,10 @@
 			return $temp['lecturecode'];
 		}
 
-		function getContentNo($subjCode, $lecCode) // 과목코드와 렉쳐번호를 받아서 글 번호를 리턴
+		function getContentNo($subjCode, $lecCode) 
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->preapare("SELECT no FROM feedback WHERE subjectcode = :subjCode AND lecturecode = :lecCode");
+			$stmt = $pdo->prepare("SELECT no FROM feedback WHERE subjectcode = :subjCode AND lecturecode = :lecCode");
 			$stmt->execute(array(
 				':subjCode'=>$subjCode,
 				':lecCode'=>$lecCode));
@@ -53,24 +53,21 @@
 
 			return $temp['no'];
 		}
-		function readContents($no) // 글 번호를 받아서 컨텐츠를 리턴
+
+		function readContents($course_id, $lecture_id) // 과목코드와 렉쳐번호를 받아서 피드백 메모 리스트를 리턴
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->preapare("SELECT contents FROM feedback WHERE no = :no");
+			$stmt = $pdo->prepare("SELECT feedback_no, content_text, div_no FROM feedback WHERE course_id = :course_id AND lecture_id = :lecture_id");
 			$stmt->execute(array(
-				':no'=>$no));
-			$temp = $stmt->fetchAll();
-
-			return $temp['contents'];
+				':course_id'=>$course_id,
+				':lecture_id'=>$lecture_id));
+			return $stmt->fetchAll();
 		}
 		// 과목 이름하고 강의 날짜는 아마 게시판에서 받아오는 정보 입력하면 될거고
 		// content는 폼에서 입력하는거 받아오면 될듯!
-		function writeFeedback($subject, $lecDate, $contents)
+		function writeFeedback($course, $lecture_id, $contents, $div_no)
 		{
-			$subjectcode = getSubjectCode($subject);
-			$lecturecode = getLectureCode($subjectcode, $lecDate);
 			$pdo = Database::getInstance();
-
 			$stmt=$pdo->prepare("SELECT id FROM user WHERE name = :name");
 			$stmt->execute(array(
 				':name'=>$_SESSION['user']));
@@ -82,14 +79,16 @@
 			$point = $stmt->fetch();
 			if ($point >= 10)
 			{
-				$stmt = $pdo->prepare("INSERT INTO feedback
-					VALUES(:subjectcode, :studentid, :content, :readflag, :lecturecode)");
+				$course_id = $this->getCourseId($course);
+				$stmt = $pdo->prepare("INSERT INTO feedback (written_id, course_id, lecture_id, content_text, written_date, confirm_flag, div_no)
+					VALUES(:written_id, :course_id, :lecture_id, :written_date, :confirm_flag, :div_no)");
 				$stmt->execute(array(
-					':subjectcode'=>$subjectcode,
-					':studentid'=>$userid,
-					':content'=>$contents,
-					':readflag'=>0,
-					':lecturecode'=>$lecturecode
+					':written_id'=>$userid,
+					':course_id'=>$course_id,
+					':lecture_id'=>$lecture_id,
+					':written_date'=>date('Y-m-d H:i:s'),
+					':confirm_flag'=>0,
+					':div_no'=>$div_no
 				));	
 				return true;
 			}

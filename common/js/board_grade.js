@@ -1,5 +1,5 @@
 "use strict";
-
+/*
 function MemoSelect(drag, drop, event) {
 	if(drop.id == "test"){
 		alert(drag);
@@ -7,6 +7,7 @@ function MemoSelect(drag, drop, event) {
 		$("test").appendChild(drag);
 	}
 }
+*/
 function New_Memo(){
 	/*
 	<div class = "image_post">

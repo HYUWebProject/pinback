@@ -1,3 +1,10 @@
+<?php
+require_once("framework/framework.php");
+if(isset($_SESSION['id']) && isset($_SESSION['name']) &&
+    isset($_SESSION['level']) && isset($_SESSION['point'])) {
+    header("Location: main.php");
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>

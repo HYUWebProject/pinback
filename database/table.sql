@@ -35,7 +35,7 @@ create table lecture (
 	);
 
 create table feedback (
-	feedback_no int(4) not null,
+	feedback_no int(4) not null auto_increment,
 	written_id int(10),
 	course_id varchar(4),
 	lecture_id int(4),
@@ -49,7 +49,7 @@ create table feedback (
 	);
 
 create table question (
-	question_id int(4) not null,
+	question_id int(4) not null auto_increment,
 	course_id varchar(4) not null,
 	lecture_id int(4) not null,
 	asked_id int(10) not null,
@@ -63,7 +63,7 @@ create table question (
 	);
 
 create table answer (
-	answer_id int(4) not null,
+	answer_id int(4) not null auto_increment,
 	question_id int(4),
 	answered_id int(10),
 	written_date date not null,

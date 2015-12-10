@@ -1,19 +1,29 @@
 document.observe("dom:loaded", function() {
 	//initializing
 	//초기에는 소개페이지 이외의 다른것들은 display:none으로 설정되어 보이지 않게 한다.
-	new Ajax.Request("framework/function/loadMainPage.php", {
+	new Ajax.Request("framework/function/loadFeedbackPage.php", {
 		method: "post",
 		parameters: {type: "course"},
-		onSuccess: loadSubjectList,
+		onSuccess: loadCourseList,
 		onFailure: onFailed,
 		onException: onFailed
 	});
 
 	$("course").observe("change", function() {
-		new Ajax.Request("framework/function/loadMainPage.php", {
+		new Ajax.Request("framework/function/loadFeedbackPage.php", {
 			method: "post",
 			parameters: {course: $F("course")},
 			onSuccess: loadLectureList,
+			onFailure: onFailed,
+			onException: onFailed
+		});
+	});
+
+	$("lecture").observe("change", function() {
+		new Ajax.Request("framework/function/loadFeedbackPage.php", {
+			method: "post",
+			parameters: {course: $F("course"), lecture: $F("lecture")},
+			onSuccess: loadFeedbackMemo,
 			onFailure: onFailed,
 			onException: onFailed
 		});
@@ -38,27 +48,21 @@ document.observe("dom:loaded", function() {
 	//네비게이션 맨 앞의 pinback글씨를 누르면 페이지 새로고침
 	$$(".navbar-brand")[0].observe("click", function(){window.location.reload();});
 
-	//qna dropdown메뉴에서 뭐 하나 클릭하면 화면이 바뀌게 설정
-	var qnaArray = $$("#qna>li");
-	for(var i=0; i<qnaArray.length; i++) {
-		qnaArray[i].observe("click", function() {
-			$("notepage").setStyle({display: "block"});
-			var temparray = $$(".mainpage:not(#notepage)");
-			for(var j=0; j<temparray.length; j++)
-				temparray[j].setStyle({display: "none"});
-		});
-	}
+	//qna dropdown메뉴에서 3학년 클릭하면 화면이 바뀌게 설정
+	$$("#qna>li")[1].observe("click", function() {
+		$("notepage").setStyle({display: "block"});
+		var temparray = $$(".mainpage:not(#notepage)");
+		for(var j=0; j<temparray.length; j++)
+			temparray[j].setStyle({display: "none"});
+	});
 
-	//feedback dropdown메뉴에서 뭐 하나 클릭하면 화면이 바뀌게 설정
-	var feedbackArray = $$("#feedback>li");
-	for(var i=0; i<feedbackArray.length; i++) {
-		feedbackArray[i].observe("click", function(){
-			$("feedbackpage").setStyle({display: "block"});
-			var temparray = $$(".mainpage:not(#feedbackpage)");
-			for(var j=0; j<temparray.length; j++)
-				temparray[j].setStyle({display: "none"});
-		});
-	}
+	//feedback dropdown메뉴에서 3학년 클릭하면 화면이 바뀌게 설정
+	$$("#feedback>li")[1].observe("click", function(){
+		$("feedbackpage").setStyle({display: "block"});
+		var temparray = $$(".mainpage:not(#feedbackpage)");
+		for(var j=0; j<temparray.length; j++)
+			temparray[j].setStyle({display: "none"});
+	});
 
 	//계정관리 화면 누르면 화면이 바뀌게 설정
 	$("manage").observe("click", function(){
@@ -111,7 +115,7 @@ function successfind(ajax) {
 	}
 }
 
-function loadSubjectList(ajax) {
+function loadCourseList(ajax) {
 	var courses = JSON.parse(ajax.responseText);
 
 	for(var i=0; i<courses.length; i++) {
@@ -132,6 +136,15 @@ function loadLectureList(ajax) {
 		option.innerHTML = lecture_list[i];
 		$("lecture").appendChild(option);
 	}
+}
+
+function loadFeedbackMemo(ajax) {
+	var memo_array = $$(".image_post");
+	for(var i=0; i<memo_array.length; i++) {
+		$("feedbackpage").removeChild(memo_array[i]);
+	}
+
+	var jsonarray = JSON.parse(ajax.responseText);
 }
 
 function modifyPassword(ajax) {

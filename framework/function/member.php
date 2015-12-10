@@ -3,14 +3,14 @@
 		function login($id, $pwd)
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->prepare("SELECT password FROM user WHERE id = :id");
+			$stmt = $pdo->prepare("SELECT * FROM user WHERE id = :id");
 			$stmt->execute(array(':id'=>$id));
 			$member = $stmt->fetch(PDO::FETCH_ASSOC);
 			if($member == null) return false;
 			$savedPassword = $member['password'];
 			if (sha1($pwd) === $savedPassword)
-				return true;
-			else
+				return $member;
+			else 
 				return false;
 		}
 
