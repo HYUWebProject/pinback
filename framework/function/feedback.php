@@ -23,7 +23,7 @@
 
 			return $temp['lecturecode'];
 		}
-		function getContentNo($subjCode, $lecCode)
+		function getContentNo($subjCode, $lecCode) // 과목코드와 렉쳐번호를 받아서 글 번호를 리턴
 		{
 			$pdo = Database::getInstance();
 			$stmt = $pdo->preapare("SELECT no FROM feedback WHERE subjectcode = :subjCode AND lecturecode = :lecCode");
@@ -34,7 +34,7 @@
 
 			return $temp['no'];
 		}
-		function readContents($no)
+		function readContents($no) // 글 번호를 받아서 컨텐츠를 리턴
 		{
 			$pdo = Database::getInstance();
 			$stmt = $pdo->preapare("SELECT contents FROM feedback WHERE no = :no");
