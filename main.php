@@ -22,6 +22,7 @@
 		<script src="./common/js/prototype.js"></script>
 		<script src="./common/js/scriptaculous.js"></script>
 		<script src="./common/js/main.js"></script>
+		<script src="./common/js/board_grade.js"></script>
     </head>
     <body>
 		<header>
@@ -89,7 +90,7 @@
 			<div id="notice">
 				<p>
 					PINBACK 은 학생들의 학업능력 향상을 위한
-					<br/>오픈 O&A 및 피드백서비스를 제공해주는 사이트 입니다.
+					<br/>오픈 O&amp;A 및 피드백서비스를 제공해주는 사이트 입니다.
 				</p>
 			</div>
 		</div>
@@ -103,18 +104,14 @@
 		</div>
 		<!-- 피드백화면 -->
 		<div id="feedbackpage" class="mainpage">
-			<div id="post_feedback">
-				<form>
-					Course : 
-					<select id="course">
-					</select>
-					Lecture # : 
-					<select id="lecture">
-					</select>
-				</form>
-				<p>
-					둘째, 강의평가
-				</P>
+			<div id="feedback_nav">
+				Course : 
+				<select id="course">
+				</select>
+				Lecture # : 
+				<select id="lecture">
+				</select>
+				<button type="submit" id="new_memo" class="btn btn-default" >메모지 만들기</button>
 			</div>
 		</div>
 		<!-- 계정관리 페이지 -->

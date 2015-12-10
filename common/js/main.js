@@ -75,6 +75,16 @@ document.observe("dom:loaded", function() {
 		for(var j=0; j<temparray.length; j++)
 			temparray[j].setStyle({display: "none"});
 	});
+/*
+	var image_array = $$(".image_post");
+	for(var i = 0; i< image_array.length; i++){
+		new Draggable(image_array[i],{revert: true});
+	}
+*/
+	$("new_memo").observe("click", New_Memo);
+	//$("fix_memo").observe("click",Fix_Memo);
+	//$("cancel_memo").observe("click", Cancel_Memo);
+	//Droppables.add("test", {onDrop: MemoSelect});
 });
 
 function successfind(ajax) {
