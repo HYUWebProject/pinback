@@ -1,9 +1,11 @@
 document.observe("dom:loaded", function() {
 	//initializing
+	//초기에는 소개페이지 이외의 다른것들은 display:none으로 설정되어 보이지 않게 한다.
 	var pageArray = $$(".mainpage:not(#firstpage)");
 	for(var i=0; i<pageArray.length; i++)
 		pageArray[i].setStyle({display: "none"});
 
+	//패스워드 변경기능 추가
 	$("changepw").observe("click", function() {
 		var id = prompt("학번을 입력해주세요.", "");
 		new Ajax.Request("../../framework/function/findID.php", {
@@ -14,7 +16,11 @@ document.observe("dom:loaded", function() {
 			onException: onFailed
 		});
 	});
+
+	//네비게이션 맨 앞의 pinback글씨를 누르면 페이지 새로고침
 	$$(".navbar-brand")[0].observe("click", function(){window.location.reload();});
+
+	//qna dropdown메뉴에서 뭐 하나 클릭하면 화면이 바뀌게 설정
 	var qnaArray = $$("#qna>li");
 	for(var i=0; i<qnaArray.length; i++) {
 		qnaArray[i].observe("click", function(){
@@ -24,6 +30,8 @@ document.observe("dom:loaded", function() {
 				temparray[j].setStyle({display: "none"});
 		});
 	}
+
+	//feedback dropdown메뉴에서 뭐 하나 클릭하면 화면이 바뀌게 설정
 	var feedbackArray = $$("#feedback>li");
 	for(var i=0; i<feedbackArray.length; i++) {
 		feedbackArray[i].observe("click", function(){
@@ -33,12 +41,16 @@ document.observe("dom:loaded", function() {
 				temparray[j].setStyle({display: "none"});
 		});
 	}
+
+	//계정관리 화면 누르면 화면이 바뀌게 설정
 	$("manage").observe("click", function(){
 		$("managepage").setStyle({display: "block"});
 		var temparray = $$(".mainpage:not(#managepage)");
 		for(var j=0; j<temparray.length; j++)
 			temparray[j].setStyle({display: "none"});
 	});
+
+	//공지사항버튼을 누르면 화면이 바뀌게 설정
 	$("announce").observe("click", function(){
 		$("announcementpage").setStyle({display: "block"});
 		var temparray = $$(".mainpage:not(#announcementpage)");
