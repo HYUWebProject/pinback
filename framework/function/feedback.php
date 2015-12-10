@@ -68,29 +68,29 @@
 		function writeFeedback($course, $lecture_id, $contents, $div_no)
 		{
 			$pdo = Database::getInstance();
-			$stmt=$pdo->prepare("SELECT id FROM user WHERE name = :name");
-			$stmt->execute(array(
-				':name'=>$_SESSION['user']));
-			$userid = $stmt->fetch();
-
-			$stmt = $pdo->prepare("SELECT point FROM user WHERE id = :id");
-			$stmt->execute(array(
-				':id'=>$userid));
-			$point = $stmt->fetch();
-			if ($point >= 10)
+			if ($_SESSION['point'] >= 10)
 			{
-				$course_id = $this->getCourseId($course);
-				$stmt = $pdo->prepare("INSERT INTO feedback (written_id, course_id, lecture_id, content_text, written_date, confirm_flag, div_no)
-					VALUES(:written_id, :course_id, :lecture_id, :written_date, :confirm_flag, :div_no)");
-				$stmt->execute(array(
-					':written_id'=>$userid,
-					':course_id'=>$course_id,
-					':lecture_id'=>$lecture_id,
-					':written_date'=>date('Y-m-d H:i:s'),
-					':confirm_flag'=>0,
-					':div_no'=>$div_no
-				));	
-				return true;
+				try {
+					$course_id = $this->getCourseId($course);
+					$stmt = $pdo->prepare("INSERT INTO feedback (written_id, course_id, lecture_id, content_text, written_date, confirm_flag, div_no)
+						VALUES(:written_id, :course_id, :lecture_id, :content_text, :written_date, :confirm_flag, :div_no)");
+					$stmt->execute(array(
+						':written_id'=>$_SESSION['id'],
+						':course_id'=>$course_id,
+						':lecture_id'=>$lecture_id,
+						':content_text'=>$contents,
+						':written_date'=>date('Y-m-d H:i:s'),
+						':confirm_flag'=>0,
+						':div_no'=>$div_no
+					));
+
+					$stmt = $pdo->prepare("UPDATE user SET `point` = `point`-10 WHERE id = :id");
+					$stmt->execute(array(':id'=>$_SESSION['id']));
+					$_SESSION['point'] -= 10;
+					return true;
+				} catch (Exception $e) {
+					return $e;
+				}
 			}
 			else
 			{

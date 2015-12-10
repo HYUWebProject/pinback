@@ -1,3 +1,10 @@
+//global variable indicates div.
+var div_array = [false, false, false, false, false,
+				false, false, false, false, false,
+				false, false, false, false, false,
+				false, false, false, false, false,
+				false, false, false, false, false];
+
 document.observe("dom:loaded", function() {
 	//initializing
 	//초기에는 소개페이지 이외의 다른것들은 display:none으로 설정되어 보이지 않게 한다.
@@ -32,6 +39,13 @@ document.observe("dom:loaded", function() {
 	var pageArray = $$(".mainpage:not(#firstpage)");
 	for(var i=0; i<pageArray.length; i++)
 		pageArray[i].setStyle({display: "none"});
+
+
+	//로그아웃 기능 추가
+	$("logout").observe("click", function() {
+		new Ajax.Request("../../framework/function/logout.php", {});
+		window.location.href = "index.php";
+	});
 
 	//패스워드 변경기능 추가
 	$("changepw").observe("click", function() {
@@ -86,7 +100,6 @@ document.observe("dom:loaded", function() {
 	}
 */
 	$("new_memo").observe("click", New_Memo);
-	//$("fix_memo").observe("click",Fix_Memo);
 	//$("cancel_memo").observe("click", Cancel_Memo);
 	//Droppables.add("test", {onDrop: MemoSelect});
 });

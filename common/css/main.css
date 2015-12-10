@@ -118,20 +118,9 @@ header{
 	padding: 10px;
 }
 
-#feedbackpage {
-	margin-top: 20px;
-	margin-left: 200px;
-	margin-right: 200px;
-	width: 1050px;
-	height: 1024px;
-	border: 25px solid #E1A963;
-	background-image: url('../../resource/image/back_ground.jpg');
-
-}
-
 .image_post{
-	height: 25%;
-	width: 25%;
+	height: 20%;
+	width: 20%;
 	background-image: url('../../resource/image/postit6.png');
 	background-size: 100% 100%;
 	float: left;
@@ -141,23 +130,31 @@ header{
 .memo_input{
 	height: 70%;
 	width: 70%;
-	margin-top: 50px;
-	margin-left: 10px;
+	margin-top: 45px;
+	margin-left: 5%;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	padding: 2px;
 	background-color: transparent;
 	border: 0px solid transparent;
 }
 
-#fix_memo{
+.fix_memo{
 	margin-left: 7px;
 	background-color: #EEAAAA;
 }
 
-#pin_memo{
+.fixed_memo {
+	margin-left: 7px;
+	background-color: #CCCCCC;
+}
+
+.pin_memo{
 	margin-left: 7px;
 	background-color: #AAEEAA;
 }
 
-#cancel_memo{
+.cancel_memo{
 	margin-left:20px;
 	background-color: #AAAAEE;
 }

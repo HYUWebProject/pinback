@@ -8,8 +8,10 @@ if(!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
 	echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
 	exit;
 }
-$pin_id = $_SESSION['id'];
-$pin_name = $_SESSION['name'];
+$pin_id = $_SESSION["id"];
+$pin_name = $_SESSION["name"];
+$pin_level = $_SESSION["level"];
+$pin_point = $_SESSION["point"];
 ?>
 <html>
     <head>
@@ -80,6 +82,7 @@ $pin_name = $_SESSION['name'];
 		      </form>
 		      <ul class="nav navbar-nav navbar-right">
 		      	<li><a id="user_name"><?=$_SESSION['name']?>님,</a></li>
+		      	<li><a id="logout" href="#">Logout</a></li>
 		        <li><a id="announce" href="#">공지사항</a></li>
 		        <li><a id="manage" href="#">계정관리</a></li>
 		      </ul>
