@@ -3,6 +3,14 @@
 	{
 		/* 임시로 받는값은 과목이름 / 강의날짜만 받는걸로 해뒀음
 		 * 나중에 수정할땐 이 값들만 수정하면 됩니다 */
+		function getAllSubjectName() {
+			$pdo = Database::getInstance();
+			$stmt = $pdo->prepare("SELECT subject FROM subject");
+			$stmt->execute();
+			
+			return $stmt->fetchAll();
+		}
+
 		function getSubjectCode($subject) // 과목 이름을 받아서 과목 코드를 리턴
 		{
 			$pdo = Database::getInstance();

@@ -18,7 +18,9 @@ if(isset($_REQUEST["id"]) && isset($_REQUEST["name"]) && isset($_REQUEST["pass"]
 	&& isset($_REQUEST["vocation"]) && $_REQUEST["id"]!=null && $_REQUEST["pass"]!=null
 	&& $_REQUEST["name"]!=null && $_REQUEST["vocation"]!=null &&
 	preg_match("/[0-9]{10,10}/", $_REQUEST["id"]) && preg_match("/[a-zA-z]{1,10}/", $_REQUEST["name"])) {
+
 	$result = $db->register($_REQUEST["id"], $_REQUEST["name"], $_REQUEST["pass"], $_REQUEST["vocation"]);
+
 	if($result === true) {
 		$result_tag = $dom_xml->createElement("result");
 		$result_tag->appendChild($dom_xml->createTextNode("success"));

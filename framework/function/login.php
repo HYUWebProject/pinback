@@ -29,7 +29,6 @@ if(isset($_REQUEST["id"]) && isset($_REQUEST["pw"])
 	//db를 통해 입력된 ID와 PW를 비교한다.
 	$db = new Member();
 	if($db->login($id, $pw)) {
-		session_start();
 		$_SESSION["pin_id"] = $id;
 		$result_tag = $dom_xml->createElement("result");
 		$result_tag->appendChild($dom_xml->createTextNode("success"));

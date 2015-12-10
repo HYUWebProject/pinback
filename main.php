@@ -116,13 +116,6 @@
 					</select>
 					Lecture # : 
 					<select id="lecture">
-						<?php
-						for($i =0; $i<16; $i++) {
-						?>
-							<option><?=$i+1?></option>
-						<?php
-						}
-						?>
 					</select>
 				</form>
 				<p>

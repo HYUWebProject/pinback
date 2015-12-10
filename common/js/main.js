@@ -1,6 +1,24 @@
 document.observe("dom:loaded", function() {
 	//initializing
 	//초기에는 소개페이지 이외의 다른것들은 display:none으로 설정되어 보이지 않게 한다.
+	new Ajax.Request("loadMainPage.php", {
+		method: "post",
+		paremeters: {type: "subject"},
+		onSuccess: loadSubjectList,
+		onFailure: onFailed,
+		onException: onFailed
+	});
+
+	$("course").observe("change", function() {
+		new Ajax.Request("loadMainPage.php", {
+			method: "post",
+			parameters: {subject: $F("course")},
+			onSuccess: loadLectureList,
+			onFailure: onFailed,
+			onException; onFailed
+		});
+	})
+
 	var pageArray = $$(".mainpage:not(#firstpage)");
 	for(var i=0; i<pageArray.length; i++)
 		pageArray[i].setStyle({display: "none"});
@@ -81,6 +99,14 @@ function successfind(ajax) {
 	} else if (result == "NotExistingID") {
 		alert("가입되지 않은 학번입니다. 다시한번 확인해주시기 바랍니다.");
 	}
+}
+
+function loadSubjectList(ajax) {
+
+}
+
+function loadLectureList(ajax) {
+
 }
 
 function modifyPassword(ajax) {
