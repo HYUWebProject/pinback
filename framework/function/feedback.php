@@ -42,7 +42,7 @@
 				':no'=>$no));
 			$temp = $stmt->fetchAll();
 
-			return $temp['no'];
+			return $temp['contents'];
 		}
 	}
 ?>
