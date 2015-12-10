@@ -24,12 +24,10 @@ document.observe("dom:loaded", function() {
 	var qnaArray = $$("#qna>li");
 	for(var i=0; i<qnaArray.length; i++) {
 		qnaArray[i].observe("click", function() {
-			new Ajax.Request("loadFeedbackPage.php", {
-				method: "post",
-				onSuccess: loadFeedbackPage,
-				onFailure: onFailed,
-				onException: onFailed
-			});
+			$("notepage").setStyle({display: "block"});
+			var temparray = $$(".mainpage:not(#notepage)");
+			for(var j=0; j<temparray.length; j++)
+				temparray[j].setStyle({display: "none"});
 		});
 	}
 
@@ -97,8 +95,8 @@ function modifyPassword(ajax) {
 }
 
 function loadFeedbackPage(ajax) {
-	$("notepage").setStyle({display: "block"});
-	var temparray = $$(".mainpage:not(#notepage)");
+	$("feedbackpage").setStyle({display: "block"});
+	var temparray = $$(".mainpage:not(#feedbackpage)");
 	for(var j=0; j<temparray.length; j++)
 		temparray[j].setStyle({display: "none"});
 }

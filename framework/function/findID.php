@@ -1,8 +1,6 @@
 <?php
 
-include "member.php";
-include "../core/database.php";
-
+require_once("../framework.php");
 
 if (!isset($_SERVER["REQUEST_METHOD"]) || $_SERVER["REQUEST_METHOD"] != "POST") {
 	header("HTTP/1.1 400 Invalid Request");

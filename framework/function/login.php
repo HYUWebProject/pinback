@@ -1,7 +1,6 @@
 <?php
 
-include "member.php";
-include "../core/database.php";
+require_once("../framework.php");
 
 	//if it needs to include some php file then include
 if (!isset($_SERVER["REQUEST_METHOD"]) || $_SERVER["REQUEST_METHOD"] != "POST") {
