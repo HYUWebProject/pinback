@@ -23,11 +23,13 @@ document.observe("dom:loaded", function() {
 	//qna dropdown메뉴에서 뭐 하나 클릭하면 화면이 바뀌게 설정
 	var qnaArray = $$("#qna>li");
 	for(var i=0; i<qnaArray.length; i++) {
-		qnaArray[i].observe("click", function(){
-			$("notepage").setStyle({display: "block"});
-			var temparray = $$(".mainpage:not(#notepage)");
-			for(var j=0; j<temparray.length; j++)
-				temparray[j].setStyle({display: "none"});
+		qnaArray[i].observe("click", function() {
+			new Ajax.Request("loadFeedbackPage.php", {
+				method: "post",
+				onSuccess: loadFeedbackPage,
+				onFailure: onFailed,
+				onException: onFailed
+			});
 		});
 	}
 
@@ -92,6 +94,13 @@ function modifyPassword(ajax) {
 		var string = "<ERROR: SQLException>\n\n"+exception;
 		alert(string);
 	}
+}
+
+function loadFeedbackPage(ajax) {
+	$("notepage").setStyle({display: "block"});
+	var temparray = $$(".mainpage:not(#notepage)");
+	for(var j=0; j<temparray.length; j++)
+		temparray[j].setStyle({display: "none"});
 }
 
 function onFailed(ajax, exception) {

@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<?php
+if(!isset($_SESSION['pin_id']) || !isset($_SESSION['pin_name'])) {
+	echo "<meta http-equiv='refresh' content='0;url=/index.php'>";
+	echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
+	exit;
+}
+$pin_id = $_SESSION['pin_id'];
+$pin_name = $_SESSION['pin_name'];
+?>
 <html>
     <head>
         <title>메인 페이지</title>
