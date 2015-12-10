@@ -20,7 +20,7 @@ create table user (
 
 create table subject (
 	subjectcode	int(4)	primary key,
-	subject 	varchar(20) not null
+	subject 	varchar(30) not null
 	);
 
 create table sugang (
@@ -101,3 +101,14 @@ create table lecturenote (
 	foreign key (lecturecode) references lecture(lecturecode),
 	foreign key (subjectcode) references subject(subjectcode)
 	);
+
+
+
+
+insert into subject values(3026, "WebApplicationDev");
+insert into subject values(1016, "MicroProcessorInterface");
+insert into subject values(4007, "ArtificialIntelligence");
+insert into subject values(4009, "SystemProgramming");
+insert into subject values(3027, "ComputerNetwork");
+insert into subject values(3029, "Cryptography");
+

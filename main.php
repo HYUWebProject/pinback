@@ -109,10 +109,10 @@
 					<select id="course">
 						<option>Web Application Development</option>
 						<option>System Programming</option>
-						<option>Network</option>
+						<option>Computer Network</option>
 						<option>Cryptography</option>
-						<option>Micro processor ingterface</option>
-						<option>Artificial intelligence</option>
+						<option>Micro Processor Ingterface</option>
+						<option>Artificial Intelligence</option>
 					</select>
 					Lecture # : 
 					<select id="lecture">
