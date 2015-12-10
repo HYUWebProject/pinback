@@ -10,8 +10,9 @@ if (!isset($_SERVER["REQUEST_METHOD"]) || $_SERVER["REQUEST_METHOD"] != "POST") 
 }
 
 header("Content-type: application/xml");
-print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-print "<resultset>\n";
+$dom_xml = new DOMDocument();
+$resultset = $dom_xml->createElement("resultset");
+$dom_xml->appendChild($resultset);
 
 if(isset($_REQUEST["id"]) && isset($_REQUEST["pw"])
 	&& $_REQUEST["id"]!=NULL && $_REQUEST["pw"]!=NULL) {
@@ -19,22 +20,32 @@ if(isset($_REQUEST["id"]) && isset($_REQUEST["pw"])
 	$id = $_REQUEST["id"];
 	$pw = $_REQUEST["pw"];
 
-	print "<id>$id</id>\n";
-	print "<pw>$pw</pw>\n";
+	$id_tag = $dom_xml->createElement("id");
+	$id_tag->appendChild($dom_xml->createTextNode($id));
+	$resultset->appendChild($id_tag);
+	$pw_tag = $dom_xml->createElement("pw");
+	$pw_tag->appendChild($dom_xml->createTextNode($pw));
+	$resultset->appendChild($pw_tag);
 
 	//db를 통해 입력된 ID와 PW를 비교한다.
 	$db = new Member();
 	if($db->login($id, $pw)) {
 		session_start();
 		$_SESSION["pin_id"] = $id;
-		print "<result>success</result>";
+		$result_tag = $dom_xml->createElement("result");
+		$result_tag->appendChild($dom_xml->createTextNode("success"));
+		$resultset->appendChild($result_tag);
 	} else {
-		print "<result>selectionFailed</result>";
+		$result_tag = $dom_xml->createElement("result");
+		$result_tag->appendChild($dom_xml->createTextNode("selectionFailed"));
+		$resultset->appendChild($result_tag);
 	}
 } else {
 	//show some error detection page or popup
-	print "<result>inputValidInformation</result>";
+	$result_tag = $dom_xml->createElement("result");
+	$result_tag->appendChild($dom_xml->createTextNode("inputValidInformation"));
+	$resultset->appendChild($result_tag);
 }
-print "</resultset>\n";
+print $dom_xml->saveXML();
 
 ?>
