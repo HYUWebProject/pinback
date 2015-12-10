@@ -104,6 +104,27 @@
 		<!-- 피드백화면 -->
 		<div id="feedbackpage" class="mainpage">
 			<div id="post_feedback">
+				<form>
+					Course : 
+					<select id="course">
+						<option>Web Application Development</option>
+						<option>System Programming</option>
+						<option>Network</option>
+						<option>Cryptography</option>
+						<option>Micro processor ingterface</option>
+						<option>Artificial intelligence</option>
+					</select>
+					Lecture # : 
+					<select id="lecture">
+						<?php
+						for($i =0; $i<16; $i++) {
+						?>
+							<option><?=$i+1?></option>
+						<?php
+						}
+						?>
+					</select>
+				</form>
 				<p>
 					둘째, 강의평가
 				</P>
