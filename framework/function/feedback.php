@@ -57,7 +57,7 @@
 		function readContents($course_id, $lecture_id) // 과목코드와 렉쳐번호를 받아서 피드백 메모 리스트를 리턴
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->prepare("SELECT feedback_no, content_text, div_no FROM feedback WHERE course_id = :course_id AND lecture_id = :lecture_id");
+			$stmt = $pdo->prepare("SELECT * FROM feedback WHERE course_id = :course_id AND lecture_id = :lecture_id");
 			$stmt->execute(array(
 				':course_id'=>$course_id,
 				':lecture_id'=>$lecture_id));

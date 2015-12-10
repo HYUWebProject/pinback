@@ -54,8 +54,8 @@ function readFeedbackList() {
 	for($i=0; $i<sizeof($lecture_list); $i++) {
 		$jsonarray[$i] = array();
 		$jsonarray[$i]["feedback_no"] = $lecture_list[$i][0];
-		$jsonarray[$i]["content_text"] = $lecture_list[$i][1];
-		$jsonarray[$i]["div_no"] = $lecture_list[$i][2];
+		$jsonarray[$i]["content_text"] = $lecture_list[$i][4];
+		$jsonarray[$i]["div_no"] = $lecture_list[$i][7];
 	}
 
 	print json_encode($jsonarray);

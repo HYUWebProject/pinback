@@ -22,11 +22,9 @@ function New_Memo(){
 		alert("course와 lecture를 먼저 선택해 주시기 바랍니다.");
 		return;
 	}
-	var div = document.createElement("div");
-	div.addClassName("image_post");
 	for(var i=0; i<div_array.length; i++) {
 		if(div_array[i] === false) {
-			var div_no = i+1;
+			var div_no = i;
 			div_array[i] = true;
 			break;
 		}
@@ -35,7 +33,9 @@ function New_Memo(){
 		alert("더이상 Feedback memo를 붙일 수 없습니다.");
 		return;
 	} else {
-		div.writeAttribute("div", div_no);
+		var div = $$("#feedbackpage > div:not(#feedback_nav)")[div_no];
+		div.addClassName("image_post");
+		div.writeAttribute("div_no", div_no);
 	}
 
 
@@ -54,6 +54,18 @@ function New_Memo(){
 	btn1.innerHTML = "삭제";
 	div.appendChild(btn1);
 
+	btn1.observe("click", function() {
+		var content = textarea.value;
+		var div_no = div.getAttribute("div_no");
+		new Ajax.Request("../../framework/function/deleteFeedback.php", {
+			method: "post",
+			parameters: {course: $F("course"), lecture: $F("lecture"), content: content, div_no: div_no},
+			onSuccess: writeFeedback,
+			onFailure: onFailed,
+			onException: onFailed
+		});
+	});
+
 	var btn2 = document.createElement("button");
 	btn2.writeAttribute("type", "submit");
 	btn2.addClassName("fix_memo");
@@ -64,7 +76,7 @@ function New_Memo(){
 
 	btn2.observe("click", function() {
 		var content = textarea.value;
-		var div_no = div.getAttribute("div");
+		var div_no = div.getAttribute("div_no");
 		new Ajax.Request("../../framework/function/writeFeedback.php", {
 			method: "post",
 			parameters: {course: $F("course"), lecture: $F("lecture"), content: content, div_no: div_no},
@@ -82,20 +94,18 @@ function New_Memo(){
 	btn3.innerHTML = "PIN";
 	div.appendChild(btn3);
 
-
-
-	$("feedbackpage").appendChild(div);
 	new Draggable(div,{revert: true});
 	//Droppables.add("test", {onDrop: MemoSelect});
 }
 
 function writeFeedback(ajax) {
 	//alert("메모지가 고정되었습니다.");
+	var text = ajax.responseText;
 
 	var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
-	($$(".memo_input")[div-1]).readOnly = true;
+	($$(".memo_input")[div]).readOnly = true;
 
-	var btn_fix = $$(".fix_memo")[div-1];
+	var btn_fix = $$(".fix_memo")[div];
 	btn_fix.stopObserving();
 	btn_fix.removeClassName("fix_memo");
 	btn_fix.addClassName("fixed_memo");

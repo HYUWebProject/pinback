@@ -100,7 +100,6 @@ document.observe("dom:loaded", function() {
 	}
 */
 	$("new_memo").observe("click", New_Memo);
-	//$("cancel_memo").observe("click", Cancel_Memo);
 	//Droppables.add("test", {onDrop: MemoSelect});
 });
 
@@ -139,8 +138,22 @@ function loadCourseList(ajax) {
 }
 
 function loadLectureList(ajax) {
+	var memo_array = $$(".image_post");
+	for(var i=0; i<memo_array.length; i++) {
+		while(memo_array[i].firstChild!=null)
+			memo_array[i].removeChild(memo_array[i].firstChild);
+		memo_array[i].removeClassName("image_post");
+		memo_array[i].removeAttribute("div_no");
+	}
+
 	while($("lecture").firstChild!=null)
 		$("lecture").removeChild($("lecture").firstChild);
+
+	div_array = [false, false, false, false, false,
+				false, false, false, false, false,
+				false, false, false, false, false,
+				false, false, false, false, false,
+				false, false, false, false, false];
 
 	var lecture_list = JSON.parse(ajax.responseText);
 
@@ -154,10 +167,66 @@ function loadLectureList(ajax) {
 function loadFeedbackMemo(ajax) {
 	var memo_array = $$(".image_post");
 	for(var i=0; i<memo_array.length; i++) {
-		$("feedbackpage").removeChild(memo_array[i]);
+		while(memo_array[i].firstChild!=null)
+			memo_array[i].removeChild(memo_array[i].firstChild);
+		memo_array[i].removeClassName("image_post");
+		memo_array[i].removeAttribute("div_no");
 	}
 
+	div_array = [false, false, false, false, false,
+				false, false, false, false, false,
+				false, false, false, false, false,
+				false, false, false, false, false,
+				false, false, false, false, false];
+
 	var jsonarray = JSON.parse(ajax.responseText);
+	for(var i=0; i<jsonarray.length; i++) {
+		div_array[jsonarray[i]["div_no"]] = true;
+		generateFeedbackMemo(jsonarray[i]);
+	}
+}
+
+function generateFeedbackMemo(memo) {
+	var div_no = parseInt(memo["div_no"]);
+	var div = $$("#feedbackpage > div:not(#feedback_nav)")[div_no];
+	div.addClassName("image_post");
+	div.writeAttribute("div_no", div_no);
+
+	var textarea = document.createElement("textarea");
+	textarea.addClassName("memo_input");
+	textarea.writeAttribute("rows", 10);
+	textarea.writeAttribute("cols", 10);
+	textarea.writeAttribute("name", "memo_contents");
+	textarea.readOnly = true;
+	textarea.innerHTML = "No. "+memo["feedback_no"]+"\n"+memo["content_text"];
+	div.appendChild(textarea);
+
+	var btn1 = document.createElement("button");
+	btn1.writeAttribute("type", "submit");
+	btn1.addClassName("cancel_memo");
+	btn1.addClassName("btn");
+	btn1.addClassName("btn_btn-info");
+	btn1.innerHTML = "삭제";
+	div.appendChild(btn1);
+
+	var btn2 = document.createElement("button");
+	btn2.writeAttribute("type", "submit");
+	btn2.addClassName("fixed_memo");
+	btn2.addClassName("btn");
+	btn2.addClassName("btn_btn-info");
+	btn2.innerHTML = "제출";
+	div.appendChild(btn2);
+
+	var btn3 = document.createElement("button");
+	btn3.writeAttribute("type", "submit");
+	btn3.addClassName("pin_memo");
+	btn3.addClassName("btn");
+	btn3.addClassName("btn_btn-info");
+	btn3.innerHTML = "PIN";
+	div.appendChild(btn3);
+
+	new Draggable(div,{revert: true});
+	//Droppables.add("test", {onDrop: MemoSelect});
 }
 
 function modifyPassword(ajax) {

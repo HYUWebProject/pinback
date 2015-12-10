@@ -120,6 +120,13 @@ $pin_point = $_SESSION["point"];
 				</select>
 				<button type="submit" id="new_memo" class="btn btn-default" >메모지 만들기</button>
 			</div>
+			<?php
+			for($i =0; $i<25; $i++) {
+			?>
+			<div></div>
+			<?php
+			}
+			?>
 		</div>
 		<!-- 계정관리 페이지 -->
 		<div id="managepage" class="mainpage">
