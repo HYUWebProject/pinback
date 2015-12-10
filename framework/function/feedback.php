@@ -44,5 +44,51 @@
 
 			return $temp['contents'];
 		}
+		// 과목 이름하고 강의 날짜는 아마 게시판에서 받아오는 정보 입력하면 될거고
+		// content는 폼에서 입력하는거 받아오면 될듯!
+		function writeFeedback($subject, $lecDate, $contents)
+		{
+			$subjectcode = getSubjectCode($subject);
+			$lecturecode = getLectureCode($subjectcode, $lecDate);
+			$pdo = Database::getInstance();
+
+			$stmt=$pdo->prepare("SELECT id FROM user WHERE name = :name");
+			$stmt->execute(array(
+				':name'=>$_SESSION['user']));
+			$userid = $stmt->fetch();
+
+			$stmt = $pdo->prepare("SELECT point FROM user WHERE id = :id");
+			$stmt->execute(array(
+				':id'=>$userid));
+			$point = $stmt->fetch();
+			if ($point >= 10)
+			{
+				$stmt = $pdo->prepare("INSERT INTO feedback
+					VALUES(:subjectcode, :studentid, :content, :readflag, :lecturecode)");
+				$stmt->execute(array(
+					':subjectcode'=>$subjectcode,
+					':studentid'=>$userid,
+					':content'=>$contents,
+					':readflag'=>0,
+					':lecturecode'=>$lecturecode
+				));	
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			
+		}
+		function getPoint($id)
+		{
+			$pdo= Database::getInstance();
+			$stmt=$pdo->prepare("SELECT point FROM user WHERE id = :id");
+			$stmt->execute(array(
+				':id'=>$id));
+			$temp = $stmt->fetch();
+
+			return $temp;
+		}
 	}
 ?>
