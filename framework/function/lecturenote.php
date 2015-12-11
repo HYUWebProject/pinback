@@ -21,18 +21,21 @@
 
 			return $temp['lecturecode'];
 		}
-		function getQuestionNo($subjCode, $lecCode)
-		{
-			$pdo = Database::getInstance();
-			$stmt = $pdo->preapare("SELECT no FROM question WHERE lecturecode = :lecCode");
-			$stmt->execute(array(
-				':lecCode'=>$lecCode));
-			$temp = $stmt->fetchAll();
+		// function getQuestionNo($subjCode, $lecCode)
+		// {
+		// 	$pdo = Database::getInstance();
+		// 	$stmt = $pdo->preapare("SELECT no FROM question WHERE lecturecode = :lecCode");
+		// 	$stmt->execute(array(
+		// 		':lecCode'=>$lecCode));
+		// 	$temp = $stmt->fetch();
+		// 	foreach()
 
-			return $temp['no'];
-		}
-		function getContent($no, $lecCode)
+		// 	return $temp['no'];
+		// }
+		function getContent($subjCode, $lecCode, $no)
 		{
+			$
+			$pdo = Database::getInstance();
 
 		}
 		function getCoordinate($no)

@@ -28,6 +28,8 @@ $pin_point = $_SESSION["point"];
 		<script src="./common/js/scriptaculous.js"></script>
 		<script src="./common/js/main.js"></script>
 		<script src="./common/js/board_grade.js"></script>
+		<script src="./common/js/jquery.contextMenu.js"></script>
+		<script src="./common/js/dropdown.js"></script>
     </head>
     <body>
 		<header>
@@ -91,7 +93,14 @@ $pin_point = $_SESSION["point"];
 		</nav>
 
 
-		
+		<ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
+    		<li><a tabindex="-1" href="#">Action</a></li>
+    		<li><a tabindex="-1" href="#">Another action</a></li>
+    		<li><a tabindex="-1" href="#">Something else here</a></li>
+    		<li class="divider"></li>
+    		<li><a tabindex="-1" href="#">Separated link</a></li>
+		</ul>
+
 		<!-- 맨 처음 pinback소개화면 -->
 		<div id="firstpage" class="mainpage">
 			<div id="notice">
