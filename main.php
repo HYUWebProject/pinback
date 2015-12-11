@@ -104,9 +104,13 @@ $pin_point = $_SESSION["point"];
 		<!-- 강의노트 질의응답페이 -->
 		<div id="notepage" class="mainpage">
 			<div id="post_note">
-				<p>
-					첫째, 강의노트
-				</p>
+				&#60;Select lecture Note&#62;
+				Course : 
+				<select id="lecturecourse">
+				</select>
+				Lecture # : 
+				<select id="lecturenumber">
+				</select>
 			</div>
 		</div>
 		<!-- 피드백화면 -->

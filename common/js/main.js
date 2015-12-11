@@ -35,6 +35,37 @@ document.observe("dom:loaded", function() {
 			onException: onFailed
 		});
 	});
+//lectureNote load
+	new Ajax.Request("framework/function/lectureNoteRead.php", {
+		method: "post",
+		parameters: {type: "lecturecourse"},
+		onSuccess: loadlectureCourseList,
+		onFailure: onFailed,
+		onException: onFailed
+	});
+
+	$("lecturecourse").observe("change", function() {
+		new Ajax.Request("framework/function/lectureNoteRead.php", {
+			method: "post",
+			parameters: {lecturecourse: $F("lecturecourse")},
+			onSuccess: loadLecturenumberList,
+			onFailure: onFailed,
+			onException: onFailed
+		});
+	});
+
+	$("lecturenumber").observe("change", function() {
+		new Ajax.Request("framework/function/lectureNoteRead.php", {
+			method: "post",
+			parameters: {course: $F("lecturecourse"), lecture: $F("lecturenumber")},
+			onSuccess: loadLectureNote,
+			onFailure: onFailed,
+			onException: onFailed
+		});
+	});
+
+
+
 
 	var pageArray = $$(".mainpage:not(#firstpage)");
 	for(var i=0; i<pageArray.length; i++)
@@ -229,6 +260,40 @@ function generateFeedbackMemo(memo) {
 	div.appendChild(btn3);
 
 	new Draggable(div,{revert: true});
+}
+
+//lectureNote
+function loadlectureCourseList(ajax) {
+	var courses = JSON.parse(ajax.responseText);
+	for(var i=0; i<courses.length; i++) {
+		var option = document.createElement("option");
+		option.innerHTML = courses[i];
+		$("lecturecourse").appendChild(option);
+	}
+}
+function loadLecturenumberList(ajax) {
+
+	while($("lecturenumber").firstChild!=null)
+		$("lecturenumber").removeChild($("lecturenumber").firstChild);
+
+	
+	//alert(JSON.parse(ajax.responseText));
+	var lecture_list = JSON.parse(ajax.responseText);
+	//alert(lecture_list);
+	for(var i=0; i<lecture_list.length; i++) {
+		var option = document.createElement("option");
+		option.innerHTML = lecture_list[i];
+		$("lecturenumber").appendChild(option);
+	}
+}
+
+function loadLectureNote(ajax){
+	var _img = document.getElementById('id1');
+	var newImg = new Image;
+	newImg.onload = function() {
+	    _img.src = this.src;
+	}
+	newImg.src = 'http://whatever';
 }
 
 function modifyPassword(ajax) {
