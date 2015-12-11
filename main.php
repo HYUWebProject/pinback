@@ -3,11 +3,11 @@ require_once("framework/framework.php");
 ?>
 <!DOCTYPE html>
 <?php
-if(!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
-	echo "<meta http-equiv='refresh' content='0;url=/index.php'>";
-	echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
-	exit;
-}
+// if(!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
+// 	echo "<meta http-equiv='refresh' content='0;url=/index.php'>";
+// 	echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
+// 	exit;
+// }
 $pin_id = $_SESSION["id"];
 $pin_name = $_SESSION["name"];
 $pin_level = $_SESSION["level"];
@@ -113,9 +113,13 @@ $pin_point = $_SESSION["point"];
 		<!-- 강의노트 질의응답페이 -->
 		<div id="notepage" class="mainpage">
 			<div id="post_note">
-				<p>
-					첫째, 강의노트
-				</p>
+				&#60;Select lecture Note&#62;
+				Course : 
+				<select id="lecturecourse">
+				</select>
+				Lecture # : 
+				<select id="lecturenumber">
+				</select>
 			</div>
 		</div>
 		<!-- 피드백화면 -->
