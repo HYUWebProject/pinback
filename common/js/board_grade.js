@@ -13,7 +13,7 @@ function MemoSelect(drag, drop, event) {
 	var drop_div = drop.id.substring(4);
 	div_array[drop_div] = true;
 	drop.select(".fix_memo")[0].stopObserving();
-	drop.select(".fix_memo")[0].observe("click", function(){fix_btn_clicked(textarea);});
+	drop.select(".fix_memo")[0].observe("click", function(){fix_btn_clicked(textarea, drop_div);});
 	drop.select(".cancel_memo")[0].stopObserving();
 	drop.select(".cancel_memo")[0].observe("click", function(){del_btn_clicked(textarea, drop_div);});
 	drag.removeClassName("image_post");
@@ -86,7 +86,7 @@ function New_Memo(){
 	btn2.innerHTML = "제출";
 	div.appendChild(btn2);
 
-	btn2.observe("click", function(){fix_btn_clicked(textarea);});
+	btn2.observe("click", function(){fix_btn_clicked(textarea, div_no);});
 
 	var btn3 = document.createElement("button");
 	btn3.writeAttribute("type", "submit");
