@@ -12,8 +12,10 @@ function MemoSelect(drag, drop, event) {
 	div_array[drag_div] = false;
 	var drop_div = drop.id.substring(4);
 	div_array[drop_div] = true;
-	drop.select(".fix_memo")[0].stopObserving();
-	drop.select(".fix_memo")[0].observe("click", function(){fix_btn_clicked(textarea, drop_div);});
+	if(drop.select(".fix_memo")[0] != null) {
+		drop.select(".fix_memo")[0].stopObserving();
+		drop.select(".fix_memo")[0].observe("click", function(){fix_btn_clicked(textarea, drop_div);});
+	}
 	drop.select(".cancel_memo")[0].stopObserving();
 	drop.select(".cancel_memo")[0].observe("click", function(){del_btn_clicked(textarea, drop_div);});
 	drag.removeClassName("image_post");
@@ -99,7 +101,7 @@ function New_Memo(){
 	new Draggable(div,{revert: true});
 }
 
-function fix_btn_clicked(textarea) {
+function fix_btn_clicked(textarea, div_no) {
 	var content = textarea.value;
 	new Ajax.Request("../../framework/function/writeFeedback.php", {
 		method: "post",
