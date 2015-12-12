@@ -22,7 +22,7 @@ function MemoSelect(drag, drop, event) {
 	var btn3 = drop.select(".pin_memo")[0];
 	if(btn3 != null) {
 		btn3.stopObserving();
-		btn3.observe("click", function(){pin_btn_clicked(btn2);});
+		btn3.observe("click", function(){pin_btn_clicked(textarea, btn2);});
 	}
 	drag.removeClassName("image_post");
 	drop.addClassName("image_post");
@@ -159,11 +159,13 @@ function writeFeedback(ajax) {
 }
 
 function pin_btn_clicked(textarea, btn2) {
-	if(btn2.hasClassName("fix_memo")) {
-		alert("제출된 피드백 포스트잇만 PIN을 꽂을 수 있습니다.");
-		return;
+	if(btn2!=null) {
+		if(btn2.hasClassName("fix_memo")) {
+			alert("제출된 피드백 포스트잇만 PIN을 꽂을 수 있습니다.");
+			return;
+		}
 	} else {
-		var div_no = parseInt(textarea.parentNode.id.value.substring(4));
+		var div_no = parseInt(textarea.parentNode.id.substring(4));
 		var feedback_no = parseInt(textarea.value.substring(4, textarea.value.indexOf("\n")));
 		new Ajax.Request("../../framework/function/pinFeedback.php", {
 			method: "post",

@@ -288,7 +288,7 @@ function generateFeedbackMemo(memo) {
 		btn3.addClassName("already_done");
 	} else {
 		btn3.addClassName("pin_memo");
-		btn3.observe("click", function(){pin_btn_clicked(btn2);});
+		btn3.observe("click", function(){pin_btn_clicked(textarea, btn2);});
 	}
 	btn3.addClassName("btn");
 	btn3.addClassName("btn_btn-info");
