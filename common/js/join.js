@@ -7,7 +7,7 @@ document.observe("dom:loaded", function(){
 			alert("신분을 입력하세요.");
 			return;
 		}
-		new Ajax.Request("/framework/function/join.php", {
+		new Ajax.Request("../../framework/function/join.php", {
 			method: "post",
 			parameters: {id: $F("id"), name: $F("name"),
 					pass: $F("pass"), vocation: vocation},
