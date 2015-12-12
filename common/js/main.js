@@ -170,6 +170,22 @@ function loadCourseList(ajax) {
 		option.innerHTML = courses[i];
 		$("course").appendChild(option);
 	}
+
+	new Ajax.Request("framework/function/loadFeedbackPage.php", {
+		method: "post",
+		parameters: {course: $F("course")},
+		onSuccess: loadLectureList,
+		onFailure: onFailed,
+		onException: onFailed
+	});
+
+	new Ajax.Request("framework/function/loadFeedbackPage.php", {
+		method: "post",
+		parameters: {course: $F("course"), lecture: $F("lecture")},
+		onSuccess: loadFeedbackMemo,
+		onFailure: onFailed,
+		onException: onFailed
+	});
 }
 
 function loadLectureList(ajax) {
@@ -196,6 +212,14 @@ function loadLectureList(ajax) {
 		option.innerHTML = lecture_list[i];
 		$("lecture").appendChild(option);
 	}
+
+	new Ajax.Request("framework/function/loadFeedbackPage.php", {
+		method: "post",
+		parameters: {course: $F("course"), lecture: $F("lecture")},
+		onSuccess: loadFeedbackMemo,
+		onFailure: onFailed,
+		onException: onFailed
+	});
 }
 
 function loadFeedbackMemo(ajax) {
