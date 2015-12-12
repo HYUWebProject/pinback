@@ -1,7 +1,7 @@
 document.observe("dom:loaded", function() {
 	$("findPW").observe("click", function(){
 		var stdid = prompt("학번을 입력해주세요.", "");
-		new Ajax.Request("/framework/function/resetpassword.php", {
+		new Ajax.Request("../../framework/function/resetpassword.php", {
 			method: "post",
 			parameters: {id: stdid},
 			onSuccess: findPW,
@@ -11,7 +11,7 @@ document.observe("dom:loaded", function() {
 	});
 	$("join").observe("click", join);
 	$("login").observe("click", function(){
-		new Ajax.Request("/framework/function/login.php", {
+		new Ajax.Request("../../framework/function/login.php", {
 			method: "post",
 			parameters: {id: $F("id"), pw: $F("pw")},
 			onSuccess: login,
