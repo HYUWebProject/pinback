@@ -13,10 +13,9 @@ $dom_xml->appendChild($resultset);
 
 $db = new Feedback();
 
-if(isset($_REQUEST["feedback_no"]) && $_REQUEST["feedback_no"]!=null &&
-	isset($_REQUEST["div_no"]) && $_REQUEST["div_no"]!=null) {
+if(isset($_REQUEST["feedback_no"]) && $_REQUEST["feedback_no"]!=null) {
 
-	$result = $db->deleteFeedback($_REQUEST["feedback_no"]);
+	$result = $db->updateFeedback($_REQUEST["feedback_no"]);
 
 	if($result === true) {
 		$result_tag = $dom_xml->createElement("result");
@@ -38,10 +37,6 @@ if(isset($_REQUEST["feedback_no"]) && $_REQUEST["feedback_no"]!=null &&
 	$result_tag->appendChild($dom_xml->createTextNode("DataTransitionError"));
 	$resultset->appendChild($result_tag);	
 }
-$div_tag = $dom_xml->createElement("div");
-$div_tag->appendChild($dom_xml->createTextNode($_REQUEST["div_no"]));
-$resultset->appendChild($div_tag);
-
 print $dom_xml->saveXML();
 
 ?>
