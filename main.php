@@ -3,15 +3,15 @@ require_once("framework/framework.php");
 ?>
 <!DOCTYPE html>
 <?php
-// if(!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
-// 	echo "<meta http-equiv='refresh' content='0;url=/index.php'>";
-// 	echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
-// 	exit;
-// }
-$pin_id = $_SESSION["id"];
-$pin_name = $_SESSION["name"];
-$pin_level = $_SESSION["level"];
-$pin_point = $_SESSION["point"];
+	if(!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
+		echo "<meta http-equiv='refresh' content='0;url=/index.php'>";
+		echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
+		exit;
+	}
+	$pin_id = $_SESSION["id"];
+	$pin_name = $_SESSION["name"];
+	$pin_level = $_SESSION["level"];
+	$pin_point = $_SESSION["point"];
 ?>
 <html>
     <head>
@@ -21,6 +21,7 @@ $pin_point = $_SESSION["point"];
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link href="./common/css/contextMenu.css" rel="stylesheet" type="text/css" />
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="./common/js/jquery-1.11.3.min.js"></script>
 		<script src="./common/js/bootstrap.min.js"></script>
@@ -28,8 +29,10 @@ $pin_point = $_SESSION["point"];
 		<script src="./common/js/scriptaculous.js"></script>
 		<script src="./common/js/main.js"></script>
 		<script src="./common/js/board_grade.js"></script>
-		<script src="./common/js/jquery.contextMenu.js"></script>
-		<script src="./common/js/dropdown.js"></script>
+		<script src="./common/js/contextMenu.js" type="text/javascript"></script>
+
+
+
     </head>
     <body>
 		<header>
@@ -92,15 +95,6 @@ $pin_point = $_SESSION["point"];
 		  </div><!-- /.container-fluid -->
 		</nav>
 
-
-		<ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
-    		<li><a tabindex="-1" href="#">Action</a></li>
-    		<li><a tabindex="-1" href="#">Another action</a></li>
-    		<li><a tabindex="-1" href="#">Something else here</a></li>
-    		<li class="divider"></li>
-    		<li><a tabindex="-1" href="#">Separated link</a></li>
-		</ul>
-
 		<!-- 맨 처음 pinback소개화면 -->
 		<div id="firstpage" class="mainpage">
 			<div id="notice">
@@ -158,6 +152,11 @@ $pin_point = $_SESSION["point"];
 				</p>
 			</div>	
 		</div>
+		<div id="contextMenu" class="dropdown clearfix">
+	    	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+      			<li><a tabindex="-1" href="#">Get Coordinate</a></li>
+    		</ul>
+  		</div>
 	    <footer>
         </footer>
     </body>
