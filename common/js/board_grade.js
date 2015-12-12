@@ -22,7 +22,7 @@ function MemoSelect(drag, drop, event) {
 	drop.addClassName("image_post");
 
 	var div_no = parseInt(drop.id.substring(4));
-	new Ajax.Request("../../framework/function/updateFeedback.php", {
+	new Ajax.Request("../../framework/function/moveFeedback.php", {
 		method: "post",
 		parameters: {feedback_no: feedback_no, div_no: div_no},
 		onSuccess: blank,
@@ -98,18 +98,9 @@ function New_Memo(){
 	btn3.innerHTML = "PIN";
 	div.appendChild(btn3);
 
-	new Draggable(div,{revert: true});
-}
+	btn3.observe("click", function(){pin_btn_clicked(btn2);});
 
-function fix_btn_clicked(textarea, div_no) {
-	var content = textarea.value;
-	new Ajax.Request("../../framework/function/writeFeedback.php", {
-		method: "post",
-		parameters: {course: $F("course"), lecture: $F("lecture"), content: content, div_no: div_no},
-		onSuccess: writeFeedback,
-		onFailure: onFailed,
-		onException: onFailed
-	});
+	new Draggable(div,{revert: true});
 }
 
 function del_btn_clicked(textarea, div_no) {
@@ -122,15 +113,34 @@ function del_btn_clicked(textarea, div_no) {
 			onSuccess: removeFeedback,
 			onFailure: onFailed,
 			onException: onFailed
-		});		
+		});
 	} else {
 		while($("div_"+div_no).firstChild!=null)
 			$("div_"+div_no).removeChild($("div_"+div_no).firstChild);
 		$("div_"+div_no).removeClassName("image_post");
 	}
-
+	div_array[div_no] = false;
+}
+function removeFeedback(ajax) {
+	var ajaxtext = ajax.responseText;
+	var div_no = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
+	var div = $("div_"+div_no);
+	while(div.firstChild != null)
+		div.removeChild(div.firstChild);
+	div.removeClassName("image_post");
+	div.removeClassName("posted");
 }
 
+function fix_btn_clicked(textarea, div_no) {
+	var content = textarea.value;
+	new Ajax.Request("../../framework/function/writeFeedback.php", {
+		method: "post",
+		parameters: {course: $F("course"), lecture: $F("lecture"), content: content, div_no: div_no},
+		onSuccess: writeFeedback,
+		onFailure: onFailed,
+		onException: onFailed
+	});
+}
 function writeFeedback(ajax) {
 	//alert("메모지가 고정되었습니다.");
 	var text = ajax.responseText;
@@ -144,16 +154,28 @@ function writeFeedback(ajax) {
 	btn_fix.addClassName("fixed_memo");
 }
 
-function removeFeedback(ajax) {
-	var div_no = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
-	var div = $("div_"+div_no);
-	while(div.firstChild != null)
-		div.removeChild(div.firstChild);
-	div.removeClassName("image_post");
+function pin_btn_clicked(btn2) {
+	if(btn2.hasClassName("fix_memo")) {
+		alert("제출된 피드백 포스트잇만 PIN을 꽂을 수 있습니다.");
+		return;
+	} else {
+		var feedback_no = parseInt(text.substring(4, text.indexOf("\n")));
+		new Ajax.Request("../../framework/function/pinFeedback.php", {
+			method: "post",
+			parameters: {feedback_no: feedback_no},
+			onSuccess: pinFeedback,
+			onFailure: onFailed,
+			onException: onFailed
+		});		
+	}
 }
+function pinFeedabck(ajax) {
+	var text = ajax.responseText;
+	var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
+	$("div_"+div).firstChild.readOnly = true;
 
-
-function Cancel_Memo(){
-	$("test").removeChild(document.getElementById("new_image_post"));
-	alert("메모지가 삭제되었습니다.");
+	var btn_fix = $$("#div_"+parseInt(div)+">.fix_memo")[0];
+	btn_fix.stopObserving();
+	btn_fix.removeClassName("fix_memo");
+	btn_fix.addClassName("fixed_memo");
 }
