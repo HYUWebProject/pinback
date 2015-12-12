@@ -14,7 +14,7 @@ $dom_xml->appendChild($resultset);
 $db = new Feedback();
 
 if(isset($_REQUEST["feedback_no"]) && $_REQUEST["feedback_no"]!=null &&
-	isset($_REQUEST["div_no"]) && $_REQUEST["div_no"]) {
+	isset($_REQUEST["div_no"]) && $_REQUEST["div_no"]!=null) {
 
 	$result = $db->moveFeedback($_REQUEST["feedback_no"], $_REQUEST["div_no"]);
 
