@@ -10,7 +10,6 @@ if (isset($_POST["type"])){
 	}
 	subjectList();
 } else if(isset($_POST["lecturecourse"])) {
-
 	lectureList();
 }
 function subjectList() {

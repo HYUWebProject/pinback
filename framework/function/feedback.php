@@ -109,7 +109,7 @@
 			}
 		}
 
-		function updateFeedback($feedback_no, $div_no) {
+		function moveFeedback($feedback_no, $div_no) {
 			try {
 				$pdo = Database::getInstance();
 				$stmt = $pdo->prepare("UPDATE feedback SET div_no = :div_no WHERE feedback_no = :feedback_no");
@@ -120,10 +120,22 @@
 			}
 		}
 
+		function pinFeedback($feedback_no) {
+			if($_SESSION["level"] == 0)
+				return false;
+			try {
+				$pdo = Database::getInstance();
+				$stmt = $pdo->prepare("UPDATE feedback SET confirm_flag = 1 WHERE feedback_no = :feedback_no");
+				$stmt->execute(array("feedback_no"=>$feedback_no));
+				return true;
+			} catch(Exception $e) {
+				return $e;
+			}
+		}
 
 		function getPoint($id)
 		{
-			$pdo= Database::getInstance();
+			$pdo = Database::getInstance();
 			$stmt=$pdo->prepare("SELECT point FROM user WHERE id = :id");
 			$stmt->execute(array(
 				':id'=>$id));

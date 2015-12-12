@@ -129,7 +129,7 @@ header{
 	background-image: url('../../resource/image/postit/postit/1.png');
 }
 
-.posted.image_post{
+.image_post.posted{
 	background-image: url('../../resource/image/postit/pushedpostit/1.png');
 }
 
@@ -151,7 +151,7 @@ header{
 	background-color: #AAAAEE;
 }
 
-.fixed_memo {
+.already_done {
 	margin-left: 7px;
 	background-color: #CCCCCC;
 }
@@ -161,7 +161,7 @@ header{
 	background-color: #AAEEAA;
 }
 
-.cancel_memo{
+.del_memo{
 	margin-left:20px;
 	background-color: #EEAAAA;
 }

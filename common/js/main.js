@@ -194,6 +194,8 @@ function loadLectureList(ajax) {
 		while(memo_array[i].firstChild!=null)
 			memo_array[i].removeChild(memo_array[i].firstChild);
 		memo_array[i].removeClassName("image_post");
+		if(memo_array[i].hasClassName("posted"))
+			memo_array[i].removeClassName("posted");
 	}
 
 	while($("lecture").firstChild!=null)
@@ -247,6 +249,11 @@ function generateFeedbackMemo(memo) {
 	var div_no = parseInt(memo["div_no"]);
 	var div = $("div_"+div_no);
 	div.addClassName("image_post");
+	if(memo["confirm_flag"] == 1) {
+		div.addClassName("posted");
+	} else {
+		new Draggable(div,{revert: true});
+	}
 
 	var textarea = document.createElement("textarea");
 	textarea.addClassName("memo_input");
@@ -259,7 +266,7 @@ function generateFeedbackMemo(memo) {
 
 	var btn1 = document.createElement("button");
 	btn1.writeAttribute("type", "submit");
-	btn1.addClassName("cancel_memo");
+	btn1.addClassName("del_memo");
 	btn1.addClassName("btn");
 	btn1.addClassName("btn_btn-info");
 	btn1.innerHTML = "삭제";
@@ -269,7 +276,7 @@ function generateFeedbackMemo(memo) {
 
 	var btn2 = document.createElement("button");
 	btn2.writeAttribute("type", "submit");
-	btn2.addClassName("fixed_memo");
+	btn2.addClassName("already_done");
 	btn2.addClassName("btn");
 	btn2.addClassName("btn_btn-info");
 	btn2.innerHTML = "제출";
@@ -277,13 +284,17 @@ function generateFeedbackMemo(memo) {
 
 	var btn3 = document.createElement("button");
 	btn3.writeAttribute("type", "submit");
-	btn3.addClassName("pin_memo");
+	if(div.hasClassName("posted")) {
+		btn3.addClassName("already_done");
+	} else {
+		btn3.addClassName("pin_memo");
+		btn3.observe("click", function(){pin_btn_clicked(btn2);});
+	}
 	btn3.addClassName("btn");
 	btn3.addClassName("btn_btn-info");
 	btn3.innerHTML = "PIN";
 	div.appendChild(btn3);
 
-	new Draggable(div,{revert: true});
 }
 
 //lectureNote

@@ -12,14 +12,24 @@ function MemoSelect(drag, drop, event) {
 	div_array[drag_div] = false;
 	var drop_div = drop.id.substring(4);
 	div_array[drop_div] = true;
-	if(drop.select(".fix_memo")[0] != null) {
-		drop.select(".fix_memo")[0].stopObserving();
-		drop.select(".fix_memo")[0].observe("click", function(){fix_btn_clicked(textarea, drop_div);});
+	drop.select(".del_memo")[0].stopObserving();
+	drop.select(".del_memo")[0].observe("click", function(){del_btn_clicked(textarea, drop_div);});
+	var btn2 = drop.select(".fix_memo")[0];
+	if(btn2 != null) {
+		btn2.stopObserving();
+		btn2.observe("click", function(){fix_btn_clicked(textarea, drop_div);});
 	}
-	drop.select(".cancel_memo")[0].stopObserving();
-	drop.select(".cancel_memo")[0].observe("click", function(){del_btn_clicked(textarea, drop_div);});
+	var btn3 = drop.select(".pin_memo")[0];
+	if(btn3 != null) {
+		btn3.stopObserving();
+		btn3.observe("click", function(){pin_btn_clicked(btn2);});
+	}
 	drag.removeClassName("image_post");
 	drop.addClassName("image_post");
+	if(drag.hasClassName("posted")) {
+		drag.removeClassName("posted");
+		drop.addClassName("posted");
+	}
 
 	var div_no = parseInt(drop.id.substring(4));
 	new Ajax.Request("../../framework/function/moveFeedback.php", {
@@ -29,20 +39,12 @@ function MemoSelect(drag, drop, event) {
 		onFailure: onFailed,
 		onException: onFailed
 	});
+
 	new Draggable(drop, {revert: true});
 }
 function blank(ajax){}
 
 function New_Memo(){
-	/*
-	<div class = "image_post">
-		<textarea class="memo_input" rows="10" cols="10" name="memo_contents"></textarea>
-		<button type="submit" id = "cancel_memo" class="btn btn-warning ">취소</button>
-		<button type="submit" id ="fix_memo" class="btn btn-info ">제출</button>
-		<button type="submit" id = "pin_memo" class="btn btn-danger ">PIN</button>
-	</div>
-	*/
-
 	if($F("course") == null || $F("lecture") == null) {
 		alert("course와 lecture를 먼저 선택해 주시기 바랍니다.");
 		return;
@@ -72,7 +74,7 @@ function New_Memo(){
 
 	var btn1 = document.createElement("button");
 	btn1.writeAttribute("type", "submit");
-	btn1.addClassName("cancel_memo");
+	btn1.addClassName("del_memo");
 	btn1.addClassName("btn");
 	btn1.addClassName("btn_btn-info");
 	btn1.innerHTML = "삭제";
@@ -98,15 +100,14 @@ function New_Memo(){
 	btn3.innerHTML = "PIN";
 	div.appendChild(btn3);
 
-	btn3.observe("click", function(){pin_btn_clicked(btn2);});
+	btn3.observe("click", function(){pin_btn_clicked(textarea, btn2);});
 
 	new Draggable(div,{revert: true});
 }
 
 function del_btn_clicked(textarea, div_no) {
 	if($("div_"+div_no).select(".fix_memo")[0]==null) {
-		var text = textarea.value;
-		var feedback_no = parseInt(text.substring(4, text.indexOf("\n")));
+		var feedback_no = parseInt(textarea.value.substring(4, textarea.value.indexOf("\n")));
 		new Ajax.Request("../../framework/function/deleteFeedback.php", {
 			method: "post",
 			parameters: {feedback_no: feedback_no, div_no: div_no},
@@ -142,40 +143,58 @@ function fix_btn_clicked(textarea, div_no) {
 	});
 }
 function writeFeedback(ajax) {
-	//alert("메모지가 고정되었습니다.");
 	var text = ajax.responseText;
+	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
+	if(result == "success") {
+		var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
+		$("div_"+div).firstChild.readOnly = true;
 
-	var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
-	$("div_"+div).firstChild.readOnly = true;
-
-	var btn_fix = $$("#div_"+parseInt(div)+">.fix_memo")[0];
-	btn_fix.stopObserving();
-	btn_fix.removeClassName("fix_memo");
-	btn_fix.addClassName("fixed_memo");
+		var btn_fix = $$("#div_"+parseInt(div)+">.fix_memo")[0];
+		btn_fix.stopObserving();
+		btn_fix.removeClassName("fix_memo");
+		btn_fix.addClassName("already_done");
+	} else if(result == "failure") {
+		alert("포인트가 부족합니다.");
+	}
 }
 
-function pin_btn_clicked(btn2) {
+function pin_btn_clicked(textarea, btn2) {
 	if(btn2.hasClassName("fix_memo")) {
 		alert("제출된 피드백 포스트잇만 PIN을 꽂을 수 있습니다.");
 		return;
 	} else {
-		var feedback_no = parseInt(text.substring(4, text.indexOf("\n")));
+		var div_no = parseInt(textarea.parentNode.id.value.substring(4));
+		var feedback_no = parseInt(textarea.value.substring(4, textarea.value.indexOf("\n")));
 		new Ajax.Request("../../framework/function/pinFeedback.php", {
 			method: "post",
-			parameters: {feedback_no: feedback_no},
+			parameters: {feedback_no: feedback_no, div_no: div_no},
 			onSuccess: pinFeedback,
 			onFailure: onFailed,
 			onException: onFailed
-		});		
+		});
 	}
 }
-function pinFeedabck(ajax) {
+function pinFeedback(ajax) {
 	var text = ajax.responseText;
+	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
+	if(result == "PermissionDenied") {
+		alert("현재 로그인된 계정은 교수계정이 아닙니다.");
+		return;
+	} else if(result == "DataTransitionError") {
+
+	} else if(result == "SQLException") {
+		var errormsg = ajax.responseXML.getElementsByTagName("exception")[0].firstChild.nodeValue;
+		alert("errormsg");
+	}
 	var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
 	$("div_"+div).firstChild.readOnly = true;
 
-	var btn_fix = $$("#div_"+parseInt(div)+">.fix_memo")[0];
+	var btn_fix = $$("#div_"+parseInt(div)+">.pin_memo")[0];
 	btn_fix.stopObserving();
-	btn_fix.removeClassName("fix_memo");
-	btn_fix.addClassName("fixed_memo");
+	btn_fix.removeClassName("pin_memo");
+	btn_fix.addClassName("already_done");
+	var pin_div = $("div_"+parseInt(div));
+	pin_div.addClassName("posted");
+
+	$("div_"+div).Draggable("destroy");
 }

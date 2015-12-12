@@ -56,6 +56,7 @@ function readFeedbackList() {
 		$jsonarray[$i]["feedback_no"] = $lecture_list[$i][0];
 		$jsonarray[$i]["content_text"] = $lecture_list[$i][4];
 		$jsonarray[$i]["div_no"] = $lecture_list[$i][7];
+		$jsonarray[$i]["confirm_flag"] = $lecture_list[$i][6];
 	}
 
 	print json_encode($jsonarray);
