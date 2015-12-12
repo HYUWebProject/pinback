@@ -40,6 +40,12 @@ function MemoSelect(drag, drop, event) {
 		onException: onFailed
 	});
 
+	for(var i=0; i<Draggables.drags.length; i++) {
+		if(Draggables.drags[i]["element"] === drag) {
+			Draggables.unregister(Draggables.drags[i]);
+			break;
+		}
+	}
 	new Draggable(drop, {revert: true});
 }
 function blank(ajax){}
@@ -164,17 +170,16 @@ function pin_btn_clicked(textarea, btn2) {
 			alert("제출된 피드백 포스트잇만 PIN을 꽂을 수 있습니다.");
 			return;
 		}
-	} else {
-		var div_no = parseInt(textarea.parentNode.id.substring(4));
-		var feedback_no = parseInt(textarea.value.substring(4, textarea.value.indexOf("\n")));
-		new Ajax.Request("../../framework/function/pinFeedback.php", {
-			method: "post",
-			parameters: {feedback_no: feedback_no, div_no: div_no},
-			onSuccess: pinFeedback,
-			onFailure: onFailed,
-			onException: onFailed
-		});
 	}
+	var div_no = parseInt(textarea.parentNode.id.substring(4));
+	var feedback_no = parseInt(textarea.value.substring(4, textarea.value.indexOf("\n")));
+	new Ajax.Request("../../framework/function/pinFeedback.php", {
+		method: "post",
+		parameters: {feedback_no: feedback_no, div_no: div_no},
+		onSuccess: pinFeedback,
+		onFailure: onFailed,
+		onException: onFailed
+	});
 }
 function pinFeedback(ajax) {
 	var text = ajax.responseText;
@@ -198,5 +203,11 @@ function pinFeedback(ajax) {
 	var pin_div = $("div_"+parseInt(div));
 	pin_div.addClassName("posted");
 
-	$("div_"+div).Draggable("destroy");
+	for(var i=0; i<Draggables.drags.length; i++) {
+		if(Draggables.drags[i]["element"] === $("div_"+div)) {
+			Draggables.unregister(Draggables.drags[i]);
+			break;
+		}
+	}
+	var x=1;
 }
