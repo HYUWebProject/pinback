@@ -36,7 +36,7 @@ document.observe("dom:loaded", function() {
 		});
 	});
 //lectureNote load
-	new Ajax.Request("../../framework/function/lectureNoteRoad.php", {
+	new Ajax.Request("../../framework/function/lectureNoteRead.php", {
 		method: "post",
 		parameters: {type: "lecturecourse"},
 		onSuccess: loadlectureCourseList,
@@ -45,7 +45,7 @@ document.observe("dom:loaded", function() {
 	});
 
 	$("lecturecourse").observe("change", function() {
-		new Ajax.Request("../../framework/function/lectureNoteRoad.php", {
+		new Ajax.Request("../../framework/function/lectureNoteRead.php", {
 			method: "post",
 			parameters: {lecturecourse: $F("lecturecourse")},
 			onSuccess: loadLecturenumberList,
@@ -55,7 +55,7 @@ document.observe("dom:loaded", function() {
 	});
 
 	$("lecturenumber").observe("change", function() {
-		new Ajax.Request("../../framework/function/lectureNoteRoad.php", {
+		new Ajax.Request("../../framework/function/lectureNoteRead.php", {
 			method: "post",
 			parameters: {course: $F("lecturecourse"), lecture: $F("lecturenumber")},
 			onSuccess: loadLectureNote,
@@ -88,7 +88,7 @@ document.observe("dom:loaded", function() {
 	});
 
 	//네비게이션 맨 앞의 pinback글씨를 누르면 맨 앞 페이지로 이
-	$(".navbar-brand")[0].observe("click", function() {
+	$$(".navbar-brand")[0].observe("click", function() {
 		$("firstpage").setStyle({display: "block"});
 		var temparray = $$(".mainpage:not(#firstpage)");
 		for(var j=0; j<temparray.length; j++)
