@@ -64,9 +64,6 @@ document.observe("dom:loaded", function() {
 		});
 	});
 
-
-
-
 	var pageArray = $$(".mainpage:not(#firstpage)");
 	for(var i=0; i<pageArray.length; i++)
 		pageArray[i].setStyle({display: "none"});
@@ -124,12 +121,7 @@ document.observe("dom:loaded", function() {
 		for(var j=0; j<temparray.length; j++)
 			temparray[j].setStyle({display: "none"});
 	});
-/*
-	var image_array = $$(".image_post");
-	for(var i = 0; i< image_array.length; i++){
-		new Draggable(image_array[i],{revert: true});
-	}
-*/
+
 	$("new_memo").observe("click", New_Memo);
 
 	var droparray = $$("#feedbackpage > .feedback_div");
@@ -186,6 +178,8 @@ function loadCourseList(ajax) {
 		onFailure: onFailed,
 		onException: onFailed
 	});
+
+
 }
 
 function loadLectureList(ajax) {
@@ -237,6 +231,8 @@ function loadFeedbackMemo(ajax) {
 				false, false, false, false, false,
 				false, false, false, false, false,
 				false, false, false, false, false];
+
+	Draggables.drags = [];
 
 	var jsonarray = JSON.parse(ajax.responseText);
 	for(var i=0; i<jsonarray.length; i++) {
@@ -294,7 +290,6 @@ function generateFeedbackMemo(memo) {
 	btn3.addClassName("btn_btn-info");
 	btn3.innerHTML = "PIN";
 	div.appendChild(btn3);
-
 }
 
 //lectureNote

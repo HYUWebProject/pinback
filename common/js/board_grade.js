@@ -42,7 +42,7 @@ function MemoSelect(drag, drop, event) {
 
 	for(var i=0; i<Draggables.drags.length; i++) {
 		if(Draggables.drags[i]["element"] === drag) {
-			Draggables.unregister(Draggables.drags[i]);
+			Draggables.drags[i].destroy();
 			break;
 		}
 	}
@@ -108,7 +108,7 @@ function New_Memo(){
 
 	btn3.observe("click", function(){pin_btn_clicked(textarea, btn2);});
 
-	new Draggable(div,{revert: true});
+	Draggables.register(div,{revert: true});
 }
 
 function del_btn_clicked(textarea, div_no) {
@@ -205,9 +205,8 @@ function pinFeedback(ajax) {
 
 	for(var i=0; i<Draggables.drags.length; i++) {
 		if(Draggables.drags[i]["element"] === $("div_"+div)) {
-			Draggables.unregister(Draggables.drags[i]);
+			Draggables.drags[i].destroy();
 			break;
 		}
 	}
-	var x=1;
 }
