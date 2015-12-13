@@ -3,11 +3,13 @@ require_once("framework/framework.php");
 ?>
 <!DOCTYPE html>
 <?php
+/*
 	if(!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
 		echo "<meta http-equiv='refresh' content='0;url=/index.php'>";
 		echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
 		exit;
 	}
+	*/
 	$pin_id = $_SESSION["id"];
 	$pin_name = $_SESSION["name"];
 	$pin_level = $_SESSION["level"];
@@ -98,10 +100,7 @@ require_once("framework/framework.php");
 		<!-- 맨 처음 pinback소개화면 -->
 		<div id="firstpage" class="mainpage">
 			<div id="notice">
-				<p>
-					PINBACK 은 학생들의 학업능력 향상을 위한
-					<br/>오픈 O&amp;A 및 피드백서비스를 제공해주는 사이트 입니다.
-				</p>
+				<img src ="./resource/image/firstpage.png" type ="image/png" alt = "design" width="1100px" height="1000px" />
 			</div>
 		</div>
 		<!-- 강의노트 질의응답페이 -->
