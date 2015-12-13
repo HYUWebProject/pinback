@@ -114,9 +114,15 @@ require_once("framework/framework.php");
 				Lecture # : 
 				<select id="lecturenumber">
 				</select>
+				<form id= "upload_form" method="post" enctype="multipart/form-data" action="./framework/function/upload.php">
+		    		<input type="file" name="file_name" id="images" multiple />
+		    		<button type="submit" id="btn">Upload Files!</button></br>
+		    		<iframe id = "iframe_upload" name ="iframe_upload" src ="" style = "width:0,height:0,border:0px solid #fff;"> </iframe>
+		    	</form>
 
 			</div>
 		</div>
+
 		<!-- 피드백화면 -->
 		<div id="feedbackpage" class="mainpage">
 			<div id="feedback_nav">
