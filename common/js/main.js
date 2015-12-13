@@ -114,14 +114,6 @@ document.observe("dom:loaded", function() {
 			temparray[j].setStyle({display: "none"});
 	});
 
-	//공지사항버튼을 누르면 화면이 바뀌게 설정
-	$("announce").observe("click", function(){
-		$("announcementpage").setStyle({display: "block"});
-		var temparray = $$(".mainpage:not(#announcementpage)");
-		for(var j=0; j<temparray.length; j++)
-			temparray[j].setStyle({display: "none"});
-	});
-
 	$("new_memo").observe("click", New_Memo);
 
 	var droparray = $$("#feedbackpage > .feedback_div");
@@ -245,11 +237,8 @@ function generateFeedbackMemo(memo) {
 	var div_no = parseInt(memo["div_no"]);
 	var div = $("div_"+div_no);
 	div.addClassName("image_post");
-	if(memo["confirm_flag"] == 1) {
+	if(memo["confirm_flag"] == 1) 
 		div.addClassName("posted");
-	} else {
-		new Draggable(div,{revert: true});
-	}
 
 	var textarea = document.createElement("textarea");
 	textarea.addClassName("memo_input");
@@ -262,13 +251,10 @@ function generateFeedbackMemo(memo) {
 
 	var btn1 = document.createElement("button");
 	btn1.writeAttribute("type", "submit");
-	btn1.addClassName("del_memo");
 	btn1.addClassName("btn");
 	btn1.addClassName("btn_btn-info");
 	btn1.innerHTML = "삭제";
 	div.appendChild(btn1);
-
-	btn1.observe("click", function(){del_btn_clicked(textarea, div_no);});
 
 	var btn2 = document.createElement("button");
 	btn2.writeAttribute("type", "submit");
@@ -280,16 +266,21 @@ function generateFeedbackMemo(memo) {
 
 	var btn3 = document.createElement("button");
 	btn3.writeAttribute("type", "submit");
-	if(div.hasClassName("posted")) {
-		btn3.addClassName("already_done");
-	} else {
-		btn3.addClassName("pin_memo");
-		btn3.observe("click", function(){pin_btn_clicked(textarea, btn2);});
-	}
 	btn3.addClassName("btn");
 	btn3.addClassName("btn_btn-info");
 	btn3.innerHTML = "PIN";
 	div.appendChild(btn3);
+
+	if(div.hasClassName("posted")) {
+		btn1.addClassName("already_done");
+		btn3.addClassName("already_done");
+	} else {
+		btn1.addClassName("del_memo");
+		btn3.addClassName("pin_memo");
+		btn1.observe("click", function(){del_btn_clicked(textarea, div_no);});
+		btn3.observe("click", function(){pin_btn_clicked(textarea, btn2);});
+		new Draggable(div, {revert: true});
+	}
 }
 
 //lectureNote

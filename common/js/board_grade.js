@@ -1,6 +1,11 @@
 "use strict";
 
 function MemoSelect(drag, drop, event) {
+	var div_no = parseInt(drop.id.substring(4));
+	if(div_array[div_no] === true) {
+		alert("같은 위치에 포스트잇을 겹처붙일 수 없습니다.");
+		return 0;
+	}
 	var textarea = drag.firstChild;
 	var text = drag.firstChild.value;
 	var feedback_no = parseInt(text.substring(4, text.indexOf("\n")));
@@ -107,7 +112,7 @@ function New_Memo(){
 
 	btn3.observe("click", function(){pin_btn_clicked(textarea, btn2);});
 
-	Draggables.register(div,{revert: true});
+	new Draggable(div,{revert: true});
 }
 
 function del_btn_clicked(textarea, div_no) {
@@ -120,12 +125,13 @@ function del_btn_clicked(textarea, div_no) {
 			onFailure: onFailed,
 			onException: onFailed
 		});
+		alert("feedback 메모가 삭제되었습니다.");
 	} else {
 		while($("div_"+div_no).firstChild!=null)
 			$("div_"+div_no).removeChild($("div_"+div_no).firstChild);
 		$("div_"+div_no).removeClassName("image_post");
+		div_array[div_no] = false;
 	}
-	div_array[div_no] = false;
 }
 function removeFeedback(ajax) {
 	var ajaxtext = ajax.responseText;
@@ -143,6 +149,7 @@ function removeFeedback(ajax) {
 		div.removeChild(div.firstChild);
 	div.removeClassName("image_post");
 	div.removeClassName("posted");
+	div_array[div_no] = false;
 }
 
 function fix_btn_clicked(textarea, div_no) {
@@ -227,9 +234,9 @@ function pinFeedback(ajax) {
 	btn_fix.stopObserving();
 	btn_fix.removeClassName("pin_memo");
 	btn_fix.addClassName("already_done");
-	var btn_update = $$("#div_"+div+">.fix_memo")[0];
+	var btn_update = $$("#div_"+div+">.del_memo")[0];
 	btn_update.stopObserving();
-	btn_update.removeClassName("fix_memo");
+	btn_update.removeClassName("del_memo");
 	btn_update.addClassName("already_done");
 
 	var pin_div = $("div_"+parseInt(div));

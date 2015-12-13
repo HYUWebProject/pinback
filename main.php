@@ -91,7 +91,6 @@ require_once("framework/framework.php");
 		      <ul class="nav navbar-nav navbar-right">
 		      	<li><a id="user_name"><?=$_SESSION['name']?>님,</a></li>
 		      	<li><a id="logout" href="#">Logout</a></li>
-		        <li><a id="announce" href="#">공지사항</a></li>
 		        <li><a id="manage" href="#">계정관리</a></li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
@@ -144,14 +143,6 @@ require_once("framework/framework.php");
 					<button id="changepw">비밀번호 변경</button>
 				</p>
 			</div>
-		</div>
-		<!-- 공지사항 -->
-		<div id="announcementpage" class="mainpage">
-			<div id="announcement">
-				<p>
-					공지사항 페이지.
-				</p>
-			</div>	
 		</div>
 		<div id="contextMenu" class="dropdown clearfix">
 	    	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">

@@ -65,8 +65,7 @@
 		}
 		// 과목 이름하고 강의 날짜는 아마 게시판에서 받아오는 정보 입력하면 될거고
 		// content는 폼에서 입력하는거 받아오면 될듯!
-		function writeFeedback($course, $lecture_id, $contents, $div_no)
-		{
+		function writeFeedback($course, $lecture_id, $contents, $div_no) {
 			$pdo = Database::getInstance();
 			try {
 				$course_id = $this->getCourseId($course);
@@ -97,7 +96,7 @@
 				$stmt = $pdo->prepare("SELECT written_id FROM feedback WHERE feedback_no = :feedback_no");
 				$stmt->execute(array(':feedback_no'=>$feedback_no));
 				$id = $stmt->fetch();
-				if($_SESSION['id'] != $id) {
+				if($_SESSION['id'] != $id['written_id']) {
 					return false;
 				}
 				$stmt = $pdo->prepare("DELETE FROM feedback WHERE feedback_no = :feedback_no");
