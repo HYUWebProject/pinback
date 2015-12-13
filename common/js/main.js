@@ -275,7 +275,7 @@ function generateFeedbackMemo(memo) {
 	btn2.addClassName("already_done");
 	btn2.addClassName("btn");
 	btn2.addClassName("btn_btn-info");
-	btn2.innerHTML = "제";
+	btn2.innerHTML = "제출";
 	div.appendChild(btn2);
 
 	var btn3 = document.createElement("button");
