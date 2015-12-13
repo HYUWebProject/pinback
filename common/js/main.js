@@ -87,8 +87,13 @@ document.observe("dom:loaded", function() {
 		});
 	});
 
-	//네비게이션 맨 앞의 pinback글씨를 누르면 페이지 새로고침
-	$$(".navbar-brand")[0].observe("click", function(){window.location.reload();});
+	//네비게이션 맨 앞의 pinback글씨를 누르면 맨 앞 페이지로 이
+	$(".navbar-brand")[0].observe("click", function() {
+		$("firstpage").setStyle({display: "block"});
+		var temparray = $$(".mainpage:not(#firstpage)");
+		for(var j=0; j<temparray.length; j++)
+			temparray[j].setStyle({display: "none"});
+	});
 
 	//qna dropdown메뉴에서 3학년 클릭하면 화면이 바뀌게 설정
 	$$("#qna>li")[1].observe("click", function() {
