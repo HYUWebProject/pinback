@@ -65,11 +65,10 @@
 				JOIN user_answer ua ON a.answered_id = au.answered_id
 				WHERE au.userid = :userid
 				AND a.question_id = :questionNo");
-			$stmt->execute(array
+			$stmt->execute(array(
 				':userid'=>$_SESSION['id'],
 				':questionNo'=>$questionNo
-				);
-
+				));
 			return $stmt->fetchAll();
 		}
 
@@ -79,11 +78,14 @@
 				$pdo = Database::getInstance();
 				$stmt = $pdo->prepare("INSERT INTO user_answer
 					VALUES(:uid, :ansid)");
-				$stmt->execute(array
+				$stmt->execute(array(
 					':uid'=>$_SESSION["id"],
 					':ansid'=>$answerId
-				);
-				$stmt = $pdo->prepare("UPDATE TABLE user ")
+					));
+				$stmt = $pdo->prepare("UPDATE user SET point = point - 10 WHERE id = :id");
+				$stmt->extcute(array(
+					':id'=>$_SESSION["id"]
+					));
 			}
 		}
 
