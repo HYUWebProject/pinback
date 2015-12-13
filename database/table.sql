@@ -74,3 +74,10 @@ create table answer (
 	foreign key (question_id) references question(question_id) on delete cascade,
 	primary key (answer_id, question_id)
 	);
+
+create table user_answer (
+	userid	int(10)	not null,
+	answered_id	int(10),
+	foreign key (userid) references user(id) on delete cascade,
+	foreign key (answered_id) references answer(answered_id) on delete cascade
+	);

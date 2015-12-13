@@ -32,6 +32,7 @@ require_once("framework/framework.php");
 		<script src="./common/js/main.js"></script>
 		<script src="./common/js/board_grade.js"></script>
 		<script src="./common/js/contextMenu.js" type="text/javascript"></script>
+		<script src="./common/js/lecturenote_label.js" type="text/javascript"></script> <!-- lecture note label 추가-->
 
 
 
@@ -113,6 +114,7 @@ require_once("framework/framework.php");
 				Lecture # : 
 				<select id="lecturenumber">
 				</select>
+
 			</div>
 		</div>
 		<!-- 피드백화면 -->
