@@ -68,39 +68,38 @@
 		function writeFeedback($course, $lecture_id, $contents, $div_no)
 		{
 			$pdo = Database::getInstance();
-			if ($_SESSION['point'] >= 10)
-			{
-				try {
-					$course_id = $this->getCourseId($course);
-					$stmt = $pdo->prepare("INSERT INTO feedback (written_id, course_id, lecture_id, content_text, written_date, confirm_flag, div_no)
-						VALUES(:written_id, :course_id, :lecture_id, :content_text, :written_date, :confirm_flag, :div_no)");
-					$stmt->execute(array(
-						':written_id'=>$_SESSION['id'],
-						':course_id'=>$course_id,
-						':lecture_id'=>$lecture_id,
-						':content_text'=>$contents,
-						':written_date'=>date('Y-m-d H:i:s'),
-						':confirm_flag'=>0,
-						':div_no'=>$div_no
-					));
+			try {
+				$course_id = $this->getCourseId($course);
+				$stmt = $pdo->prepare("INSERT INTO feedback (written_id, course_id, lecture_id, content_text, written_date, confirm_flag, div_no)
+					VALUES(:written_id, :course_id, :lecture_id, :content_text, :written_date, :confirm_flag, :div_no)");
+				$stmt->execute(array(
+					':written_id'=>$_SESSION['id'],
+					':course_id'=>$course_id,
+					':lecture_id'=>$lecture_id,
+					':content_text'=>$contents,
+					':written_date'=>date('Y-m-d H:i:s'),
+					':confirm_flag'=>0,
+					':div_no'=>$div_no
+				));
 
-					$stmt = $pdo->prepare("UPDATE user SET `point` = `point`-10 WHERE id = :id");
-					$stmt->execute(array(':id'=>$_SESSION['id']));
-					$_SESSION['point'] -= 10;
-					return true;
-				} catch (Exception $e) {
-					return $e;
-				}
+				$stmt = $pdo->prepare("UPDATE user SET `point` = `point` + 10 WHERE id = :id");
+				$stmt->execute(array(':id'=>$_SESSION['id']));
+				$_SESSION['point'] += 10;
+				return true;
+			} catch (Exception $e) {
+				return $e;
 			}
-			else
-			{
-				return false;
-			}	
 		}
 
 		function deleteFeedback($feedback_no) {
 			try {
 				$pdo = Database::getInstance();
+				$stmt = $pdo->prepare("SELECT written_id FROM feedback WHERE feedback_no = :feedback_no");
+				$stmt->execute(array(':feedback_no'=>$feedback_no));
+				$id = $stmt->fetch();
+				if($_SESSION['id'] != $id) {
+					return false;
+				}
 				$stmt = $pdo->prepare("DELETE FROM feedback WHERE feedback_no = :feedback_no");
 				$stmt->execute(array(':feedback_no'=>$feedback_no));
 				return true;

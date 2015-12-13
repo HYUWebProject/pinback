@@ -14,10 +14,9 @@ function MemoSelect(drag, drop, event) {
 	div_array[drop_div] = true;
 	drop.select(".del_memo")[0].stopObserving();
 	drop.select(".del_memo")[0].observe("click", function(){del_btn_clicked(textarea, drop_div);});
-	var btn2 = drop.select(".fix_memo")[0];
-	if(btn2 != null) {
+	if(drop.select(".fix_memo")[0] != null) {
+		var btn2 = drop.select(".fix_memo")[0];
 		btn2.stopObserving();
-		btn2.observe("click", function(){fix_btn_clicked(textarea, drop_div);});
 	}
 	var btn3 = drop.select(".pin_memo")[0];
 	if(btn3 != null) {
@@ -96,7 +95,7 @@ function New_Memo(){
 	btn2.innerHTML = "제출";
 	div.appendChild(btn2);
 
-	btn2.observe("click", function(){fix_btn_clicked(textarea, div_no);});
+	btn2.observe("click", function(){fix_btn_clicked(textarea, div_no, "write");});
 
 	var btn3 = document.createElement("button");
 	btn3.writeAttribute("type", "submit");
@@ -130,6 +129,14 @@ function del_btn_clicked(textarea, div_no) {
 }
 function removeFeedback(ajax) {
 	var ajaxtext = ajax.responseText;
+	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
+	if(result == "failure") {
+		alert("작성자만 글을 삭제할 수 있습니다.");
+		return;
+	} else if(result == "SQLException") {
+		alert(ajax.responseXML.getElementsByTagName("exception")[0]);
+		return;
+	}
 	var div_no = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
 	var div = $("div_"+div_no);
 	while(div.firstChild != null)
@@ -140,6 +147,10 @@ function removeFeedback(ajax) {
 
 function fix_btn_clicked(textarea, div_no) {
 	var content = textarea.value;
+
+	var btn = $$("#div_"+div_no+">.fix_memo")[0];
+	btn.removeClassName("fix_memo");
+	btn.addClassName("already_done");
 	new Ajax.Request("../../framework/function/writeFeedback.php", {
 		method: "post",
 		parameters: {course: $F("course"), lecture: $F("lecture"), content: content, div_no: div_no},
@@ -155,12 +166,27 @@ function writeFeedback(ajax) {
 		var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
 		$("div_"+div).firstChild.readOnly = true;
 
-		var btn_fix = $$("#div_"+parseInt(div)+">.fix_memo")[0];
-		btn_fix.stopObserving();
-		btn_fix.removeClassName("fix_memo");
-		btn_fix.addClassName("already_done");
+	} else if(result == "SQLException") {
+		alert(ajax.responseXML.getElementsByTagName("exception")[0]);
+		return;
+	}
+}
+function updateFeedback(ajax) {
+	var text = ajax.responseText;
+	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
+	var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
+	if(result == "success") {
+		$("div_"+div).firstChild.readOnly = true;
+	} else if(result == "SQLException") {
+		alert(ajax.responseXML.getElementsByTagName("exception")[0]);
+		return;
 	} else if(result == "failure") {
-		alert("포인트가 부족합니다.");
+		alert("작성자만 글을 수정할 수 있습니다.");
+		if(ajax.responseXML.getElementsByTagName("text")[0].firstChild != null)
+			$("div_"+div).select(".memo_input")[0].innerHTML = ajax.responseXML.getElementsByTagName("text")[0].firstChild.nodeValue;
+		else
+			$("div_"+div).select(".memo_input")[0].innerHTML = "";
+		$("div_"+div).firstChild.readOnly = true;
 	}
 }
 
@@ -188,7 +214,8 @@ function pinFeedback(ajax) {
 		alert("현재 로그인된 계정은 교수계정이 아닙니다.");
 		return;
 	} else if(result == "DataTransitionError") {
-
+		alert("올바르지 않은 정보가 입력되었습니다.");
+		return;
 	} else if(result == "SQLException") {
 		var errormsg = ajax.responseXML.getElementsByTagName("exception")[0].firstChild.nodeValue;
 		alert("errormsg");
@@ -196,10 +223,15 @@ function pinFeedback(ajax) {
 	var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
 	$("div_"+div).firstChild.readOnly = true;
 
-	var btn_fix = $$("#div_"+parseInt(div)+">.pin_memo")[0];
+	var btn_fix = $$("#div_"+div+">.pin_memo")[0];
 	btn_fix.stopObserving();
 	btn_fix.removeClassName("pin_memo");
 	btn_fix.addClassName("already_done");
+	var btn_update = $$("#div_"+div+">.fix_memo")[0];
+	btn_update.stopObserving();
+	btn_update.removeClassName("fix_memo");
+	btn_update.addClassName("already_done");
+
 	var pin_div = $("div_"+parseInt(div));
 	pin_div.addClassName("posted");
 

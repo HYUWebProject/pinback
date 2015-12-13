@@ -32,6 +32,10 @@ if(isset($_REQUEST["feedback_no"]) && $_REQUEST["feedback_no"]!=null &&
 		$msg_tag = $dom_xml->createElement("exception");
 		$msg_tag->appendChild($dom_xml->createTextNode($msg));
 		$resultset->appendChild($msg_tag);
+	} else {
+		$result_tag = $dom_xml->createElement("result");
+		$result_tag->appendChild($dom_xml->createTextNode("failure"));
+		$resultset->appendChild($result_tag);
 	}
 } else {
 	$result_tag = $dom_xml->createElement("result");

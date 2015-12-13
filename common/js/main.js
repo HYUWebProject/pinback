@@ -36,7 +36,7 @@ document.observe("dom:loaded", function() {
 		});
 	});
 //lectureNote load
-	new Ajax.Request("framework/function/lectureNoteRead.php", {
+	new Ajax.Request("../../framework/function/lectureNoteRoad.php", {
 		method: "post",
 		parameters: {type: "lecturecourse"},
 		onSuccess: loadlectureCourseList,
@@ -45,7 +45,7 @@ document.observe("dom:loaded", function() {
 	});
 
 	$("lecturecourse").observe("change", function() {
-		new Ajax.Request("framework/function/lectureNoteRead.php", {
+		new Ajax.Request("../../framework/function/lectureNoteRoad.php", {
 			method: "post",
 			parameters: {lecturecourse: $F("lecturecourse")},
 			onSuccess: loadLecturenumberList,
@@ -55,7 +55,7 @@ document.observe("dom:loaded", function() {
 	});
 
 	$("lecturenumber").observe("change", function() {
-		new Ajax.Request("framework/function/lectureNoteRead.php", {
+		new Ajax.Request("../../framework/function/lectureNoteRoad.php", {
 			method: "post",
 			parameters: {course: $F("lecturecourse"), lecture: $F("lecturenumber")},
 			onSuccess: loadLectureNote,
@@ -275,7 +275,7 @@ function generateFeedbackMemo(memo) {
 	btn2.addClassName("already_done");
 	btn2.addClassName("btn");
 	btn2.addClassName("btn_btn-info");
-	btn2.innerHTML = "제출";
+	btn2.innerHTML = "제";
 	div.appendChild(btn2);
 
 	var btn3 = document.createElement("button");

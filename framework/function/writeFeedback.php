@@ -41,10 +41,6 @@ if(isset($_REQUEST["course"]) && $_REQUEST["course"]!=null && isset($_REQUEST["l
 		$msg_tag = $dom_xml->createElement("exception");
 		$msg_tag->appendChild($dom_xml->createTextNode($msg));
 		$resultset->appendChild($msg_tag);
-	} else {
-		$result_tag = $dom_xml->createElement("result");
-		$result_tag->appendChild($dom_xml->createTextNode("failure"));
-		$resultset->appendChild($result_tag);	
 	}
 } else {
 	$result_tag = $dom_xml->createElement("result");
