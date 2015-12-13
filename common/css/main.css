@@ -56,6 +56,20 @@ header{
 	z-index: 1;
 }
 
+/*
+메인페이지 lecture note label css
+*/
+.lectureNote_label{
+	background-image : url('../../resource/image/label_pin.png');
+	width: 60px;
+	height: 60px;
+	background-size: 100% 100%;
+}
+
+
+
+
+
 #feedbackpage{
 	z-index: 0;
 }
@@ -67,41 +81,17 @@ header{
 #announcementpage{
 	z-index: 4;
 }
-/*
-#notice{
-	background-color: yellow;
-	width : 640px;
-	height : 400px;
-	text-align: center;
-	padding-top : 150px;
-	padding-bottom: 150px;
-	font-size: 20px;
-	margin: auto;
-	font-family: 'Nanum Pen Script';
-}
 
-#post_note{
-	background-color: red;
-	width:400px;
-	height: 500px;
-	float: left;
-}
 
-#post_feedback{
-	width:400px;
-	height: 500px;
-	background-color: blue;
-	float: right;
-}
-*/
+
 .mainpage > div#notice{
-	background-color: yellow;
-	width : 640px;
-	height : 400px;
+	
+	width : 1200px;
+	height : 800px;
 	text-align: center;
-	padding-top : 150px;
+	padding-top : 20px;
 	padding-bottom: 150px;
-	font-size: 20px;
+	font-size: 50px;
 	margin: auto;
 	font-family: 'Nanum Pen Script';
 }
