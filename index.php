@@ -16,6 +16,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['name']) &&
   		<link rel="stylesheet" href="./common/css/bootstrap-theme.min.css">
         <script src="./common/js/prototype.js" type="text/javascript"></script>
         <script src="./common/js/login.js" type="text/javascript"></script>
+        <link src = './resource/image/pin2.jpg' type="image/jpg"/>
     </head>
     <body>
 		<header>
