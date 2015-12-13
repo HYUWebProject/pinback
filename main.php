@@ -116,9 +116,9 @@ require_once("framework/framework.php");
 				<select id="lecturenumber" name = "lecturenumber">
 				</select>
 				
-		    		<input type="file" name="file_name" id="images" multiple />
+		    		<input type="file" name="file_name[]" id="images" multiple />
 		    		<button type="submit" id="btn">Upload Files!</button></br>
-		    		<iframe id = "iframe_upload" name ="iframe_upload" src ="" style = "width:0px,height:0px,border:0px"> </iframe>
+		    		<iframe id = "iframe_upload" name ="iframe_upload" src ="" width="0" height="0" frameborder="0"> </iframe>
 		    	
 
 			</div>
