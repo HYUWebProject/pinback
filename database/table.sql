@@ -81,3 +81,9 @@ create table user_answer (
 	foreign key (userid) references user(id) on delete cascade,
 	foreign key (answered_id) references answer(answered_id) on delete cascade
 	);
+
+create table lecturenote (
+	lecture_id int(4) not null,
+	page int(3) not null,
+	filename varchar(30) not null
+	);
