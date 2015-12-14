@@ -28,7 +28,7 @@
 		function getPageList($lecture_id)
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->prepare("SELECT page FROM lecture WHERE lecture_id = :lecId");
+			$stmt = $pdo->prepare("SELECT page FROM lecturenote WHERE lecture_id = :lecId");
 			$stmt->execute(array(
 				':lecId'=>$lecture_id
 				));

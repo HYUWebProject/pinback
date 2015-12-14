@@ -55,6 +55,7 @@ create table question (
 	asked_id int(10) not null,
 	written_date date not null,
 	content_text text,
+	page int(3),
 	pos_x int(5),
 	pos_y int(5),
 	foreign key (asked_id) references user(id) on delete cascade,
