@@ -162,12 +162,12 @@ document.observe("dom:loaded", function() {
         });
     });
     
-    $("write").observe("click", function() {
+    /*$("write").observe("click", function() {
         alert("click");
         contextMenu.setStyle({
             display: "none"
         });
-    });
+    });*/
 });
 
 function successfind(ajax) {

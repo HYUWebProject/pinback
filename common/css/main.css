@@ -66,8 +66,38 @@ header{
 	background-size: 100% 100%;
 }
 
+.lectureNote_question_imgae{
+	background-image : url('../../resource/image/note_pad.png');
+	background-size: 100% 100%;
+	width: 70%;
+	height: 50%;
+	margin: 177px;
+	margin-top: 50px;
+	border: 0px solid transparent;
+	font-size: 15pt;
+}
 
+.lectureNote_question_textarea{
+	margin-top: 100px;
+	width: 95%;
+	height: 60%;
+	background-color:transparent;
+	border: 0px solid transparent;
+}
 
+.question_button{
+	margin-top: 30px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.lectureNote_label{
+	border: 0px solid transparent;
+}
+
+/*
+메인페이지 lecture note label css
+*/
 
 
 #feedbackpage{
