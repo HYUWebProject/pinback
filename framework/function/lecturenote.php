@@ -18,18 +18,6 @@
 			return $stmt->fetchAll();
 		}
 
-		function getLectureCode($subjCode, $lecDate) // 과목코드와 해당 날짜를 입력받아서 과목코드 리턴
-		{
-			$pdo = Database::getInstance();
-			$stmt = $pdo->prepare("SELECT lecturecode FROM lecture WHERE subjectcode = :subjCode AND lecturedate = :lecDate");
-			$stmt->execute(array(
-				':subjCode'=>$subjCode,
-				':lecDate'=>$lecDate));
-			$temp = $stmt->fetch();
-
-			return $temp['lecturecode'];
-		}
-
 		function getPageList($lecture_id)
 		{
 			$pdo = Database::getInstance();

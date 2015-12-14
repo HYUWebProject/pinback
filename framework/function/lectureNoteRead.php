@@ -42,8 +42,8 @@ function lectureList() {
 function pageList()
 {
 	$db = new LectureNote();
-	$lecture_id = $db->getLectureId($_POST["lecturenumber"]);
-	$page_list = $db->getPageList($_course_id, $lecture_id);
+	$course_id = $db->getCourseId($_POST["lecturecourse"]);
+	$page_list = $db->getPageList($_course_id, $_POST["lecturenumber"]);
 
 	$jsonarray = array();
 
