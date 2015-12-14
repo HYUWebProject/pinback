@@ -153,11 +153,12 @@ require_once("framework/framework.php");
 				</p>
 			</div>
 		</div>
+		<!-- 컨텍스트 메뉴 -->
 		<div id="contextMenu" class="dropdown clearfix">
-	    	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
-      			<li><a tabindex="-1" href="#">Get Coordinate</a></li>
-    		</ul>
-  		</div>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+				<li id="write"><a tabindex="-1" href="#">Write Note</a></li>
+			</ul>
+		</div>
 	    <footer>
         </footer>
     </body>

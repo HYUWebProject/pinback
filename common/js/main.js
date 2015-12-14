@@ -125,6 +125,39 @@ document.observe("dom:loaded", function() {
 	for(var i=0; i<droparray.length; i++) {
 		Droppables.add(droparray[i], {onDrop: MemoSelect});
 	}
+
+	// 여기서부터는 컨텍스트 메뉴 
+	var contextMenu = $("contextMenu");
+    var coordX = 0;
+    var coordY = 0;
+    
+    $("notepage").observe("contextmenu", function(e){
+        e.stop();
+    });
+
+    $("notepage").observe("contextmenu", function(e) {
+        coordX = e.pointerX();
+        coordY = e.pointerY();
+        contextMenu.setStyle({
+            display: "block",
+            left: coordX + "px",
+            top: coordY + "px"
+        });
+        return false;
+    });
+    
+    document.observe("click", function() {
+        contextMenu.setStyle({
+            display: "none"
+        });
+    });
+    
+    $("write").observe("click", function() {
+        alert("click");
+        contextMenu.setStyle({
+            display: "none"
+        });
+    });
 });
 
 function successfind(ajax) {
