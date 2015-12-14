@@ -9,15 +9,10 @@ document.observe("dom:loaded", function() {
             display: "none"
         });
     });
-
 	for(var i = 0 ; i< $$(".lectureNote_label").length ; i++){
-		alert("더블클릭 ");
 		$$(".lectureNote_label")[i].observe("dblclick", generate_question_image);
 	}
-	for(var i = 0 ; i< $$(".question_button").length ; i++){
-		alert("보여보여!");
-		$$(".question_button")[i].observe("click", reVisible_label);
-	}
+	
 
 });
 
@@ -32,21 +27,37 @@ function make_writing_label(x_position, y_position){
     'top' : y_position+'px',
     'border': '0px solid transparent'
 	}); 
-	$("post_note").appendChild(label);		
+	$("post_note").appendChild(label);	
+	$$(".lectureNote_label")[$$(".lectureNote_label").length-1].observe("dblclick", generate_question_image);	
 }
 
 function reVisible_label(){
-	alert("보인다!");
 	for(var i = 0 ; i< $$(".lectureNote_label").length ; i++){
 		$$(".lectureNote_label")[i].setStyle({
 			'visibility': 'visible'
 		});
 	}
+
+}
+
+function remove_Question(){
+	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
+	$("notepage").removeChild(question);
+}
+
+function cancel_Question(){
+	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
+	$("notepage").removeChild(question);
+
+}
+
+function save_Question(){
+	alert("질문을 저장합니다.")
 }
 
 function generate_question_image() {
 	var question = document.createElement("div");
-	question.className="lectureNote_question_imgae";
+	question.className="lectureNote_question_image";
 	$("notepage").appendChild(question);
 	for(var i = 0 ; i< $$(".lectureNote_label").length ; i++){
 		$$(".lectureNote_label")[i].setStyle({
@@ -79,11 +90,20 @@ function generate_question_image() {
 	var btn3 = document.createElement("button");
 	btn3.writeAttribute("type", "submit");
 	btn3.addClassName("question_button");
-	btn2.addClassName("save_question");
+	btn3.addClassName("save_question");
 	btn3.addClassName("btn");
 	btn3.addClassName("btn_btn-info");
 	btn3.innerHTML = "저장";
 	question.appendChild(btn3);
+
+	for(var i = 0 ; i< $$(".question_button").length ; i++){
+		$$(".question_button")[i].observe("click", reVisible_label);
+	}
+
+	$$(".del_question")[0].observe("click", remove_Question);
+	$$(".cancel_question")[0].observe("click", cancel_Question);
+	$$(".save_question")[0].observe("click", save_Question);
+
 
 	/*
 	if(memo["confirm_flag"] == 1) {

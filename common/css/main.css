@@ -64,9 +64,10 @@ header{
 	width: 60px;
 	height: 60px;
 	background-size: 100% 100%;
+	border: 0px solid transparent;
 }
 
-.lectureNote_question_imgae{
+.lectureNote_question_image{
 	background-image : url('../../resource/image/note_pad.png');
 	background-size: 100% 100%;
 	width: 70%;
@@ -89,10 +90,6 @@ header{
 	margin-top: 30px;
 	margin-left: 5px;
 	margin-right: 5px;
-}
-
-.lectureNote_label{
-	border: 0px solid transparent;
 }
 
 /*
