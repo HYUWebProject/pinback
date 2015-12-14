@@ -10,17 +10,22 @@ if (isset($_POST["type"])){
 	}
 	subjectList();
 } else if(isset($_POST["lecturecourse"])) {
-	lectureList();
+	if (isset($_POST["lecturenumber"])) {
+		lectureList();
+	} else {
+		lectureList();
+	}
 }
 function subjectList() {
 	$db = new LectureNote();
-	$courses = $db->getCourseName();
+	$courses = $db->getAllCourseName();
 
 	$jsonarray = array();
 
 	for($i=0; $i<sizeof($courses); $i++) {
 		$jsonarray[$i] = $courses[$i][0];
 	}
+
 	print json_encode($jsonarray);
 }
 
@@ -28,7 +33,6 @@ function lectureList() {
 	$db = new LectureNote();
 	$course_id = $db->getCourseId($_POST["lecturecourse"]);
 	$lecture_list = $db->getLectureList($course_id);
-
 
 	$jsonarray = array();
 
@@ -43,7 +47,7 @@ function pageList()
 {
 	$db = new LectureNote();
 	$course_id = $db->getCourseId($_POST["lecturecourse"]);
-	$page_list = $db->getPageList($_course_id, $_POST["lecturenumber"]);
+	$page_list = $db->getPageList($course_id, $_POST["lecturenumber"]);
 
 	$jsonarray = array();
 
