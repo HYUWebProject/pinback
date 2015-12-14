@@ -83,7 +83,11 @@ create table user_answer (
 	);
 
 create table lecturenote (
+	course_id int(4) not null,
 	lecture_id int(4) not null,
 	page int(3) not null,
 	filename varchar(30) not null
+	foreign key (course_id) references course(course_id) on delete cascade,
+	foreign key (lecture_id) references lecture(lecture_id) on delete cascade,
+	primary key (course_id, lecture_id, page)
 	);

@@ -34,6 +34,22 @@ function lectureList() {
 
 	for($i=0; $i<sizeof($lecture_list); $i++) {
 		$jsonarray[$i] = $lecture_list[$i][0];
+	} 
+
+	print json_encode($jsonarray);
+}
+
+function pageList()
+{
+	$db = new LectureNote();
+	$lecture_id = $db->getLectureId($_POST["lecturenumber"]);
+	$page_list = $db->getPageList($_course_id, $lecture_id);
+
+	$jsonarray = array();
+
+	for ($i = 0; $i < sizeof($page_list); $i++)
+	{
+		$jsonarray[$i] = $page_list[$i][0];
 	}
 
 	print json_encode($jsonarray);

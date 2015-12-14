@@ -1,13 +1,6 @@
 <?php
 	class LectureNote
 	{
-		function getCourseName() {
-			$pdo = Database::getInstance();
-			$stmt = $pdo->prepare("SELECT title FROM course");
-			$stmt->execute();
-			
-			return $stmt->fetchAll();
-		}
 		function getCourseId($title) // 과목 이름을 받아서 과목 코드를 리턴
 		{
 			$pdo = Database::getInstance();
@@ -24,6 +17,7 @@
 			
 			return $stmt->fetchAll();
 		}
+
 		function getLectureCode($subjCode, $lecDate) // 과목코드와 해당 날짜를 입력받아서 과목코드 리턴
 		{
 			$pdo = Database::getInstance();
@@ -34,6 +28,15 @@
 			$temp = $stmt->fetch();
 
 			return $temp['lecturecode'];
+		}
+
+		function getPageList($lecture_id)
+		{
+			$pdo = Database::getInstance();
+			$stmt = $pdo->prepare("SELECT page FROM lecture WHERE lecture_id = :lecId");
+			$stmt->execute(array(
+				':lecId'=>$lecture_id
+				));
 		}
 
 		function getQuestionNo($subjCode, $lecCode)

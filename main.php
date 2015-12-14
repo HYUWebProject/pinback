@@ -31,7 +31,6 @@ require_once("framework/framework.php");
 		<script src="./common/js/scriptaculous.js"></script>
 		<script src="./common/js/main.js"></script>
 		<script src="./common/js/board_grade.js"></script>
-		<script src="./common/js/contextMenu.js" type="text/javascript"></script>
 		<script src="./common/js/lecturenote_label.js" type="text/javascript"></script> <!-- lecture note label 추가-->
 		<script src="./common/js/upload.js" type="text/javascript"></script>
 
@@ -109,18 +108,21 @@ require_once("framework/framework.php");
 		<div id="notepage" class="mainpage">
 			<div id="post_note">
 				&#60;Select lecture Note&#62;
+				
 				Course : 
 				<select id="lecturecourse" name = "lecturecourse">
 				</select>
+
 				Lecture # : 
 				<select id="lecturenumber" name = "lecturenumber">
 				</select>
-				
-		    		<input type="file" name="file_name[]" id="images" multiple />
-		    		<button type="submit" id="btn">Upload Files!</button></br>
-		    		<iframe id = "iframe_upload" name ="iframe_upload" src ="" width="0" height="0" frameborder="0"> </iframe>
-		    	
 
+				Page # :
+				<select id="pagenumber" name="pagenumber">
+				</select>
+	    		<input type="file" name="file_name[]" id="images" multiple />
+	    		<button type="submit" id="btn">Upload Files!</button></br>
+	    		<iframe id = "iframe_upload" name ="iframe_upload" src ="" width="0" height="0" frameborder="0"> </iframe>
 			</div>
 		</div>
 		</form>
