@@ -35,8 +35,8 @@ document.observe("dom:loaded", function() {
 			onException: onFailed
 		});
 	});
-//lectureNote load
-	new Ajax.Request("../../framework/function/lectureNoteRoad.php", {
+	//lectureNote load
+	new Ajax.Request("../../framework/function/lectureNoteRead.php", {
 		method: "post",
 		parameters: {type: "lecturecourse"},
 		onSuccess: loadlectureCourseList,
@@ -45,7 +45,7 @@ document.observe("dom:loaded", function() {
 	});
 
 	$("lecturecourse").observe("change", function() {
-		new Ajax.Request("../../framework/function/lectureNoteRoad.php", {
+		new Ajax.Request("../../framework/function/lectureNoteRead.php", {
 			method: "post",
 			parameters: {lecturecourse: $F("lecturecourse")},
 			onSuccess: loadLecturenumberList,
@@ -54,16 +54,26 @@ document.observe("dom:loaded", function() {
 		});
 	});
 
-	$("lecturenumber").observe("change", function() {
-		new Ajax.Request("../../framework/function/lectureNoteRoad.php", {
+	$("pagenumber").observe("change", function() {
+		new Ajax.Request(("../../framework/function/lectureNoteRead.php"), {
 			method: "post",
-			parameters: {course: $F("lecturecourse"), lecture: $F("lecturenumber")},
+			parameters: {lecturecourse: $F("lecturecourse"), lecture: $F("lecturenumber")},
+			onSuccess: loadPageList,
+			onFaiure: onFailed,
+			onException: onException
+		});
+	});
+
+	$("pagenumber").observe("change", function() {
+		new Ajax.Request("../../framework/function/lectureNoteRead.php", {
+			method: "post",
+			parameters: {course: $F("lecturecourse"), lecture: $F("lecturenumber"), page: $F("pagenumber")},
 			onSuccess: loadLectureNote,
 			onFailure: onFailed,
 			onException: onFailed
 		});
 	});
-
+	
 	var pageArray = $$(".mainpage:not(#firstpage)");
 	for(var i=0; i<pageArray.length; i++)
 		pageArray[i].setStyle({display: "none"});
@@ -88,7 +98,7 @@ document.observe("dom:loaded", function() {
 	});
 
 	//네비게이션 맨 앞의 pinback글씨를 누르면 맨 앞 페이지로 이
-	$(".navbar-brand")[0].observe("click", function() {
+	$$(".navbar-brand")[0].observe("click", function() {
 		$("firstpage").setStyle({display: "block"});
 		var temparray = $$(".mainpage:not(#firstpage)");
 		for(var j=0; j<temparray.length; j++)
@@ -125,6 +135,39 @@ document.observe("dom:loaded", function() {
 	for(var i=0; i<droparray.length; i++) {
 		Droppables.add(droparray[i], {onDrop: MemoSelect});
 	}
+
+	// 여기서부터는 컨텍스트 메뉴 
+	var contextMenu = $("contextMenu");
+    var coordX = 0;
+    var coordY = 0;
+    
+    $("notepage").observe("contextmenu", function(e){
+        e.stop();
+    });
+
+    $("notepage").observe("contextmenu", function(e) {
+        coordX = e.pointerX();
+        coordY = e.pointerY();
+        contextMenu.setStyle({
+            display: "block",
+            left: coordX + "px",
+            top: coordY + "px"
+        });
+        return false;
+    });
+    
+    document.observe("click", function() {
+        contextMenu.setStyle({
+            display: "none"
+        });
+    });
+    
+    /*$("write").observe("click", function() {
+        alert("click");
+        contextMenu.setStyle({
+            display: "none"
+        });
+    });*/
 });
 
 function successfind(ajax) {
@@ -310,6 +353,20 @@ function loadLecturenumberList(ajax) {
 		var option = document.createElement("option");
 		option.innerHTML = lecture_list[i];
 		$("lecturenumber").appendChild(option);
+	}
+}
+
+function loadPageList(ajax)
+{
+	while ($("pagenumber").firstChild != null)
+		$("pagenumber").removeChild($("pagenumber").firstChild);
+
+	var page_list = JSON.parse(ajax.responseText);
+
+	for (var i=0; i < page_list.length; i++) {
+		var option = document.createElement("option");
+		option.innerHTML = page_list[i];
+		$("pagenumber").appendChild(option);
 	}
 }
 
