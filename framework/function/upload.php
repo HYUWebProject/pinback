@@ -1,4 +1,5 @@
 <?php
+require_once("../framework.php");
 //echo "<script>alert("hi"); </script>";
 /*$uploaddir = "/lecturenote/";
 
@@ -9,16 +10,15 @@ $upload_result = "FAIL";
 if(move_uploaded_file($_FILE['file_name']['tmp_name'], $uploadfile)){
     $upload_result = "SUCCESS";
 }*/
-    $i =0;
-    echo $_FILES["file_name"]["name"][0];
-while ( $_FILES["file_name"]["name"][$i]){
+    
+//while ( $_FILES["file_name"]["name"][$i]){
     
     $target_dir = "../../lecturenote/";
     //$newfilename="aaa.";
-    $temp= explode(".", $_FILES["file_name"]["name"][$i]);
+    $temp= explode(".", $_FILES["file_name"]["name"]);
     //echo $temp[1];
     echo $_POST["lecturecourse"]."_".$_POST["lecturenumber"];
-    $newfilename = $_POST["lecturecourse"]."_".$_POST["lecturenumber"]."_".$i.'.'.end($temp);//round(microtime(true)) . '.' . end($temp);//// //filename 
+    $newfilename = $_POST["lecturecourse"]."_".$_POST["lecturenumber"]."_".$_POST["input_page"].'.'."jpg";//round(microtime(true)) . '.' . end($temp);//// //filename 
     $uploadOk = 1;
     $imageFileType = $temp[1];
 
@@ -38,17 +38,21 @@ while ( $_FILES["file_name"]["name"][$i]){
         echo "Sorry, your file was not uploaded.";
     // if everything is ok, try to upload file
     } else {
-        if (move_uploaded_file($_FILES["file_name"]["tmp_name"][$i], $target_dir . $newfilename)){
+        if (move_uploaded_file($_FILES["file_name"]["tmp_name"], $target_dir . $newfilename)){
             $upload_result = "SUCCESS";
-            echo "The file ". basename( $_FILES["file_name"]["name"][$i]). " has been uploaded.";
+            echo "The file ". basename( $_FILES["file_name"]["name"]). " has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
         }
     }
+    
+    $db = new LectureNote();
+    $c_id = $db ->getCourseId($_POST["lecturecourse"]);
+    $result = $db -> insertPage($c_id,$_POST["lecturenumber"],$_POST["input_page"],$newfilename);
+    
     echo json_encode(
-        array("result"=>$upload_result,"error"=>$_FILE['file_name']['error'][$i])
+        array("result"=>$upload_result,"error"=>$_FILE['file_name']['error'])
         );
-    $i++;
-}
+
 ?>
 

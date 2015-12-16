@@ -11,7 +11,10 @@ if (isset($_POST["type"])){
 	subjectList();
 } else if(isset($_POST["lecturecourse"])) {
 	if (isset($_POST["lecturenumber"])) {
-		lectureList();
+		if(isset($_POST["page"]))
+			loadimage();
+		else
+			pageList();
 	} else {
 		lectureList();
 	}

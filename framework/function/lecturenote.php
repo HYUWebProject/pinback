@@ -25,11 +25,12 @@
 			return $stmt->fetchAll();
 		}
 
-		function getPageList($lecture_id)
+		function getPageList($course_id, $lecture_id)
 		{
 			$pdo = Database::getInstance();
-			$stmt = $pdo->prepare("SELECT page FROM lecturenote WHERE lecture_id = :lecId");
+			$stmt = $pdo->prepare("SELECT page FROM lecturenote WHERE course_id = :courId and lecture_id = :lecId");
 			$stmt->execute(array(
+				':courId'=>$course_id,
 				':lecId'=>$lecture_id
 				));
 			return $stmt->fetchAll();

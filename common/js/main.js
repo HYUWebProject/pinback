@@ -54,13 +54,13 @@ document.observe("dom:loaded", function() {
 		});
 	});
 
-	$("pagenumber").observe("change", function() {
+	$("lecturenumber").observe("change", function() {
 		new Ajax.Request(("../../framework/function/lectureNoteRead.php"), {
 			method: "post",
 			parameters: {lecturecourse: $F("lecturecourse"), lecturenumber: $F("lecturenumber")},
 			onSuccess: loadPageList,
 			onFaiure: onFailed,
-			onException: onException
+			onException: onFailed
 		});
 	});
 
