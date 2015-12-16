@@ -126,7 +126,7 @@ header{
 
 /* 메모지 css*/
 
-#feedback_nav {
+.select_nav {
 	background-color : #E9E9AB;
 	margin-right: 5%;
 	margin-left: 5%;

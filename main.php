@@ -106,9 +106,7 @@ require_once("framework/framework.php");
 		<!-- 강의노트 질의응답페이 -->
 		<form id= "upload_form" method="post" enctype="multipart/form-data" action="./framework/function/upload.php">
 		<div id="notepage" class="mainpage">
-			<div id="post_note">
-				&#60;Select lecture Note&#62;
-				
+			<div id="post_note" class="select_nav">				
 				Course : 
 				<select id="lecturecourse" name = "lecturecourse">
 				</select>
@@ -129,7 +127,7 @@ require_once("framework/framework.php");
 
 		<!-- 피드백화면 -->
 		<div id="feedbackpage" class="mainpage">
-			<div id="feedback_nav">
+			<div id="feedback_nav" class="select_nav">
 				Course : 
 				<select id="course">
 				</select>
