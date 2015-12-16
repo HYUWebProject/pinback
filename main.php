@@ -114,10 +114,10 @@ require_once("framework/framework.php");
 					input page #:
 					<input type = "text" name ="input_page" id = "input_page"/> 
 		    		<input type="file" name="file_name" id="images" multiple />
-		    		<button type="submit" id="btn">Upload Files!</button></br>
-		    		
+		    		<button type="submit" id="uploadbutton">Upload Files!</button></br>
+		    		<iframe id = "iframe_upload" name ="iframe_upload" src ="" width="0" height="0" frameborder="0"> </iframe>
 				</div>
-				<iframe id = "iframe_upload" name ="iframe_upload" src ="" width="0" height="0" frameborder="1"> </iframe>
+				
 				<div id = "lecture_image">
 				</div>
 			</div>
