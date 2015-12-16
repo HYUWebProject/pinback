@@ -23,27 +23,10 @@ if(isset($_REQUEST["course"]) && $_REQUEST["course"]!=null && isset($_REQUEST["l
 		$result_tag = $dom_xml->createElement("result");
 		$result_tag->appendChild($dom_xml->createTextNode("SQLException"));
 		$resultset->appendChild($result_tag);
-
-		$msg = $result->getMessage();
-		$msg_tag = $dom_xml->createElement("exception");
-		$msg_tag->appendChild($dom_xml->createTextNode($msg));
-		$resultset->appendChild($msg_tag);
 	} else {
 		$result_tag = $dom_xml->createElement("result");
 		$result_tag->appendChild($dom_xml->createTextNode("success"));
 		$resultset->appendChild($result_tag);
-
-		$test_tag = $dom_xml->createElement("text");
-		$test_tag->appendChild($dom_xml->createTextNode($_REQUEST['content']));
-		$resultset->appendChild($test_tag);
-
-		$div_tag = $dom_xml->createElement("div");
-		$div_tag->appendChild($dom_xml->createTextNode($_REQUEST['div_no']));
-		$resultset->appendChild($div_tag);
-
-		$no_tag = $dom_xml->createElement("no");
-		$no_tag->appendChild($dom_xml->createTextNode($result));
-		$resultset->appendChild($no_tag);		
 	}
 } else {
 	$result_tag = $dom_xml->createElement("result");

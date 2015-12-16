@@ -17,8 +17,6 @@ document.observe("dom:loaded", function() {
 	for(var i = 0 ; i< $$(".lectureNote_label").length ; i++){
 		$$(".lectureNote_label")[i].observe("dblclick", generate_question_image);
 	}
-	
-
 });
 
 
@@ -36,7 +34,8 @@ function make_writing_label(x_position, y_position){
 		label.name = ""+ $$(".lectureNote_question_image").length-1;
 	}
 	$("post_note").appendChild(label);
-	$$(".lectureNote_label")[$$(".lectureNote_label").length-1].observe("dblclick", generate_question_image);	
+	$$(".lectureNote_label")[$$(".lectureNote_label").length-1].observe("dblclick", generate_question_image);
+	generate_question_image();	
 }
 
 function reVisible_label(){
@@ -50,14 +49,16 @@ function reVisible_label(){
 
 function remove_Question(){
 	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
-	var pin = $$("#post_note>div:last-child")[0];
+	
 	$("notepage").removeChild(question);
-	$("post_note").removeChild(pin);
+	
 }
 
 function cancel_Question(){
 	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
+	var pin = $$("#post_note>div:last-child")[0];
 	$("notepage").removeChild(question);
+	$("post_note").removeChild(pin);
 }
 
 function save_Question(){
