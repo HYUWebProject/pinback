@@ -15,20 +15,22 @@ document.observe("dom:loaded", function() {
         });
     });
 	for(var i = 0 ; i< $$(".lectureNote_label").length ; i++){
-		$$(".lectureNote_label")[i].observe("dblclick", generate_question_image);
+		var curLabel = $$(".lectureNote_label")[i];
+		curLabel.observe("dblclick", function() {
+			loadQuestion(curLabel.getAttribute("order"));
+		});
 	}
 });
-
-
 
 function make_writing_label(x_position, y_position){
 	var label = document.createElement("div");
 	label.className = "lectureNote_label";
+	label.setAttribute("order", generateNumber());
 	label.setStyle({
-    'position': 'absolute',
-    'left': x_position+'px',
-    'top' : y_position+'px',
-    'border': '0px solid transparent'
+	    'position': 'absolute',
+	    'left': x_position+'px',
+	    'top' : y_position+'px',
+	    'border': '0px solid transparent'
 	}); 
 	if($$(".lectureNote_label").length >= 1){
 		label.name = ""+ $$(".lectureNote_question_image").length-1;
@@ -36,6 +38,15 @@ function make_writing_label(x_position, y_position){
 	$("post_note").appendChild(label);
 	$$(".lectureNote_label")[$$(".lectureNote_label").length-1].observe("dblclick", generate_question_image);
 	generate_question_image();	
+}
+
+function generateNumber()
+{
+	new Ajax.Request("../../framework/function/lectureNoteRead.php", {
+		method: "post",
+		parameters: {type: "order"}
+	});
+	alert(Ajax.responseText);
 }
 
 function reVisible_label(){
@@ -131,14 +142,9 @@ function generate_question_image() {
 	$$(".del_question")[0].observe("click", remove_Question);
 	$$(".cancel_question")[0].observe("click", cancel_Question);
 	$$(".save_question")[0].observe("click", save_Question);
+}
 
-
-	/*
-	if(memo["confirm_flag"] == 1) {
-		div.addClassName("posted");
-	} else {
-		new Draggable(div,{revert: true});
-	}
-	*/
-
+function loadQuestion(order)
+{
+	alert(order);
 }

@@ -6,7 +6,7 @@
  	}
  }
 
- function uplead_finish(){
+ function upload_finish(){
 
  	var result = frames["iframe_upload"].document.body.innerHTML;
  	var parse = eval("("+result+")");

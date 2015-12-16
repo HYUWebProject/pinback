@@ -1,6 +1,12 @@
 <?php
 	class LectureNote
 	{
+		function getLastNum() {
+			$pdo = Database::getInstance();
+			$stmt = $pdo->prepare("SELECT max(question_id) FROM question");
+
+			return $stmt->fetch();
+		}
 		function getAllCourseName() {
 			$pdo = Database::getInstance();
 			$stmt = $pdo->prepare("SELECT title FROM course");
