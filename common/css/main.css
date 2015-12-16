@@ -16,6 +16,16 @@ header{
     text-align: center;
 }
 
+form *{
+	float: left;
+}
+form {
+	margin-left: 200px;
+	margin-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
 #login_logo{
 
 	height: 100px;
