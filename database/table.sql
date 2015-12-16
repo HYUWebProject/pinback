@@ -3,6 +3,7 @@ drop table if exists answer;
 drop table if exists takesteaches;
 drop table if exists question;
 drop table if exists feedback;
+drop table if exists lecturenote;
 drop table if exists lecture;
 drop table if exists course;
 drop table if exists user;
@@ -83,7 +84,7 @@ create table user_answer (
 	);
 
 create table lecturenote (
-	course_id int(4) not null,
+	course_id varchar(4) not null,
 	lecture_id int(4) not null,
 	page int(3) not null,
 	filename varchar(30) not null,
