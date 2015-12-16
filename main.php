@@ -18,9 +18,9 @@ require_once("framework/framework.php");
         <title>메인 페이지</title>
         <meta charset="utf-8" >
         <link rel="stylesheet" href ="./common/css/main.css"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="./common/css/font-awesome.min.css">
+        <link rel="stylesheet" href="./common/css/bootstrap.min.css">
+  		<link rel="stylesheet" href="./common/css/bootstrap-theme.min.css">
 		<link href="./common/css/contextMenu.css" rel="stylesheet" type="text/css" />
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="./common/js/jquery-1.11.3.min.js"></script>
