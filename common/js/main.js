@@ -57,7 +57,7 @@ document.observe("dom:loaded", function() {
 	$("pagenumber").observe("change", function() {
 		new Ajax.Request(("../../framework/function/lectureNoteRead.php"), {
 			method: "post",
-			parameters: {lecturecourse: $F("lecturecourse"), lecture: $F("lecturenumber")},
+			parameters: {lecturecourse: $F("lecturecourse"), lecturenumber: $F("lecturenumber")},
 			onSuccess: loadPageList,
 			onFaiure: onFailed,
 			onException: onException
@@ -67,7 +67,7 @@ document.observe("dom:loaded", function() {
 	$("pagenumber").observe("change", function() {
 		new Ajax.Request("../../framework/function/lectureNoteRead.php", {
 			method: "post",
-			parameters: {course: $F("lecturecourse"), lecture: $F("lecturenumber"), page: $F("pagenumber")},
+			parameters: {lecturecourse: $F("lecturecourse"), lecturenumber: $F("lecturenumber"), page: $F("pagenumber")},
 			onSuccess: loadLectureNote,
 			onFailure: onFailed,
 			onException: onFailed
@@ -339,12 +339,16 @@ function loadPageList(ajax)
 }
 
 function loadLectureNote(ajax){
-	var _img = document.getElementById('id1');
-	var newImg = new Image;
-	newImg.onload = function() {
-	    _img.src = this.src;
-	}
-	newImg.src = 'http://whatever';
+	while($("lecture_image").firstChild != null)
+		$("lecture_image").removeChild($("lecture_image").firstChild);
+	//alert(JSON.parse(ajax.responseText));
+	var url = JSON.parse(ajax.responseText);
+	//alert(url);
+	//alert(JSON.parse(ajax.responseText));
+	//$("iframe_upload").innerHTML = "";
+	var image = document.createElement("img");
+	image.src = url;
+	$("lecture_image").appendChild(image);
 }
 
 function modifyPassword(ajax) {

@@ -34,6 +34,22 @@
 				));
 			return $stmt->fetchAll();
 		}
+		function insertPage($course_id,$lecture_id,$page,$filename){
+			try {
+				$pdo = Database::getInstance();
+				$stmt = $pdo->prepare("INSERT INTO lecturenote VALUES(:course_id, :lecture_id, :page, :filename)");
+				$stmt->execute(array(
+					':course_id'=>$course_id,
+					':lecture_id'=>$lecture_id,
+					':page'=>$page,
+					':filename'=>$filename
+				));
+				return 1;
+			} catch(Exception $e) {
+				return $e;
+			}
+
+		}
 		function getContent($subjectCode, $lectureCode, $pageNumber)
 		{
 			$pdo = Database::getInstance();
