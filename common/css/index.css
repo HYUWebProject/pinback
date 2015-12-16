@@ -8,16 +8,15 @@ body{
 	background-attachment: fixed;
 	font-family: Brown, Verdana, sans-serif;
    	text-align : center;
-   
    	position : relative;
    	margin:0;
  }
 
 header{
     
-    height: 100px;
+    height: 80px;
     position : relative;
-	border-top: 4px dashed black;
+	
 }
 
 
@@ -57,8 +56,9 @@ header{
 
 footer{
  	position : relative;
-    height: 100px;
+    height: 80px;
     margin-top: 30px;
-    border-bottom: 4px dashed black;
+   
+   
 }
 

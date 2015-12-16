@@ -15,12 +15,12 @@
 			<img src="./resource/image/loginlogo.png" alt="logo" width="100px" height="60px" />
         </header>
     	<div id="join_logo">
-    		<p>회 원 가 입</P>
+    		<img src="./resource/image/joinlogo.png" alt="logo" width="600px" height="200px" />
     	</div>
         <div id="join_window">
 	        <form id="joinform" name="join_form" method="post" font="12px">
 	        	
-	        	<p><input id="name" class="id_pw_input" type="text" name="user_name" placeholder= " name "/></p>
+	        	<p><input id="name" class="id_pw_input" type="text" name="user_name" placeholder= " Name "/></p>
 	            <p><input id="id" class="id_pw_input" type="text" name="user_id" placeholder= " student ID "/></p>
 	            <p><input id="pass" class="id_pw_input" type="password" name="user_pass" placeholder= " Password " /></p>
 	            <div class="option">
@@ -28,7 +28,7 @@
 	            	학생<input type="radio" name="vocation" value="student"/>
 	            </div>
 	      		  </br>
-	            <button id="submit" class="btn btn-info">제 출</button>
+	            <button id="submit" class="btn btn-info">가 입</button>
 				<button id="cancel" class="btn btn-info">취 소</button>
 	        </form>    
 	    </div>

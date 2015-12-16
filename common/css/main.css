@@ -127,11 +127,10 @@ header{
 /* 메모지 css*/
 
 #feedback_nav {
-	background-color: white;
+	background-color : #E9E9AB;
 	margin-right: 5%;
 	margin-left: 5%;
 	margin-bottom: 15px;
-
 	padding: 10px;
 }
 
