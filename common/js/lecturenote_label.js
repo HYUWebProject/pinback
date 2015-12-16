@@ -2,8 +2,8 @@
 //lecture note label 붙는 부분 
 document.observe("dom:loaded", function() {
 	$("write").observe("click", function() {
-        var write_left = event.pointerX();
-        var write_top = event.pointerY();
+        var write_left = event.pointerX()-60;
+        var write_top = event.pointerY()-60;
         make_writing_label(write_left,write_top);
         contextMenu.setStyle({
             display: "none"
@@ -27,7 +27,10 @@ function make_writing_label(x_position, y_position){
     'top' : y_position+'px',
     'border': '0px solid transparent'
 	}); 
-	$("post_note").appendChild(label);	
+	if($$(".lectureNote_label").length >= 1){
+		label.name = ""+ $$(".lectureNote_question_image").length-1;
+	}
+	$("post_note").appendChild(label);
 	$$(".lectureNote_label")[$$(".lectureNote_label").length-1].observe("dblclick", generate_question_image);	
 }
 
@@ -52,13 +55,18 @@ function cancel_Question(){
 }
 
 function save_Question(){
-	alert("질문을 저장합니다.")
+	var question_textarea = $$(".lectureNote_question_textarea")[$$(".lectureNote_question_textarea").length-1];
+	alert(question_textarea);
+	question_textarea.innerHTML = ""+question_textarea.value;
 }
 
 function generate_question_image() {
 	var question = document.createElement("div");
 	question.className="lectureNote_question_image";
 	$("notepage").appendChild(question);
+
+	question.name = ""+ $$(".lectureNote_question_image").length-1;
+
 	for(var i = 0 ; i< $$(".lectureNote_label").length ; i++){
 		$$(".lectureNote_label")[i].setStyle({
 			'visibility': 'hidden'
