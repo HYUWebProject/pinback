@@ -17,7 +17,7 @@ require_once("framework/framework.php");
     <head>
         <title>메인 페이지</title>
         <meta charset="utf-8" >
-        <link rel="stylesheet" href ="./common/css/main.css"/>
+        <link rel="stylesheet" href="./common/css/main.css"/>
         <link rel="stylesheet" href="./common/css/font-awesome.min.css">
         <link rel="stylesheet" href="./common/css/bootstrap.min.css">
   		<link rel="stylesheet" href="./common/css/bootstrap-theme.min.css">
