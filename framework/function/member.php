@@ -21,7 +21,7 @@
 
 			$pdo = Database::getInstance();
 			$hashedPassword = sha1($password);
-			$stmt = $pdo->prepare("INSERT INTO user VALUES(:id, :name, :password, :level)");
+			$stmt = $pdo->prepare("INSERT INTO user (id, name, password, level) VALUES(:id, :name, :password, :level)");
 			try {
 				$stmt->execute(array(
 					':id'=>$id,
