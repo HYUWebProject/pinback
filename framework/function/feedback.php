@@ -67,6 +67,7 @@
 		// content는 폼에서 입력하는거 받아오면 될듯!
 		function writeFeedback($course, $lecture_id, $contents, $div_no) {
 			$pdo = Database::getInstance();
+			$date = date('Y-m-d H:i:s');
 			try {
 				$course_id = $this->getCourseId($course);
 				$stmt = $pdo->prepare("INSERT INTO feedback (written_id, course_id, lecture_id, content_text, written_date, confirm_flag, div_no)
@@ -76,7 +77,7 @@
 					':course_id'=>$course_id,
 					':lecture_id'=>$lecture_id,
 					':content_text'=>$contents,
-					':written_date'=>date('Y-m-d H:i:s'),
+					':written_date'=>$date,
 					':confirm_flag'=>0,
 					':div_no'=>$div_no
 				));
@@ -84,7 +85,11 @@
 				$stmt = $pdo->prepare("UPDATE user SET `point` = `point` + 10 WHERE id = :id");
 				$stmt->execute(array(':id'=>$_SESSION['id']));
 				$_SESSION['point'] += 10;
-				return true;
+
+				$stmt = $pdo->prepare("SELECT max(feedback_no) as maxi FROM feedback");
+				$stmt->execute();
+				$result = $stmt->fetch();
+				return $result["maxi"];
 			} catch (Exception $e) {
 				return $e;
 			}

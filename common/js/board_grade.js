@@ -170,30 +170,16 @@ function writeFeedback(ajax) {
 	var text = ajax.responseText;
 	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
 	if(result == "success") {
+		var addNo = ajax.responseXML.getElementsByTagName("no")[0].firstChild.nodeValue;
 		var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
+		var textarea_text = $("div_"+div).firstChild.value;
+		textarea_text = "No. "+addNo+"\n"+textarea_text;
+		$("div_"+div).firstChild.value = textarea_text;
 		$("div_"+div).firstChild.readOnly = true;
 
 	} else if(result == "SQLException") {
 		alert(ajax.responseXML.getElementsByTagName("exception")[0]);
 		return;
-	}
-}
-function updateFeedback(ajax) {
-	var text = ajax.responseText;
-	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
-	var div = ajax.responseXML.getElementsByTagName("div")[0].firstChild.nodeValue;
-	if(result == "success") {
-		$("div_"+div).firstChild.readOnly = true;
-	} else if(result == "SQLException") {
-		alert(ajax.responseXML.getElementsByTagName("exception")[0]);
-		return;
-	} else if(result == "failure") {
-		alert("작성자만 글을 수정할 수 있습니다.");
-		if(ajax.responseXML.getElementsByTagName("text")[0].firstChild != null)
-			$("div_"+div).select(".memo_input")[0].innerHTML = ajax.responseXML.getElementsByTagName("text")[0].firstChild.nodeValue;
-		else
-			$("div_"+div).select(".memo_input")[0].innerHTML = "";
-		$("div_"+div).firstChild.readOnly = true;
 	}
 }
 
