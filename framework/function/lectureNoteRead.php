@@ -6,6 +6,10 @@ if (isset($_POST["type"])){
 	$type = $_POST["type"];
 	if ($type == "order"){
 		getLastNum();
+	} else if ($type == "getpin") {
+		getPin();
+	} else if ($type == "load") {
+		loadNote();
 	}
 	else if($type != "lecturecourse"){
 		header("HTTP/1.1 400 Invalid Request");
@@ -14,8 +18,9 @@ if (isset($_POST["type"])){
 	subjectList();
 } else if(isset($_POST["lecturecourse"])) {
 	if (isset($_POST["lecturenumber"])) {
-		if(isset($_POST["page"]))
-			loadimage();
+		if(isset($_POST["page"])){
+			loadimage();			
+		}
 		else
 			pageList();
 	} else {
@@ -75,6 +80,35 @@ function pageList()
 	{
 		$jsonarray[$i] = $page_list[$i][0];
 	}
+
+	print json_encode($jsonarray);
+}
+
+function getPin() {
+	$db = new LectureNote();
+	$course_id = $db->getCourseId($_POST["lecturecourse"]);
+
+	$contentArray = $db->getContent($course_id, $_POST["lecturenumber"], $_POST["pagenumber"]);
+	$tmpArray = array();
+
+	for ($i = 0; $i < sizeof($contentArray); $i++) {
+		$tmpArray[$i] = array();
+		$tmpArray[$i]["question_id"] = $contentArray[0];
+		$tmpArray[$i]["content"] = $contentArray[5];
+		$tmpArray[$i]["posX"] = $contentArray[7];
+		$tmpArray[$i]["posY"] = $contentArray[8];
+	}
+
+	print json_encode($tmpArray);
+}
+
+function loadNote() {
+	$db = new LectureNote();
+	$course_id = $db->getCourseId($_POST["lecturecourse"]);
+	$note = $db->getNote($_POST["order"]);
+
+	$jsonarray = array();
+	$jsonarray[0]["content"] = $contentArray[5];
 
 	print json_encode($jsonarray);
 }

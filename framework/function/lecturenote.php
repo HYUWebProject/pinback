@@ -1,6 +1,14 @@
 <?php
 	class LectureNote
 	{
+		function getNote($order) {
+			$pdo = Database::getInstance();
+			$stmt= $pdo->prepare("SELECT * FROM question WHERE question_id = :id");
+
+			$stmt->extcute(array(':id'=>$order));
+
+			return $stmt->fetchAll();
+		}
 		function getLastNum() {
 			$pdo = Database::getInstance();
 			$stmt = $pdo->prepare("SELECT max(question_id) FROM question");
