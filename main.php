@@ -3,13 +3,11 @@ require_once("framework/framework.php");
 ?>
 <!DOCTYPE html>
 <?php
-/*
 	if(!isset($_SESSION['id']) || !isset($_SESSION['name'])) {
 		echo "<meta http-equiv='refresh' content='0;url=/index.php'>";
 		echo "<script>alert(\"로그인 정보가 없습니다. 로그인창으로 이동합니다.\");</script>";
 		exit;
 	}
-	*/
 	$pin_id = $_SESSION["id"];
 	$pin_name = $_SESSION["name"];
 	$pin_level = $_SESSION["level"];
