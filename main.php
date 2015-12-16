@@ -82,12 +82,6 @@ require_once("framework/framework.php");
 		          </ul>
 		        </li>
 		      </ul>
-		      <form class="navbar-form navbar-left" role="search">
-		        <div class="form-group">
-		          <input type="text" class="form-control" placeholder="Search">
-		        </div>
-		        <button type="submit" class="btn btn-default">Submit</button>
-		      </form>
 		      <ul class="nav navbar-nav navbar-right">
 		      	<li><a id="user_name"><?=$_SESSION['name']?>님,</a></li>
 		      	<li><a id="logout" href="#">Logout</a></li>
