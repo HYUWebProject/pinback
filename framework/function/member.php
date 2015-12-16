@@ -67,7 +67,8 @@
     		}
 		}
 
-		function modifyPassword($id, $pw) {
+		function modifyPassword($pw) {
+			$id = $_SESSION['id'];
 			$pdo = Database::getInstance();
     		$newPassword = sha1($pw);
     		$stmt = $pdo->prepare("UPDATE user SET password = :newPassword WHERE id = :id");

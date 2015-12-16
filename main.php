@@ -91,7 +91,7 @@ require_once("framework/framework.php");
 		      <ul class="nav navbar-nav navbar-right">
 		      	<li><a id="user_name"><?=$_SESSION['name']?>님,</a></li>
 		      	<li><a id="logout" href="#">Logout</a></li>
-		        <li><a id="manage" href="#">계정관리</a></li>
+		        <li><a id="changepw" href="#">비밀번호 변경</a></li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
@@ -149,10 +149,9 @@ require_once("framework/framework.php");
 		<!-- 계정관리 페이지 -->
 		<div id="managepage" class="mainpage">
 			<div id="management">
-				<p>
-					계정설정 화면.
+				<div class="manage_div">
 					<button id="changepw">비밀번호 변경</button>
-				</p>
+				</div>
 			</div>
 		</div>
 		<!-- 컨텍스트 메뉴 -->

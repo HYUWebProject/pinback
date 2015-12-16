@@ -85,18 +85,6 @@ document.observe("dom:loaded", function() {
 		window.location.href = "index.php";
 	});
 
-	//패스워드 변경기능 추가
-	$("changepw").observe("click", function() {
-		var id = prompt("학번을 입력해주세요.", "");
-		new Ajax.Request("../../framework/function/findID.php", {
-			method: "post",
-			parameters: {id: id},
-			onSuccess: successfind,
-			onFailure: onFailed,
-			onException: onFailed
-		});
-	});
-
 	//네비게이션 맨 앞의 pinback글씨를 누르면 맨 앞 페이지로 이
 	$$(".navbar-brand")[0].observe("click", function() {
 		$("firstpage").setStyle({display: "block"});
@@ -122,11 +110,15 @@ document.observe("dom:loaded", function() {
 	});
 
 	//계정관리 화면 누르면 화면이 바뀌게 설정
-	$("manage").observe("click", function(){
-		$("managepage").setStyle({display: "block"});
-		var temparray = $$(".mainpage:not(#managepage)");
-		for(var j=0; j<temparray.length; j++)
-			temparray[j].setStyle({display: "none"});
+	$("changepw").observe("click", function(){
+		var newpw = prompt("변경할 비밀번호를 입력하세요.");
+		new Ajax.Request("../../framework/function/modifyPassword.php", {
+			method: "post",
+			parameters: {pw: newpw},
+			onSuccess: modifyPassword,
+			onFailure: onFailed,
+			onException: onFailed
+		});
 	});
 
 	$("new_memo").observe("click", New_Memo);
@@ -169,30 +161,6 @@ document.observe("dom:loaded", function() {
         });
     });*/
 });
-
-function successfind(ajax) {
-	var result = ajax.responseXML.getElementsByTagName("result")[0].firstChild.nodeValue;
-	if(result == "success") {
-		var id = ajax.responseXML.getElementsByTagName("id")[0].firstChild.nodeValue;
-		var newpw = prompt("변경할 비밀번호를 입력하세요.");
-		new Ajax.Request("../../framework/function/modifyPassword.php", {
-			method: "post",
-			parameters: {id: id, pw: newpw},
-			onSuccess: modifyPassword,
-			onFailure: onFailed,
-			onException: onFailed
-		});
-	} else if (result == "SQLException"){
-		var exception = ajax.responseXML.getElementsByTagName("exception")[0].firstChild.nodeValue;
-		var string = "<ERROR: SQLException>\n\n"+exception;
-		alert(string);
-		//alert("입력하신 학번은 존재하지 않는 회원입니다.");
-	} else if (result == "inputValidID") {
-		alert("학번을 올바르게 입력해주세요. (10자리의 0부터9까지의 숫자조합)");
-	} else if (result == "NotExistingID") {
-		alert("가입되지 않은 학번입니다. 다시한번 확인해주시기 바랍니다.");
-	}
-}
 
 function loadCourseList(ajax) {
 	var courses = JSON.parse(ajax.responseText);
