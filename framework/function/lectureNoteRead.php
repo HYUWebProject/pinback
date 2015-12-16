@@ -26,11 +26,15 @@ function getLastNum()
 {
 	$db = new LectureNote();
 	$order = $db->getLastNum();
+	
+	if ($order == NULL)
+	{
+		$order = 1;
+	} else {
+		$order++;
+	}
 
-	$jsonarray = array();
-	$jsonarray[0] = "ffaf";
-
-	print json_encode($jsonarray);
+	print $order;
 }
 function subjectList() {
 	$db = new LectureNote();

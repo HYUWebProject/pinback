@@ -2,7 +2,10 @@
 //lecture note label 붙는 부분 
 var posX;
 var posY;
+var currentOrder;
+
 document.observe("dom:loaded", function() {
+	generateNumber();
 	$("write").observe("click", function() {
 		posX = event.pointerX();
 		posY = event.pointerY();
@@ -22,16 +25,32 @@ document.observe("dom:loaded", function() {
 	}
 });
 
+function generateNumber()
+{
+	new Ajax.Request("../../framework/function/lectureNoteRead.php", {
+		method: "post",
+		parameters: {type: "order"},
+		onSuccess: saveNum,
+		onFailure: onFailed,
+		onException: onFailed
+	});
+}
+
+function saveNum(ajax)
+{
+	currentOrder = parseInt(ajax.responseText);
+}
+
 function make_writing_label(x_position, y_position){
 	var label = document.createElement("div");
 	label.className = "lectureNote_label";
-	label.setAttribute("order", generateNumber());
+	label.setAttribute("order", currentOrder);
 	label.setStyle({
 	    'position': 'absolute',
 	    'left': x_position+'px',
 	    'top' : y_position+'px',
 	    'border': '0px solid transparent'
-	}); 
+	});
 	if($$(".lectureNote_label").length >= 1){
 		label.name = ""+ $$(".lectureNote_question_image").length-1;
 	}
@@ -40,14 +59,6 @@ function make_writing_label(x_position, y_position){
 	generate_question_image();	
 }
 
-function generateNumber()
-{
-	new Ajax.Request("../../framework/function/lectureNoteRead.php", {
-		method: "post",
-		parameters: {type: "order"}
-	});
-	alert(Ajax.responseText);
-}
 
 function reVisible_label(){
 	for(var i = 0 ; i< $$(".lectureNote_label").length ; i++){
@@ -60,7 +71,6 @@ function reVisible_label(){
 
 function remove_Question(){
 	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
-	
 	$("notepage").removeChild(question);
 	
 }
@@ -74,7 +84,11 @@ function cancel_Question(){
 
 function save_Question(){
 	var question_textarea = $$(".lectureNote_question_textarea")[$$(".lectureNote_question_textarea").length-1];
+	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
+
+
 	var content = question_textarea.value;
+	currentOrder++;
 
 	new Ajax.Request("../../framework/function/writeQuestion.php", {
 		method: "post",
@@ -89,6 +103,8 @@ function save_Question(){
 		onFailure: onFailed,
 		onException: onFailed
 	});
+
+	$("notepage").removeChild(question);
 }
 
 function generate_question_image() {
@@ -142,6 +158,17 @@ function generate_question_image() {
 	$$(".del_question")[0].observe("click", remove_Question);
 	$$(".cancel_question")[0].observe("click", cancel_Question);
 	$$(".save_question")[0].observe("click", save_Question);
+}
+
+function onFailed(ajax, exception) {
+	var errorMessage = "Error making Ajax request:\n\n";
+	if (exception) {
+		errorMessage += "Exception: " + exception.message;
+	} else {
+		errorMessage += "Server status:\n" + ajax.status + " " + ajax.statusText + 
+		                "\n\nServer response text:\n" + ajax.responseText;
+	}
+	alert(errorMessage);
 }
 
 function loadQuestion(order)
