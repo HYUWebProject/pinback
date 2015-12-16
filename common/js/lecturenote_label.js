@@ -1,9 +1,14 @@
 "use strict";
 //lecture note label 붙는 부분 
+var posX;
+var posY;
 document.observe("dom:loaded", function() {
 	$("write").observe("click", function() {
-        var write_left = event.pointerX()-60;
-        var write_top = event.pointerY()-60;
+		posX = event.pointerX();
+		posY = event.pointerY();
+
+        var write_left = posX-60;
+        var write_top = posY-60;
         make_writing_label(write_left,write_top);
         contextMenu.setStyle({
             display: "none"
@@ -45,19 +50,33 @@ function reVisible_label(){
 
 function remove_Question(){
 	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
+	var pin = $$("#post_note>div:last-child")[0];
 	$("notepage").removeChild(question);
+	$("post_note").removeChild(pin);
 }
 
 function cancel_Question(){
 	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
 	$("notepage").removeChild(question);
-
 }
 
 function save_Question(){
 	var question_textarea = $$(".lectureNote_question_textarea")[$$(".lectureNote_question_textarea").length-1];
-	alert(question_textarea);
-	question_textarea.innerHTML = ""+question_textarea.value;
+	var content = question_textarea.value;
+
+	new Ajax.Request("../../framework/function/writeQuestion.php", {
+		method: "post",
+		parameters: {
+			course: $F("lecturecourse"), 
+			lecture: $F("lecturenumber"), 
+			page: $F("pagenumber"), 
+			content: content,
+			posX: posX,
+			posY: posY
+		},
+		onFailure: onFailed,
+		onException: onFailed
+	});
 }
 
 function generate_question_image() {

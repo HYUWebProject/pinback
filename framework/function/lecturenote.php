@@ -48,13 +48,13 @@
 			return $stmt->fetchAll();
 		}
 
-		function writeQuestion($subjectCode, $lectureCode, $contents, $page, $posX, $posY)
+		function writeQuestion($subject, $lectureCode, $contents, $page, $posX, $posY)
 		{
+			$subjectCode = $this->getCourseId($subject);
 			$pod = Database::getInstance();
-			if ($_SESSION["point"] > 10)
-			{
-				$stmt = $pdo->prepare("INSERT INTO question(course_id, lecture_id, asked_id, written_date, content_text, page, pos_x, pos_y)
-					VALUES(:subjCode, :lecCode, :userId, date('Y-m-d H:i:s'), :contents, :page, :X, :Y");
+			$stmt = $pdo->prepare("INSERT INTO question(course_id, lecture_id, asked_id, written_date, content_text, page, pos_x, pos_y)
+				VALUES(:subjCode, :lecCode, :userId, date('Y-m-d H:i:s'), :contents, :page, :X, :Y");
+			try {
 				$stmt->execute(array(
 					':subjCode'=>$subjectCode,
 					':lectureCode'=>$lectureCode,
@@ -64,14 +64,11 @@
 					':X'=>$posX,
 					':Y'=>$posY
 				));
-				$stmt = $pdo->prepare("UPDATE user SET `point` = `point` - 10 WHERE id = :id");
-				$stmt->execute(array(
-					':id'=>$_SESSION['id']
-					));
 				return true;
-			}
-			else
+			} catch (Exception $e)
+			{
 				return false;
+			}
 		}
 
 		function deleteQuestion($questionNo)
@@ -144,3 +141,4 @@
 			return $stmt->fetchAll();
 		}
 	}
+?>
