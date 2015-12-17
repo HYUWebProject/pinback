@@ -141,6 +141,13 @@ form {
 	font-size: 30pt;
 }
 
+#lecture_image{
+	width: 100%;
+	height: 80%;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
 
 /* 메모지 css*/
 

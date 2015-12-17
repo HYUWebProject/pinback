@@ -130,11 +130,11 @@ document.observe("dom:loaded", function() {
     var coordX = 0;
     var coordY = 0;
     
-    $("notepage").observe("contextmenu", function(e){
+    $("lecture_image").observe("contextmenu", function(e){
         e.stop();
     });
 
-    $("notepage").observe("contextmenu", function(e) {
+    $("lecture_image").observe("contextmenu", function(e) {
         coordX = e.pointerX();
         coordY = e.pointerY();
         contextMenu.setStyle({
@@ -371,6 +371,8 @@ function loadPageList(ajax) {
 		while($("lecture_image").firstChild != null)
 			$("lecture_image").removeChild($("lecture_image").firstChild);
 
+		$("lecture_image").setStyle({backgroundImage: "none"});
+
 		var p_element1 = document.createElement("p");
 		p_element1.innerHTML = "Lecture Note이미지가 존재하지 않습니다.";
 		$("lecture_image").appendChild(p_element1);
@@ -384,15 +386,15 @@ function loadPageList(ajax) {
 function loadLectureNote(ajax){
 	while($("lecture_image").firstChild != null)
 		$("lecture_image").removeChild($("lecture_image").firstChild);
+
+	$("lecture_image").setStyle({backgroundImage: "none"});
 	//alert(JSON.parse(ajax.responseText));
 	var url = JSON.parse(ajax.responseText);
 	//alert(url);
 	//alert(JSON.parse(ajax.responseText));
 	//$("iframe_upload").innerHTML = "";
 	url = "lecturenote/"+url;
-	var image = document.createElement("img");
-	image.src = url;
-	$("lecture_image").appendChild(image);
+	$("lecture_image").setStyle({ backgroundImage: 'url('+url+')' });
 }
 
 function modifyPassword(ajax) {

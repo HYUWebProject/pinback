@@ -44,7 +44,7 @@ function displayNotes(ajax) {
 			'visibility': 'visible',
 			'border': '0px solid transparent'
 		});
-		$("post_note").appendChild(notePin);
+		$("lecture_image").appendChild(notePin);
 	}
 }
 
@@ -61,7 +61,7 @@ function make_writing_label(x_position, y_position){
 	if($$(".lectureNote_label").length >= 1){
 		label.name = ""+ $$(".lectureNote_question_image").length-1;
 	}
-	$("post_note").appendChild(label);
+	$("lecture_image").appendChild(label);
 	$$(".lectureNote_label")[$$(".lectureNote_label").length-1].observe("dblclick", generate_question_image);
 	generate_question_image();	
 }
@@ -78,15 +78,16 @@ function reVisible_label(){
 
 function remove_Question(){
 	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
-	$("notepage").removeChild(question);
-	
+	var pin = $$("#lecture_image>div:nth-last-child(2)")[0];
+	$("lecture_image").removeChild(question);
+	$("lecture_image").removeChild(pin);	
 }
 
 function cancel_Question(){
 	var question = $$(".lectureNote_question_image")[$$(".lectureNote_question_image").length-1];
-	var pin = $$("#post_note>div:last-child")[0];
-	$("notepage").removeChild(question);
-	$("post_note").removeChild(pin);
+	var pin = $$("#lecture_image>div:nth-last-child(2)")[0];
+	$("lecture_image").removeChild(question);
+	$("lecture_image").removeChild(pin);
 }
 
 function save_Question(){
@@ -111,14 +112,14 @@ function save_Question(){
 		onException: onFailed
 	});
 
-	$("notepage").removeChild(question);
+	$("lecture_image").removeChild(question);
 }
 
 function generate_question_image(order) {
 	var question = document.createElement("div");
 	question.className="lectureNote_question_image";
 	question.setAttribute("order", order);
-	$("notepage").appendChild(question);
+	$("lecture_image").appendChild(question);
 
 	question.name = ""+ $$(".lectureNote_question_image").length-1;
 
