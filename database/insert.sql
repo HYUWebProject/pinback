@@ -1,5 +1,6 @@
-delete from course;
+delete from lecturenote;
 delete from lecture;
+delete from course;
 
 insert into course values("3026", "Web Application Dev");
 insert into course values("1016", "Micro Processor Interface");
@@ -91,3 +92,16 @@ insert into lecture (course_id, lecture_id) values ("3029", 11);
 insert into lecture (course_id, lecture_id) values ("3029", 12);
 insert into lecture (course_id, lecture_id) values ("3029", 13);
 insert into lecture (course_id, lecture_id) values ("3029", 14);
+
+insert into lecturenote values ("3026", 1, 1, "Web Application Dev_1_1.jpg");
+insert into lecturenote values ("3026", 1, 3, "Web Application Dev_1_3.jpg");
+insert into lecturenote values ("3027", 1, 1, "Computer Network_1_1.jpg");
+insert into lecturenote values ("3027", 1, 2, "Computer Network_1_2.jpg");
+insert into lecturenote values ("3027", 1, 3, "Computer Network_1_3.jpg");
+insert into lecturenote values ("3027", 2, 1, "Computer Network_2_1.jpg");
+insert into lecturenote values ("3027", 2, 2, "Computer Network_2_2.jpg");
+insert into lecturenote values ("3029", 1, 1, "Cryptography_1_1.jpg");
+insert into lecturenote values ("3029", 1, 3, "Cryptography_1_3.jpg");
+insert into lecturenote values ("4009", 1, 1, "System Programming_1_1.jpg");
+insert into lecturenote values ("4009", 1, 2, "System Programming_1_2.jpg");
+insert into lecturenote values ("4009", 2, 1, "System Programming_2_1.jpg");
