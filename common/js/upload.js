@@ -11,7 +11,7 @@
  	var result = frames["iframe_upload"].document.body.innerHTML;
  	var parse = eval("("+result+")");
 
- 	if(parse.result = "SUCCESS"){
+ 	if(parse.result == "SUCCESS"){
  		alert("success");
  	}
  	else
