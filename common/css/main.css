@@ -16,14 +16,17 @@ header{
     text-align: center;
 }
 
-form *{
+#upload_input{
 	float: left;
+	height: 30px;
+	margin-top: 5px;
+	margin-left: 230px;
 }
 form {
-	margin-left: 200px;
 	margin-top: 10px;
 	padding-bottom: 10px;
 	text-align: center;
+	overflow: hidden;
 }
 
 #login_logo{
@@ -142,6 +145,7 @@ form {
 	margin-left: 5%;
 	margin-bottom: 15px;
 	padding: 10px;
+	height: 80px;
 }
 
 .feedback_div {
