@@ -1,30 +1,5 @@
 "use strict";
 //lecture note label 붙는 부분 
-var posX;
-var posY;
-var currentOrder;
-
-document.observe("dom:loaded", function() {
-	generateNumber();
-	loadPins();
-	$("write").observe("click", function() {
-		posX = event.pointerX();
-		posY = event.pointerY();
-
-        var write_left = posX-60;
-        var write_top = posY-60;
-        make_writing_label(write_left,write_top);
-        contextMenu.setStyle({
-            display: "none"
-        });
-    });
-	for(var i = 0 ; i< $$(".lectureNote_label").length ; i++){
-		var curLabel = $$(".lectureNote_label")[i];
-		curLabel.observe("dblclick", function() {
-			loadQuestion(curLabel.getAttribute("order"));
-		});
-	}
-});
 
 function generateNumber()
 {
@@ -39,6 +14,7 @@ function generateNumber()
 
 function saveNum(ajax)
 {
+	var txt = ajax.responseText;
 	currentOrder = parseInt(ajax.responseText);
 }
 
@@ -52,7 +28,7 @@ function loadPins() {
 	});
 }
 
-function displayNotes() {
+function displayNotes(ajax) {
 	var noteList = JSON.parse(ajax.responseText);
 
 	for (var i = 0; i < noteList.length; i++)

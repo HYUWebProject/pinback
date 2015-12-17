@@ -5,6 +5,10 @@ var div_array = [false, false, false, false, false,
 				false, false, false, false, false,
 				false, false, false, false, false];
 
+var posX;
+var posY;
+var currentOrder;
+
 document.observe("dom:loaded", function() {
 	//initializing
 	//초기에는 소개페이지 이외의 다른것들은 display:none으로 설정되어 보이지 않게 한다.
@@ -154,12 +158,27 @@ document.observe("dom:loaded", function() {
         });
     });
     
-    /*$("write").observe("click", function() {
-        alert("click");
+    generateNumber();
+	loadPins();
+	$("write").observe("click", function() {
+		posX = event.pointerX();
+		posY = event.pointerY();
+
+        var write_left = posX-60;
+        var write_top = posY-60;
+        make_writing_label(write_left,write_top);
         contextMenu.setStyle({
             display: "none"
         });
-    });*/
+    });
+	for(var i = 0 ; i< $$(".lectureNote_label").length ; i++){
+		var curLabel = $$(".lectureNote_label")[i];
+		curLabel.observe("dblclick", function() {
+			loadQuestion(curLabel.getAttribute("order"));
+		});
+	}
+
+	upload_init();
 });
 
 function loadCourseList(ajax) {

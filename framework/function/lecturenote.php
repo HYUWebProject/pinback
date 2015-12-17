@@ -12,7 +12,8 @@
 		function getLastNum() {
 			$pdo = Database::getInstance();
 			$stmt = $pdo->prepare("SELECT max(question_id) FROM question");
-
+			$stmt->execute();
+			
 			return $stmt->fetch();
 		}
 		function getAllCourseName() {

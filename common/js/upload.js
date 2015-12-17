@@ -17,5 +17,3 @@
  	else
  		alert("error_code : "+ parse.error);
  }
-
- window.onload = upload_init;
