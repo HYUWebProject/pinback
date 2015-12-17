@@ -9,13 +9,14 @@
  function upload_finish(){
 
  	var result = frames["iframe_upload"].document.body.innerHTML;
+ 	alert(result);
  	var parse = eval("("+result+")");
 
  	if(parse.result == "SUCCESS"){
- 		alert("success");
+ 		alert("upload success");
  	}
  	else
- 		alert("error_code : "+ parse.error);
+ 		alert("Input page number and file. \nerror_code : "+ parse.error);
  }
 
  window.onload = upload_init;
