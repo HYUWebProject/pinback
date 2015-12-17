@@ -97,6 +97,7 @@ require_once("framework/framework.php");
 		</div>
 		<!-- 강의노트 질의응답페이 -->
 		
+		<form id= "upload_form" method="post" enctype="multipart/form-data" action="./framework/function/upload.php">
 			<div id="notepage" class="mainpage">
 				<div id="post_note" class="select_nav">				
 					Course : 
@@ -111,19 +112,17 @@ require_once("framework/framework.php");
 					<select id="pagenumber" name="pagenumber">
 					</select>
 					</br>
-					
-					<form id= "upload_form" method="post" enctype="multipart/form-data" action="./framework/function/upload.php">
-						<p>input page #: </p>
-						<input type ="text" name="input_page" id="input_page"/> 
-			    		<input type ="file" name="file_name" id="images" multiple />
-			    		<button type="submit" id="uploadbutton">Upload Files!</button></br>
-			    		<iframe id = "iframe_upload" name ="iframe_upload" src ="" width="0" height="0" frameborder="0"> </iframe>
-		    		</form>
+					input page #:
+					<input type = "text" name ="input_page" id = "input_page"/> 
+		    		<input type="file" name="file_name" id="images" multiple />
+		    		<button type="submit" id="uploadbutton">Upload Files!</button></br>
+		    		<iframe id = "iframe_upload" name ="iframe_upload" src ="" width="0" height="0" frameborder="0"> </iframe>
 				</div>
 				
 				<div id = "lecture_image">
 				</div>
 			</div>
+		</form>
 		
 
 		<!-- 피드백화면 -->

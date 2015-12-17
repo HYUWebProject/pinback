@@ -333,9 +333,8 @@ function loadLecturenumberList(ajax) {
 		$("lecturenumber").removeChild($("lecturenumber").firstChild);
 
 	
-	//alert(JSON.parse(ajax.responseText));
+	alert(JSON.parse(ajax.responseText));
 	var lecture_list = JSON.parse(ajax.responseText);
-	//alert(lecture_list);
 	for(var i=0; i<lecture_list.length; i++) {
 		var option = document.createElement("option");
 		option.innerHTML = lecture_list[i];
@@ -362,7 +361,7 @@ function loadLectureNote(ajax){
 		$("lecture_image").removeChild($("lecture_image").firstChild);
 	//alert(JSON.parse(ajax.responseText));
 	var url = JSON.parse(ajax.responseText);
-	//alert(url);
+	alert(url);
 	//alert(JSON.parse(ajax.responseText));
 	//$("iframe_upload").innerHTML = "";
 	var image = document.createElement("img");
@@ -397,4 +396,5 @@ function onFailed(ajax, exception) {
 		                "\n\nServer response text:\n" + ajax.responseText;
 	}
 	alert(errorMessage);
+
 }
