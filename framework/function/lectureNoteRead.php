@@ -114,14 +114,14 @@ function loadNote() {
 function loadimage(){
 	//print header('Content-Type: image/jpeg');
 	//print json_encode("hello");
-	$img = "./lecturenote/".$_POST["lecturecourse"]."_".$_POST["lecturenumber"]."_".$_POST["page"].".jpg";
+	$db = new LectureNote();
+	$result = $db->getImage($_POST['lecturecourse'], $_POST['lecturenumber'], $_POST['page']);
+	$filename = $result['filename'];
 	//print($img);
 	# 이미지 실제경로 그리고 이미지 이름 
 	//$url = "img/new/" . $_GET[img_name] .".jpg"; 
-
 	
-
-	print json_encode($img); 
+	print json_encode($filename); 
 }
 
 ?>

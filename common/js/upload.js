@@ -16,12 +16,6 @@
  		alert("upload success");
  	}
  	else
-<<<<<<< HEAD
- 		alert("error_code : "+ parse.error);
- }
-=======
  		alert("Input page number and file. \nerror_code : "+ parse.error);
- }
-
+}
  window.onload = upload_init;
->>>>>>> ae958d63c840c25871d13ab8298f56c34ea0b00b

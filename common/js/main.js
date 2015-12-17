@@ -351,7 +351,7 @@ function loadPageList(ajax) {
 	while ($("pagenumber").firstChild != null)
 		$("pagenumber").removeChild($("pagenumber").firstChild);
 
-	if (txt != "" || txt == "[]") {
+	if (txt != "" && txt != "[]") {
 		var page_list = JSON.parse(ajax.responseText);
 
 		for (var i=0; i < page_list.length; i++) {
@@ -367,6 +367,17 @@ function loadPageList(ajax) {
 			onFailure: onFailed,
 			onException: onFailed
 		});
+	} else {
+		while($("lecture_image").firstChild != null)
+			$("lecture_image").removeChild($("lecture_image").firstChild);
+
+		var p_element1 = document.createElement("p");
+		p_element1.innerHTML = "Lecture Note이미지가 존재하지 않습니다.";
+		$("lecture_image").appendChild(p_element1);
+
+		var p_element2 = document.createElement("p");
+		p_element2.innerHTML = "렉쳐노트를 업로드해주시기 바랍니다.";
+		$("lecture_image").appendChild(p_element2);
 	}
 }
 
@@ -378,6 +389,7 @@ function loadLectureNote(ajax){
 	//alert(url);
 	//alert(JSON.parse(ajax.responseText));
 	//$("iframe_upload").innerHTML = "";
+	url = "lecturenote/"+url;
 	var image = document.createElement("img");
 	image.src = url;
 	$("lecture_image").appendChild(image);

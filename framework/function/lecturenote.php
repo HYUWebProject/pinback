@@ -172,5 +172,22 @@
 				));
 			return $stmt->fetchAll();
 		}
+
+		function getImage($course, $lecture_id, $page) {
+			try {
+				$course_id = $this->getCourseId($course);
+				$pdo = Database::getInstance();
+				$stmt = $pdo->prepare("SELECT filename FROM lecturenote WHERE course_id=:course_id AND lecture_id=:lecture_id 
+					AND page=:page");
+				$stmt->execute(array(
+					'course_id'=>$course_id,
+					'lecture_id'=>$lecture_id,
+					'page'=>$page));
+
+				return $stmt->fetch();
+			} catch(Exception $e) {
+				return $e;
+			}
+		}
 	}
 ?>

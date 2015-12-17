@@ -48,9 +48,6 @@ if(move_uploaded_file($_FILE['file_name']['tmp_name'], $uploadfile)){
         $c_id = $db ->getCourseId($_POST["lecturecourse"]);
         $result = $db -> insertPage($c_id,$_POST["lecturenumber"],$_POST["input_page"],$newfilename);
     }
-    echo json_encode(
-        array("result"=>$upload_result,"error"=>$_FILE['file_name']['error'])
-    );
 
 ?>
 

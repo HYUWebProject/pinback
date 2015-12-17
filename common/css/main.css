@@ -136,6 +136,11 @@ form {
 	font-family: 'Nanum Pen Script';
 }
 
+#lecture_image > p {
+	color: white;
+	font-size: 30pt;
+}
+
 
 /* 메모지 css*/
 
