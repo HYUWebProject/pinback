@@ -40,13 +40,6 @@ document.observe("dom:loaded", function() {
 		});
 	});
 	//lectureNote load
-	new Ajax.Request("../../framework/function/lectureNoteRead.php", {
-		method: "post",
-		parameters: {type: "lecturecourse"},
-		onSuccess: loadlectureCourseList,
-		onFailure: onFailed,
-		onException: onFailed
-	});
 
 	$("lecturecourse").observe("change", function() {
 		new Ajax.Request("../../framework/function/lectureNoteRead.php", {
@@ -190,6 +183,12 @@ function loadCourseList(ajax) {
 		$("course").appendChild(option);
 	}
 
+	for(var i=0; i<courses.length; i++) {
+		var option = document.createElement("option");
+		option.innerHTML = courses[i];
+		$("lecturecourse").appendChild(option);
+	}
+
 	new Ajax.Request("framework/function/loadFeedbackPage.php", {
 		method: "post",
 		parameters: {course: $F("course")},
@@ -197,16 +196,6 @@ function loadCourseList(ajax) {
 		onFailure: onFailed,
 		onException: onFailed
 	});
-
-	new Ajax.Request("framework/function/loadFeedbackPage.php", {
-		method: "post",
-		parameters: {course: $F("course"), lecture: $F("lecture")},
-		onSuccess: loadFeedbackMemo,
-		onFailure: onFailed,
-		onException: onFailed
-	});
-
-
 }
 
 function loadLectureList(ajax) {
@@ -219,9 +208,6 @@ function loadLectureList(ajax) {
 			memo_array[i].removeClassName("posted");
 	}
 
-	while($("lecture").firstChild!=null)
-		$("lecture").removeChild($("lecture").firstChild);
-
 	div_array = [false, false, false, false, false,
 				false, false, false, false, false,
 				false, false, false, false, false,
@@ -230,10 +216,20 @@ function loadLectureList(ajax) {
 
 	var lecture_list = JSON.parse(ajax.responseText);
 
+	while($("lecture").firstChild!=null)
+		$("lecture").removeChild($("lecture").firstChild);
 	for(var i=0; i<lecture_list.length; i++) {
 		var option = document.createElement("option");
 		option.innerHTML = lecture_list[i];
 		$("lecture").appendChild(option);
+	}
+
+	while($("lecturenumber").firstChild!=null)
+		$("lecturenumber").removeChild($("lecturenumber").firstChild);
+	for(var i=0; i<lecture_list.length; i++) {
+		var option = document.createElement("option");
+		option.innerHTML = lecture_list[i];
+		$("lecturenumber").appendChild(option);
 	}
 
 	new Ajax.Request("framework/function/loadFeedbackPage.php", {
@@ -243,6 +239,14 @@ function loadLectureList(ajax) {
 		onFailure: onFailed,
 		onException: onFailed
 	});
+
+	new Ajax.Request(("../../framework/function/loadFeedbackPage.php"), {
+		method: "post",
+		parameters: {lecturecourse: $F("lecturecourse"), lecturenumber: $F("lecturenumber")},
+		onSuccess: loadPageList,
+		onFaiure: onFailed,
+		onException: onFailed
+	});	
 }
 
 function loadFeedbackMemo(ajax) {
@@ -328,12 +332,11 @@ function loadlectureCourseList(ajax) {
 	}
 }
 function loadLecturenumberList(ajax) {
+	var txt = ajax.responseText;
 
 	while($("lecturenumber").firstChild!=null)
 		$("lecturenumber").removeChild($("lecturenumber").firstChild);
-
 	
-	alert(JSON.parse(ajax.responseText));
 	var lecture_list = JSON.parse(ajax.responseText);
 	for(var i=0; i<lecture_list.length; i++) {
 		var option = document.createElement("option");
@@ -342,17 +345,28 @@ function loadLecturenumberList(ajax) {
 	}
 }
 
-function loadPageList(ajax)
-{
+function loadPageList(ajax) {
+	var txt = ajax.responseText;
+
 	while ($("pagenumber").firstChild != null)
 		$("pagenumber").removeChild($("pagenumber").firstChild);
 
-	var page_list = JSON.parse(ajax.responseText);
+	if (txt != "" || txt == "[]") {
+		var page_list = JSON.parse(ajax.responseText);
 
-	for (var i=0; i < page_list.length; i++) {
-		var option = document.createElement("option");
-		option.innerHTML = page_list[i];
-		$("pagenumber").appendChild(option);
+		for (var i=0; i < page_list.length; i++) {
+			var option = document.createElement("option");
+			option.innerHTML = page_list[i];
+			$("pagenumber").appendChild(option);
+		}
+
+		new Ajax.Request("../../framework/function/lectureNoteRead.php", {
+			method: "post",
+			parameters: {lecturecourse: $F("lecturecourse"), lecturenumber: $F("lecturenumber"), page: $F("pagenumber")},
+			onSuccess: loadLectureNote,
+			onFailure: onFailed,
+			onException: onFailed
+		});
 	}
 }
 
@@ -361,7 +375,7 @@ function loadLectureNote(ajax){
 		$("lecture_image").removeChild($("lecture_image").firstChild);
 	//alert(JSON.parse(ajax.responseText));
 	var url = JSON.parse(ajax.responseText);
-	alert(url);
+	//alert(url);
 	//alert(JSON.parse(ajax.responseText));
 	//$("iframe_upload").innerHTML = "";
 	var image = document.createElement("img");

@@ -2,6 +2,7 @@
 
 require_once("../framework.php");
 
+
 if (isset($_POST["type"])){
 	$type = $_POST["type"];
 	if ($type == "order"){
@@ -15,7 +16,6 @@ if (isset($_POST["type"])){
 		header("HTTP/1.1 400 Invalid Request");
 		die("HTTP/1.1 400 Invalid Request - you passed in a wrong type parameter.");
 	}
-	subjectList();
 } else if(isset($_POST["lecturecourse"])) {
 	if (isset($_POST["lecturenumber"])) {
 		if(isset($_POST["page"])){
@@ -27,8 +27,7 @@ if (isset($_POST["type"])){
 		lectureList();
 	}
 }
-function getLastNum()
-{
+function getLastNum() {
 	$db = new LectureNote();
 	$order = $db->getLastNum();
 	

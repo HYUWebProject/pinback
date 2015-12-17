@@ -21,7 +21,7 @@ function saveNum(ajax)
 function loadPins() {
 	new Ajax.Request("../../framework/function/lectureNoteRead.php", {
 		method: "post",
-		parameters: {type: "getpin"},
+		parameters: {type: "getpin", lecturecourse: $F("lecturecourse"), lecturenumber: $F("lecturenumber"), pagenumber: $F("pagenumber")},
 		onSuccess: displayNotes,
 		onFailure: onFailed,
 		onException: onFailed
@@ -29,6 +29,7 @@ function loadPins() {
 }
 
 function displayNotes(ajax) {
+	var text = ajax.responseText;
 	var noteList = JSON.parse(ajax.responseText);
 
 	for (var i = 0; i < noteList.length; i++)
